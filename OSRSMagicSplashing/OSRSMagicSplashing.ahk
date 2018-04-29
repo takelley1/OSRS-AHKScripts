@@ -31,7 +31,7 @@ Loop
 						ExitApp
 				}
 
-		if Runes = 2 ;if both runes are present, continue macro					
+		if Runes = 2 ;if both runes are present, continue macro
 			{
 			;PixelSearch, GuardX, GuardY, ox+255, oy+192, ox+265, oy+210, 0x213b42, 2, Fast
 				;if ErrorLevel = 0 ;if guard has been found, continue macro
@@ -50,39 +50,39 @@ Loop
 						Click, up
 							Random, loopcount, 30000, 210000 ;wait a random amount of time before clicking again (30s-4min10s)
 							loopinseconds := 0
-							loopcount /= 2000 ;total wait time is divided by 500 since loop has a 500 milisecond sleep every iteration
+							loopcount /= 500 ;total wait time is divided by 500 since loop has a 500 milisecond sleep every iteration
 							loopinseconds := loopcount ;convert random loop count into number of seconds macro will wait before performing another action, this is only used for display purposes
-							loopinseconds *= 2000 ;revert loopcount division
+							loopinseconds *= 500 ;revert loopcount division
 							loopinseconds /= 1000 ;convert miliseconds into seconds
 							Gui, Destroy
 							Gui, Add, Text, ,Found guard, waiting %loopinseconds% seconds
 							Gui, Show, Y15, Msgbox
-							
+
 								Loop, %loopcount% ;loop a random number of times equivalent to 1-4min
 									{
 									PixelSearch, LevelUpX, LevelUpY, ox+452, oy+387, ox+452, oy+387, 0x800000, 2, Fast ;look for magic level up screen in chat menu and dismiss with spacebar
 										if ErrorLevel = 0 ;if level up message has been found, confirm it to close
 											{
-											Gui, Destroy
-											Gui, Add, Text, ,Confirming levelup message ...
-											Gui, Show, Y15, Msgbox 
-											Random, wait800to5000milis, 800, 5000
-											Sleep, wait800to5000milis
-											Send {Space down}
-												Random, wait80to400milis, 80, 400
-												Sleep, wait80to400milis
-											Send {Space up}
-											Random, wait800to3000milis, 1000, 3000
-											Sleep, wait800to3000milis
-											Send {Space down} ;hit space twice since two messages may have to be confirmed before player will resume actions
-												Random, wait80to400milis, 80, 400
-												Sleep, wait80to400milis
-											Send {Space up}
+											;Gui, Destroy
+											;Gui, Add, Text, ,Confirming levelup message ...
+										;	Gui, Show, Y15, Msgbox
+										;	Random, wait800to5000milis, 800, 5000
+										;	Sleep, wait800to5000milis
+										;	Send {Space down}
+										;		Random, wait80to400milis, 80, 400
+										;		Sleep, wait80to400milis
+										;	Send {Space up}
+										;	Random, wait800to3000milis, 1000, 3000
+										;	Sleep, wait800to3000milis
+										;	Send {Space down} ;hit space twice since two messages may have to be confirmed before player will resume actions
+										;		Random, wait80to400milis, 80, 400
+										;		Sleep, wait80to400milis
+										;	Send {Space up}
 											Gui, Destroy
 											LogoutCheck()
 											}
 										else ;if level up message has not been found, wait half a second before checking again
-											Sleep, 2000
+											Sleep, 500
 											LogoutCheck()
 									}
 					;}
@@ -93,7 +93,7 @@ Loop
 					;ExitApp
 					;}
 			}
-		else ;if both runes are not present, logout	
+		else ;if both runes are not present, logout
 			{
 			Random, wait1to10sec, 1000, 10000
 			Sleep, wait1to10sec
