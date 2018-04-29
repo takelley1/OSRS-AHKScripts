@@ -1,4 +1,6 @@
 ﻿DisconnectCheck() ;check if client has been unexpectedly disconnected and booted to post-login screen, if so, attempt to log back in
+
+;testestestest;
 	{
 	ReStart:
 	Global
