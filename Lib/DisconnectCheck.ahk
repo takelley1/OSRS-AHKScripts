@@ -1,8 +1,5 @@
 ﻿DisconnectCheck() ;check if client has been unexpectedly disconnected and booted to post-login screen, if so, attempt to log back in
-
-;testestestest;
 	{
-	ReStart:
 	Global
 	PixelSearch, PostLoginButtonX, PostLoginButtonY, ox+763, oy+500, ox+763, oy+500, 0x000000, 2, Fast ;look for post-login screen
 		if ErrorLevel = 0 ;if found, click on big red button
