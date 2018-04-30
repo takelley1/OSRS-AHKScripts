@@ -108,4 +108,11 @@ Loop
 Gui, Destroy
 ExitApp
 }
-^p::Pause
+^p::
+{
+Gui, Destroy
+ListVars
+ListLines
+KeyHistory
+Pause
+}

@@ -17,122 +17,75 @@ CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
 #Persistent
 
-ImageSearch, OrientX, OrientY, 0, 0, A_Screenwidth, A_Screenheight, Orient1.png ;orient client by searching whole screen for prayer hud icon
-	if ErrorLevel = 0
-		{
-		MouseMove, OrientX, OrientY ;move mouse to top left pixel of prayer hud menu icon to create new origin point for coordinate system
-		MouseMove, -696, -171, 0, R ;0, 0 ;coordinates from prayer icon to origin point
-			MouseGetPos, ox, oy ;use current position of mouse as origin point for coordinate system
-			OpenBank()
-		}
-	else
-		{
-		MsgBox, Can’t find client!
-			ExitApp
-		}
+OrientClient()
 
 OpenBank()
 {
-Global
-Random, varyby11, -11, 11
-Random, varyby5, -5, 5
-MouseMove, ox+varyby11+260, oy+varyby5+188, 0 ;open bank from starting position
-	Random, wait200to500milis, 200, 500
-	Sleep, wait200to500milis+500
-		Click, down
-			Random, wait5to100milis, 5, 100
-			Sleep, wait5to100milis
-		Click, up
-			Random, DoubleClickRoll, 1, 20 ;chance to double-click
-				if DoubleClickRoll = 1
-					{
-						Random, wait90to250milis, 90, 250
-						Sleep, wait90to250milis
-							Click, down
-								Random, wait5to100milis, 5, 100
-								Sleep, wait5to100milis
-							Click, up
-					}
-Loop, 3
-	{
-	Loop, 1000 ;wait for bank screen to appear
+	Global
+	Random, varyby11, -11, 11
+	Random, varyby5, -5, 5
+	MouseMove, ox+varyby11+260, oy+varyby5+188, 0 ;open bank from starting position
+		Random, wait200to500milis, 200, 500
+		Sleep, wait200to500milis+500
+			Click, down
+				Random, wait5to100milis, 5, 100
+				Sleep, wait5to100milis
+			Click, up
+				Random, DoubleClickRoll, 1, 20 ;chance to double-click
+					if DoubleClickRoll = 1
+						{
+							Random, wait90to250milis, 90, 250
+							Sleep, wait90to250milis
+								Click, down
+									Random, wait5to100milis, 5, 100
+									Sleep, wait5to100milis
+								Click, up
+						}
+	Loop, 3
 		{
-		PixelSearch, BankWindowX, BankWindowY, ox+360, oy+315, ox+360, oy+315, 0x42b2f4, 1, Fast
-			if ErrorLevel = 0
-				Deposit()
-			else
-				{
-				Random, wait5to10milis, 5, 10
-				Sleep, wait5to10milis ;wait 5-10sec in total for bank screen to appear
-				}
-		} ;if loop fails, try clicking on bank again -- try 3 times before aborting macro
-		Random, varyby11, -11, 11
-		Random, varyby5, -5, 5
-		MouseMove, ox+varyby11+260, oy+varyby5+188, 0 ;open bank from starting position (again)
-			Random, wait200to500milis, 200, 500
-			Sleep, wait200to500milis+500
-				Click, down
-					Random, wait5to100milis, 5, 100
-					Sleep, wait5to100milis
-				Click, up
-					Random, DoubleClickRoll, 1, 20 ;chance to double-click on bank
-						if DoubleClickRoll = 1
-							{
-								Random, wait90to250milis, 90, 250
-								Sleep, wait90to250milis
-									Click, down
-										Random, wait5to100milis, 5, 100
-										Sleep, wait5to100milis
-									Click, up
-							}
-	}
-	Gui, Destroy
-	Gui, Add, Text, ,AbortLogout called because cant open bank
-	Gui, Show, Y15, Msgbox
-		AbortLogout()
+		Loop, 1000 ;wait for bank screen to appear
+			{
+			PixelSearch, BankWindowX, BankWindowY, ox+360, oy+315, ox+360, oy+315, 0x42b2f4, 1, Fast
+				if ErrorLevel = 0
+					Deposit()
+				else
+					{
+					Random, wait5to10milis, 5, 10
+					Sleep, wait5to10milis ;wait 5-10sec in total for bank screen to appear
+					}
+			} ;if loop fails, try clicking on bank again -- try 3 times before aborting macro
+			Random, varyby11, -11, 11
+			Random, varyby5, -5, 5
+			MouseMove, ox+varyby11+260, oy+varyby5+188, 0 ;open bank from starting position (again)
+				Random, wait200to500milis, 200, 500
+				Sleep, wait200to500milis+500
+					Click, down
+						Random, wait5to100milis, 5, 100
+						Sleep, wait5to100milis
+					Click, up
+						Random, DoubleClickRoll, 1, 20 ;chance to double-click on bank
+							if DoubleClickRoll = 1
+								{
+									Random, wait90to250milis, 90, 250
+									Sleep, wait90to250milis
+										Click, down
+											Random, wait5to100milis, 5, 100
+											Sleep, wait5to100milis
+										Click, up
+								}
+		}
+		Gui, Destroy
+		Gui, Add, Text, ,AbortLogout called because cant open bank
+		Gui, Show, Y15, Msgbox
+			AbortLogout()
 }
 
 Deposit()
 {
-Global
-Gui, Destroy ;deposit inventory
-Gui, Add, Text, ,Depositing inventory ...
-Gui, Show, Y15, Msgbox
-	Random, wait200to400milis, 200, 400
-	Sleep, wait200to400milis
-		Random, varyby10, -10, 10
-		Random, varyby9, -9, 9
-		MouseMove, ox+varyby10+620, oy+varyby9+228, 0 ;second item in inventory
-			Random, wait300to900milis, 200, 900
-			Sleep, wait300to900milis
-				Click, down, right
-					Random, wait5to100milis, 5, 100
-					Sleep, wait5to100milis
-				Click, up, right
-	Random, wait300to900milis, 200, 900
-	Sleep, wait300to900milis
-		Random, varyby25, -25, 25
-		Random, varyby5, -5, 5
-		MouseMove, varyby25+0, varyby5+73, 0, R ;second inventory spot Deposit-All right-click option
-			Random, wait300to900milis, 200, 900
-			Sleep, wait300to900milis
-				Click, down
-					Random, wait5to100milis, 5, 100
-					Sleep, wait5to100milis
-				Click, up
-Loop, 3
-	{
-	Loop, 1000 ;wait for inventory to be deposited
-		{
-		PixelSearch, InvSlot2EmptyX,InvSlot2EmptyY, ox+620, oy+220, ox+620, oy+230, 0x354049, 1, Fast
-			if ErrorLevel = 0
-				Withdrawal()
-			else
-				{
-				Random, wait5to10milis, 5, 10
-				Sleep, wait5to10milis ;wait 5-10sec total for inv to be deposited
-				}
-		} ;if loop fails, try depositing inv again -- try 3 times before aborting macro
+	Global
+	Gui, Destroy ;deposit inventory
+	Gui, Add, Text, ,Depositing inventory ...
+	Gui, Show, Y15, Msgbox
 		Random, wait200to400milis, 200, 400
 		Sleep, wait200to400milis
 			Random, varyby10, -10, 10
@@ -155,22 +108,57 @@ Loop, 3
 						Random, wait5to100milis, 5, 100
 						Sleep, wait5to100milis
 					Click, up
-	}
-	Gui, Destroy
-	Gui, Add, Text, AbortLogout called because cant deposit inventory
-	Gui, Show, Y15, Msgbox
-		Random, wait300to900milis, 200, 900
-		Sleep, wait300to900milis
-			Random, varyby9, -9, 9
-			Random, varyby8, -8, 8
-			MouseMove, varyby9+486, varyby8+23, 0 ;X in top right corner of bank window
-				Random, wait300to900milis, 200, 900
-				Sleep, wait300to900milis
-					Click, down
-						Random, wait5to100milis, 5, 100
-						Sleep, wait5to100milis
-					Click, up
-	AbortLogout()
+	Loop, 3
+		{
+		Loop, 1000 ;wait for inventory to be deposited
+			{
+			PixelSearch, InvSlot2EmptyX,InvSlot2EmptyY, ox+620, oy+220, ox+620, oy+230, 0x354049, 1, Fast
+				if ErrorLevel = 0
+					Withdrawal()
+				else
+					{
+					Random, wait5to10milis, 5, 10
+					Sleep, wait5to10milis ;wait 5-10sec total for inv to be deposited
+					}
+			} ;if loop fails, try depositing inv again -- try 3 times before aborting macro
+			Random, wait200to400milis, 200, 400
+			Sleep, wait200to400milis
+				Random, varyby10, -10, 10
+				Random, varyby9, -9, 9
+				MouseMove, ox+varyby10+620, oy+varyby9+228, 0 ;second item in inventory
+					Random, wait300to900milis, 200, 900
+					Sleep, wait300to900milis
+						Click, down, right
+							Random, wait5to100milis, 5, 100
+							Sleep, wait5to100milis
+						Click, up, right
+			Random, wait300to900milis, 200, 900
+			Sleep, wait300to900milis
+				Random, varyby25, -25, 25
+				Random, varyby5, -5, 5
+				MouseMove, varyby25+0, varyby5+73, 0, R ;second inventory spot Deposit-All right-click option
+					Random, wait300to900milis, 200, 900
+					Sleep, wait300to900milis
+						Click, down
+							Random, wait5to100milis, 5, 100
+							Sleep, wait5to100milis
+						Click, up
+		}
+		Gui, Destroy
+		Gui, Add, Text, AbortLogout called because cant deposit inventory
+		Gui, Show, Y15, Msgbox
+			Random, wait300to900milis, 200, 900
+			Sleep, wait300to900milis
+				Random, varyby9, -9, 9
+				Random, varyby8, -8, 8
+				MouseMove, varyby9+486, varyby8+23, 0 ;X in top right corner of bank window
+					Random, wait300to900milis, 200, 900
+					Sleep, wait300to900milis
+						Click, down
+							Random, wait5to100milis, 5, 100
+							Sleep, wait5to100milis
+						Click, up
+		AbortLogout()
 }
 
 Withdrawal()
@@ -289,7 +277,7 @@ Loop, 1000 ;look for furnace on minimap
 	Gui, Destroy
 	Gui, Add, Text, ,AbortLogout called because cant find furnace on minimap
 	Gui, Show, Y15, Msgbox
-		Goto, AbortLogout
+		AbortLogout()
 FurnaceGo:
 
 LogOutCheck() ;check if client has been disconnected
@@ -326,7 +314,7 @@ InFrontofFurnaceCheck:
 		{
 		PixelSearch, FurnaceAt2X, FurnaceAt2Y, ox+711, oy+94, ox+711, oy+94, 0x1b67db, 1, Fast
 			if ErrorLevel = 0
-				Goto, FurnaceAt
+				FurnaceAt()
 			else
 				{
 				Random, wait5to10milis, 5, 10
@@ -380,7 +368,7 @@ Loop, 1000 ;wait until cannonball icon appears in chat menu
 	Gui, Destroy
 	Gui, Add, Text, ,AbortLogout called because cant see cannonball icon in chat menu
 	Gui, Show, Y15, Msgbox
-		Goto, AbortLogout
+		AbortLogout()
 BeginSmelt:
 
 Gosub, LogOutCheck ;check if client has been disconnected
@@ -540,242 +528,6 @@ Goto, Start
 }
 
 
-LogOutCheck()
-{
-Global
-LogoutCheck: ;if client has been unexpectedly booted to main login screen, attempt to log back in
-	PixelSearch, LogoutX, LogoutY, ox+73, oy+485, ox+73, oy+485, 0xffffff, 0, Fast
-		if ErrorLevel = 0 ;if client logged out, log back in and go back to starting position
-			{
-			Random, wait5to10sec, 5000, 10000
-			Sleep, wait5to10sec
-				Send {Enter} ;same as clicking "existing user" button
-			Random, wait1to3sec, 1000, 3000
-			Sleep, wait1to3sec
-				Send {Raw}takelley1+1@yahoo.com
-			Random, wait1to3sec, 1000, 3000
-			Sleep, wait1to3sec
-				Send {Tab}
-			Random, wait1to3sec, 1000, 3000
-			Sleep, wait1to3sec
-				Send {Raw}vH73767yN2PU64TL
-			Random, wait1to3sec, 1000, 3000
-			Sleep, wait1to3sec
-				Send {Enter}
-			Random, wait1to3sec, 1000, 3000
-			Sleep, wait1to3sec
-		PostLogin:
-			Loop, 5
-				{
-				PixelSearch, PostLoginButtonX, PostLoginButtonY, ox+763, oy+500, ox+763, oy+500, 0x000000, 3 ;check if post-login screen has been reached, if not, try hitting login button again
-					if ErrorLevel = 0 ;if post-login screen reached, click on big red button
-						{
-						Random, varyby15, -15, 15
-						Random, varyby14, -14, 14
-						MouseMove, ox+varyby15+400, oy+varyby14+337, 0
-							Random, wait1to3sec, 1000, 3000
-							Sleep, wait1to3sec
-								Click, down
-									Random, wait5to100milis, 5, 100
-									Sleep, wait5to100milis
-								Click, up
-									Random, DoubleClickRoll, 1, 5 ;chance to double-click on button
-										if DoubleClickRoll = 5
-											{
-												Random, wait90to250milis, 90, 250
-												Sleep, wait90to250milis
-													Click, down
-														Random, wait5to100milis, 5, 100
-														Sleep, wait5to100milis
-													Click, up
-											}
-						Random, wait2to5sec, 2000, 5000
-						Sleep, wait2to5sec+2000
-							PixelSearch, LogoutX, LogoutY, ox+73, oy+485, ox+73, oy+485, 0xffffff ;check if client has successfully logged back in by checking for absence of white text in lower-left corner of client indicating World selection
-								if ErrorLevel ;if so, re-orient client and begin macro
-									Goto, Start
-								else
-									Goto, PostLogin ;if not, return to post-login section of subroutine
-						}
-					else ;if post-login screen not reached, try logging in again since login may have timed out due to poor network connectivity
-						{
-						Random, wait2to5sec, 2000, 5000
-						Sleep, wait2to5sec
-							Send {Enter} ;try hitting login button again if can't connect to server yet
-						Random, wait2to5sec, 2000, 5000
-						Sleep, wait2to5sec+5000
-						}
-				} ;if login loop fails repeatedly, stop macro
-				MsgBox, Can't get past post-login, or error with LogoutCheck loop!
-					ExitApp
-			}
-			else ;if client has not been logged out, abort subroutine and return to location it was called from
-Return
-}
-
-DisconnectCheck()
-{
-Global
-DisconnectCheck: ;check if client has been unexpectedly disconnected and booted to post-login screen, if so, attempt to log back in
-	PixelSearch, PostLoginButtonX, PostLoginButtonY, ox+763, oy+500, ox+763, oy+500, 0x000000, 2, Fast ;look for post-login screen
-		if ErrorLevel = 0 ;if found, click on big red button
-			{
-			Random, varyby15, -15, 15
-			Random, varyby14, -14, 14
-			MouseMove, ox+varyby15+400, oy+varyby14+337, 0
-				Random, wait1to3sec, 1000, 3000
-				Sleep, wait1to3sec
-					Click, down
-						Random, wait5to100milis, 5, 100
-						Sleep, wait5to100milis
-					Click, up
-						Random, DoubleClickRoll, 1, 10 ;chance to double-click on button
-							if DoubleClickRoll = 10
-								{
-								Random, wait150to350milis, 150, 350
-								Sleep, wait150to350milis
-									Click, down
-										Random, wait5to100milis, 5, 100
-										Sleep, wait5to100milis
-									Click, up
-								}
-			Random, wait2to5sec, 2000, 5000
-			Sleep, wait2to5sec
-				PixelSearch, LogoutX, LogoutY, ox+73, oy+485, ox+73, oy+485, 0xffffff ;check if client has successfully logged back in by checking for absence of white text in lower-left corner of client indicating World selection
-					if ErrorLevel
-						Goto, Start ;if so, re-orient client and begin macro
-					else
-						Goto, DisconnectCheck ;if not, restart subroutine
-			}
-		else ;if not found, abort subroutine and return to location it was called from
-Return
-}
-
-BriefLogout()
-{
-Global
-BriefLogout: ;logout for a short period of time
-	Gui, Destroy
-	Gui, Add, Text, ,BriefLogout called ...
-	Gui, Show, Y15, Msgbox
-MsgBox, BriefLogoutCalled ;DEBUG ONLY!
-ExitApp ;DEBUG ONLY!
-		Random, varyby11, -11, 11
-		Random, varyby12, -12, 12
-		MouseMove, ox+varyby11+644, oy+varyby12+484, 0 ;logout tab on hud
-			Random, wait400to1200milis, 400, 1200
-			Sleep, wait400to1200milis
-				Click, down
-					Random, wait5to100milis, 5, 100
-					Sleep, wait5to100milis
-				Click, up
-			Random, wait800to1200milis, 800, 1200
-			Sleep, wait800to1200milis+500
-				Random, varyby60, -60, 60
-				Random, varyby9, -9, 9
-				MouseMove, ox+varyby60+642, oy+varyby9+433, 0 ;"click here to logout" button within logout tab
-					Random, wait400to1200milis, 400, 1200
-					Sleep, wait400to1200milis
-						Click, down
-							Random, wait5to100milis, 5, 100
-							Sleep, wait5to100milis
-						Click, up
-	Random, BriefLogoutDuration, 300000, 1200000 ;logout for 5-20min
-		Gui, Destroy
-	BriefLogoutDuration /= 60000
-		Gui, Add, Text, ,BriefLogout called for %BriefLogoutDuration% minutes ...
-	BriefLogoutDuration *= 60000
-		Gui, Show, Y15, Msgbox
-			Sleep, BriefLogoutDuration
-Goto, LogoutCheck ;use LogoutCheck subroutine to log back in
-}
-
-AbortLogout()
-{
-Global
-AbortLogout:
-MsgBox, AbortLogoutCalled ;DEBUG ONLY!
-ExitApp ;DEBUG ONLY!
-	Random, varyby11, -11, 11
-	Random, varyby12, -12, 12
-	MouseMove, ox+varyby11+644, oy+varyby12+484, 0 ;logout tab on hud
-		Random, wait400to1200milis, 400, 1200
-		Sleep, wait400to1200milis
-			Click, down
-				Random, wait5to100milis, 5, 100
-				Sleep, wait5to100milis
-			Click, up
-		Random, wait800to1200milis, 800, 1200
-		Sleep, wait800to1200milis+500
-			Random, varyby60, -60, 60
-			Random, varyby9, -9, 9
-			MouseMove, ox+varyby60+642, oy+varyby9+433, 0 ;"click here to logout" button within logout tab
-				Random, wait400to1200milis, 400, 1200
-				Sleep, wait400to1200milis
-					Click, down
-						Random, wait5to100milis, 5, 100
-						Sleep, wait5to100milis
-					Click, up
-Pause
-}
-
-RandomSleep()
-{
-Global
-RandomSleep: ;small chance after smelting to "sleep" temporarily to throw off predictability, set to occur about once per 3 inventories
-	Gui, Destroy
-		Random, RandomSleepDuration, 1, 4
-			if RandomSleepDuration = 1
-				{
-				Random, SleepDurationOne, 5000, 15000
-					SleepDurationOne /= 1000 ;divide by 1000 to convert sleep duration value into seconds to be displayed on gui
-				Gui, Add, Text, ,RandomSleep called for %SleepDurationOne% seconds ...
-					SleepDurationOne *= 1000 ;convert sleep duration value back into miliseconds
-				Gui, Show, Y15, Msgbox
-					Sleep, SleepDurationOne
-				Gui, Destroy
-					Gosub, LogoutCheck
-					Gosub, DisconnectCheck
-				}
-			if RandomSleepDuration = 2
-				{
-				Random, SleepDurationTwo, 10000, 40000
-					SleepDurationTwo /= 1000
-				Gui, Add, Text, ,RandomSleep called for %SleepDurationTwo% seconds ...
-					SleepDurationTwo *= 1000
-				Gui, Show, Y15, Msgbox
-					Sleep, SleepDurationTwo
-				Gui, Destroy
-					Gosub, LogoutCheck
-					Gosub, DisconnectCheck
-				}
-			if RandomSleepDuration = 3
-				{
-				Random, SleepDurationThree, 10000, 80000
-					SleepDurationThree /= 1000
-				Gui, Add, Text, ,RandomSleep called for %SleepDurationThree% seconds ...
-					SleepDurationThree *= 1000
-				Gui, Show, Y15, Msgbox
-					Sleep, SleepDurationThree
-				Gui, Destroy
-					Gosub, LogoutCheck
-					Gosub, DisconnectCheck
-				}
-			if RandomSleepDuration = 4
-				{
-				Random, SleepDurationFour, 10000, 120000
-					SleepDurationFour /= 1000
-				Gui, Add, Text, ,RandomSleep called for %SleepDurationFour% seconds ...
-					SleepDurationFour *= 1000
-				Gui, Show, Y15, Msgbox
-					Sleep, SleepDurationFour
-				Gui, Destroy
-					Gosub, LogoutCheck
-					Gosub, DisconnectCheck
-				}
-	Gui, Destroy
-Return
-}
 
 CheckStats()
 {

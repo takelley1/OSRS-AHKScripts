@@ -1,11 +1,6 @@
 ﻿BriefLogout() ;logout for a short period of time
 	{
-		Global
-		
-		Random, BriefLogoutRoll, 1, 48
-		if BriefLogoutRoll != 1 ;if roll is NOT 1, cancel macro
-			Return
-
+	Global
 	Loop, 4 ;re-check to see if logout tab is now available on hud, do this 4 times
 		{
 		PixelSearch, LogOutButtonX, LogOutButtonY, ox+640, oy+473, ox+644, oy+473, 0x53af52, 5 ;check if logout button is available on hud to be clicked (player is not banking)
