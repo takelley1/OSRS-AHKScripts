@@ -20,6 +20,7 @@ CoordMode, Mouse, Screen
 #Persistent
 
 ListLines ;show log of all commands executed by script thus far, this will be updated periodically throughout the script
+WinMove, 0, 0
 ControlFocus, , 11700 ;refocus control on game client
 SetTimer, Update, 1000 ;update the LineLines log every X seconds
 
