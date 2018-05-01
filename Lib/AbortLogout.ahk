@@ -3,7 +3,7 @@
 	Global
 	Loop, 4 ;re-check to see if logout tab is now available on hud, do this 4 times
 		{
-		PixelSearch, LogOutButtonX, LogOutButtonY, ox+640, oy+473, ox+644, oy+473, 0x53af52, 5 ;check if logout button is available on hud to be clicked (player is not banking)
+		PixelSearch, LogOutButtonX, LogOutButtonY, ox+640, oy+473, ox+644, oy+473, 0x53af52, 10 ;check if logout button is available on hud to be clicked (player is not banking)
 			if ErrorLevel = 0 ;if logout button is available, click it and logout
 				{
 				Random, varyby11, -11, 11

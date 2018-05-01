@@ -29,7 +29,7 @@
 					if ErrorLevel 
 						Return ;if so, re-orient client and begin macro
 					else
-						Goto, ReStart ;if not, restart subroutine
+						DisconnectCheck() ;if not, restart subroutine
 			}
 			else ;if not found, abort subroutine and return to location it was called from
 	Return 
