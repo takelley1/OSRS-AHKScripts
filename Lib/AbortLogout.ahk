@@ -30,23 +30,20 @@
 							
 				}
 			else ;if logout button is not present on hud, check to see if player is currently banking
-				PixelSearch, BoxWindowX, BoxWindowY, ox+140, oy+50, ox+140, oy+50, 0x1f98ff, 3, Fast
+				PixelSearch, BankWindowX, BankWindowY, ox+360, oy+315, ox+360, oy+315, 0x42b2f4, 3, Fast
 					if ErrorLevel = 0 ;if player is currently banking, close bank window
 						{
-						Random, wait200to900milis, 200, 900
-						Sleep, wait200to900milis
-							Random, varyby9, -9, 9 
+						Random, wait300to1500milis, 300, 1500
+						Sleep, wait300to1500milis
+							Random, varyby9, -9, 9
 							Random, varyby8, -8, 8
-							MouseMove, ox+varyby9+418, oy+varyby8+55, 0 ;close button of deposit box window
-								Random, wait200to900milis, 200, 900 
-								Sleep, wait200to900milis
+							MouseMove, varyby9+486, varyby8+23, 0 ;X in top right corner of bank window
+							Random, wait300to1500milis, 300, 1500
+							Sleep, wait300to1500milis
 									Click, down
-										Random, wait5to150milis, 5, 150
-										Sleep, wait5to150milis
+										Random, wait5to100milis, 5, 100
+										Sleep, wait5to100milis
 									Click, up
-								Random, wait500to900milis, 500, 900 
-								Sleep, wait500to900milis
-								
 						}
 					else ;if player is not currently banking, quit function
 						{

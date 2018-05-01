@@ -6,6 +6,8 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 ;you must have enough run energy to make it to the furnace and back
 ;run energy must be nearly full and turned on; steel bars must be first item of second row in bank
 ;bank pin must have already been entered
+;client must be fully zoomed out
+;client brightness must be set on third tick from the left
 
 ;it takes just under 162 seconds to smelt an inventory
 ;an entire trip takes about 2m55.8s (175.84s), round up to 180s to err on side of conservatism
@@ -18,7 +20,6 @@ CoordMode, Mouse, Screen
 #Persistent
 
 OrientClient()
-FurnaceGo()
 OpenBank()
 
 OpenBank()
@@ -79,6 +80,7 @@ OpenBank()
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because cant open bank
 		Gui, Show, Y15, Msgbox
+			Sleep, 5000
 			AbortLogout()
 	}
 
@@ -88,24 +90,24 @@ Deposit()
 	Gui, Destroy ;deposit inventory
 	Gui, Add, Text, ,Depositing inventory ...
 	Gui, Show, Y15, Msgbox
-		Random, wait200to400milis, 200, 400
-		Sleep, wait200to400milis
+		Random, wait300to1500milis, 300, 1500
+		Sleep, wait300to1500milis
 			Random, varyby10, -10, 10
 			Random, varyby9, -9, 9
 			MouseMove, ox+varyby10+620, oy+varyby9+228, 0 ;second item in inventory
-				Random, wait300to900milis, 200, 900
-				Sleep, wait300to900milis
+				Random, wait300to1500milis, 300, 1500
+				Sleep, wait300to1500milis
 					Click, down, right
 						Random, wait5to100milis, 5, 100
 						Sleep, wait5to100milis
 					Click, up, right
-		Random, wait300to900milis, 200, 900
-		Sleep, wait300to900milis
+		Random, wait300to1500milis, 300, 1500
+		Sleep, wait300to1500milis
 			Random, varyby25, -25, 25
 			Random, varyby5, -5, 5
 			MouseMove, varyby25+0, varyby5+100, 0, R ;second inventory spot Deposit-All right-click option
-				Random, wait300to900milis, 200, 900
-				Sleep, wait300to900milis
+				Random, wait300to1500milis, 300, 1500
+				Sleep, wait300to1500milis
 					Click, down
 						Random, wait5to100milis, 5, 100
 						Sleep, wait5to100milis
@@ -123,24 +125,24 @@ Deposit()
 					Sleep, wait5to10milis ;wait 5-10sec total for inv to be deposited
 					}
 			} ;if loop fails, try depositing inv again -- try 3 times before aborting macro
-			Random, wait200to400milis, 200, 400
-			Sleep, wait200to400milis
+			Random, wait300to1500milis, 300, 1500
+			Sleep, wait300to1500milis
 				Random, varyby10, -10, 10
 				Random, varyby9, -9, 9
 				MouseMove, ox+varyby10+620, oy+varyby9+228, 0 ;second item in inventory
-					Random, wait300to900milis, 200, 900
-					Sleep, wait300to900milis
+					Random, wait300to1500milis, 300, 1500
+					Sleep, wait300to1500milis
 						Click, down, right
 							Random, wait5to100milis, 5, 100
 							Sleep, wait5to100milis
 						Click, up, right
-			Random, wait300to900milis, 200, 900
-			Sleep, wait300to900milis
+			Random, wait300to1500milis, 300, 1500
+			Sleep, wait300to1500milis
 				Random, varyby25, -25, 25
 				Random, varyby5, -5, 5
 				MouseMove, varyby25+0, varyby5+100, 0, R ;second inventory spot Deposit-All right-click option
-					Random, wait300to900milis, 200, 900
-					Sleep, wait300to900milis
+				Random, wait300to1500milis, 300, 1500
+				Sleep, wait300to1500milis
 						Click, down
 							Random, wait5to100milis, 5, 100
 							Sleep, wait5to100milis
@@ -149,13 +151,13 @@ Deposit()
 		Gui, Destroy
 		Gui, Add, Text, AbortLogout called because cant deposit inventory
 		Gui, Show, Y15, Msgbox
-			Random, wait300to900milis, 200, 900
-			Sleep, wait300to900milis
+			Random, wait300to1500milis, 300, 1500
+			Sleep, wait300to1500milis
 				Random, varyby9, -9, 9
 				Random, varyby8, -8, 8
 				MouseMove, varyby9+486, varyby8+23, 0 ;X in top right corner of bank window
-					Random, wait300to900milis, 200, 900
-					Sleep, wait300to900milis
+				Random, wait300to1500milis, 300, 1500
+				Sleep, wait300to1500milis
 						Click, down
 							Random, wait5to100milis, 5, 100
 							Sleep, wait5to100milis
@@ -177,6 +179,7 @@ Withdrawal()
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because out of steel bars
 		Gui, Show, Y15, Msgbox
+			Sleep, 5000
 			AbortLogout()
 	Barswithdrawal:
 
@@ -187,24 +190,24 @@ Withdrawal()
 	Gui, Destroy
 	Gui, Add, Text, ,Withdrawing bars ...
 	Gui, Show, Y15, Msgbox
-		Random, wait200to400milis, 200, 400
-		Sleep, wait200to400milis
+		Random, wait300to1500milis, 300, 1500
+		Sleep, wait300to1500milis
 			Random, varyby11, -11, 11
 			Random, varyby10, -10, 10
 			MouseMove, ox+varyby11+88, oy+varyby10+136, 0 ;first item in second row of bank
-				Random, wait300to900milis, 200, 900
-				Sleep, wait300to900milis
+				Random, wait300to1500milis, 300, 1500
+				Sleep, wait300to1500milis
 					Click, down, right
 						Random, wait5to100milis, 5, 100
 						Sleep, wait5to100milis
 					Click, up, right
-		Random, wait300to900milis, 200, 900
-		Sleep, wait300to900milis
+		Random, wait300to1500milis, 300, 1500
+		Sleep, wait300to1500milis
 			Random, varyby25, -25, 25
 			Random, varyby5, -5, 5
 			MouseMove, varyby25+0, varyby5+100, 0, R ;Withdrawal-All right-click option
-				Random, wait300to900milis, 200, 900
-				Sleep, wait300to900milis
+				Random, wait300to1500milis, 300, 1500
+				Sleep, wait300to1500milis
 					Click, down
 						Random, wait5to100milis, 5, 100
 						Sleep, wait5to100milis
@@ -213,7 +216,7 @@ Withdrawal()
 		{
 		Loop, 150 ;wait for bars to appear in inventory
 			{
-				PixelSearch, InvBarsX,InvBarsY, ox+706, oy+409, ox+706, oy+409, 0x868690, 35, Fast
+				PixelSearch, InvBarsX,InvBarsY, ox+706, oy+409, ox+706, oy+409, 0x868690, 15, Fast
 				if ErrorLevel = 0
 					FurnaceGo()
 				else
@@ -222,24 +225,24 @@ Withdrawal()
 					Sleep, wait5to10milis ;wait 5-10sec total for inv to be deposited
 					}
 			} ;if loop fails, try again -- try 3 times before aborting macro
-			Random, wait200to400milis, 200, 400
-			Sleep, wait200to400milis
+			Random, wait300to1500milis, 300, 1500
+			Sleep, wait300to1500milis
 				Random, varyby10, -10, 10
 				Random, varyby9, -9, 9
 				MouseMove, ox+varyby10+88, oy+varyby9+136, 0 ;location of bars in bank
-					Random, wait300to900milis, 200, 900
-					Sleep, wait300to900milis
+					Random, wait300to1500milis, 300, 1500
+					Sleep, wait300to1500milis
 						Click, down, right
 							Random, wait5to100milis, 5, 100
 							Sleep, wait5to100milis
 						Click, up, right
-			Random, wait300to900milis, 200, 900
-			Sleep, wait300to900milis
+			Random, wait300to1500milis, 300, 1500
+			Sleep, wait300to1500milis
 				Random, varyby25, -25, 25
 				Random, varyby5, -5, 5
 				MouseMove, varyby25+0, varyby5+100, 0, R ;Withdrawal-All right-click option
-					Random, wait300to900milis, 200, 900
-					Sleep, wait300to900milis
+					Random, wait300to1500milis, 300, 1500
+					Sleep, wait300to1500milis
 						Click, down
 							Random, wait5to100milis, 5, 100
 							Sleep, wait5to100milis
@@ -248,13 +251,13 @@ Withdrawal()
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because cant deposit inventory
 		Gui, Show, Y15, Msgbox
-			Random, wait300to900milis, 200, 900
-			Sleep, wait300to900milis
+			Random, wait300to1500milis, 300, 1500
+			Sleep, wait300to1500milis
 				Random, varyby9, -9, 9
 				Random, varyby8, -8, 8
 				MouseMove, varyby9+486, varyby8+23, 0 ;X in top right corner of bank window
-					Random, wait300to900milis, 200, 900
-					Sleep, wait300to900milis
+					Random, wait300to1500milis, 300, 1500
+					Sleep, wait300to1500milis
 						Click, down
 							Random, wait5to100milis, 5, 100
 							Sleep, wait5to100milis
@@ -265,9 +268,27 @@ Withdrawal()
 FurnaceGo()
 	{
 	Global
+	Gui, Destroy
+	Random, BankCloseRoll, 1, 4 ;1 in 2 chance to close bank instead if immediately clicking on minimap
+		if BankCloseRoll = 1
+			{
+			Random, wait300to1500milis, 300, 1500
+			Sleep, wait300to1500milis
+				Random, varyby9, -9, 9
+				Random, varyby8, -8, 8
+				MouseMove, ox+varyby9+486, oy+varyby8+23, 0 ;X in top right corner of bank window
+					Random, wait300to1500milis, 300, 1500
+					Sleep, wait300to1500milis
+						Click, down
+							Random, wait5to100milis, 5, 100
+							Sleep, wait5to100milis
+						Click, up
+							Random, wait300to1500milis, 300, 1500
+							Sleep, wait300to1500milis
+			}
 	Loop, 150 ;look for furnace on minimap
 		{
-		PixelSearch, FurnaceGoX, FurnaceGoY, ox+692, oy+62, ox+696, oy+65, 0x1e73fe, 15, Fast
+		PixelSearch, FurnaceGoX, FurnaceGoY, ox+692, oy+62, ox+696, oy+65, 0x1e73fe, 5, Fast
 			if ErrorLevel = 0
 				Goto, FurnaceGo
 			else
@@ -279,6 +300,7 @@ FurnaceGo()
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because cant find furnace on minimap
 		Gui, Show, Y15, Msgbox
+			Sleep, 5000
 			AbortLogout()
 	FurnaceGo:
 
@@ -304,8 +326,8 @@ FurnaceGo()
 									Sleep, wait5to100milis
 								Click, up
 						}
-	Random, wait5to10sec, 5000, 10000
-	Sleep, wait5to10sec
+	Random, wait4to9sec, 4000, 9000
+	Sleep, wait4to9sec
 		Loop, 150 ;wait until transportation arrow appears in right edge of minimap
 			{
 			PixelSearch, FurnaceAtX, FurnaceAtY, ox+711, oy+94, ox+711, oy+94, 0x1b67db, 1, Fast
@@ -319,33 +341,30 @@ FurnaceGo()
 			}
 	}
 
-	;ADD ADDITIONAL ELSE OPTIONS TO THIS LOOP FOR STUCK POSITIONS IN FRONT OF FURNACE
-
-
 Smelt()
 	{
 	Global
 	LogOutCheck() ;check if client has been disconnected
 	DisconnectCheck()
 
-	Random, wait300to900milis, 200, 900
-	Sleep, wait300to900milis
+	Random, wait300to1500milis, 300, 1500
+	Sleep, wait300to1500milis
 		Random, varyby6, -6, 6
 		Random, varyby4, -4, 4
 		MouseMove, ox+varyby6+621, oy+varyby4+230, 0 ;select first steel bar
-			Random, wait300to900milis, 200, 900
-			Sleep, wait300to900milis
+			Random, wait300to1500milis, 300, 1500
+			Sleep, wait300to1500milis
 				Click, down
 					Random, wait5to100milis, 5, 100
 					Sleep, wait5to100milis
 				Click, up
-			Random, wait300to900milis, 200, 900
-			Sleep, wait300to900milis
+			Random, wait300to1500milis, 300, 1500
+			Sleep, wait300to1500milis
 				Random, varyby12, -12, 12
 				Random, varyby4, -4, 4
 				MouseMove, ox+varyby4+300, oy+varyby12+162, 0 ;click on furnace to open smelting chat menu
-					Random, wait300to900milis, 200, 900
-					Sleep, wait300to900milis
+					Random, wait300to1500milis, 300, 1500
+					Sleep, wait300to1500milis
 						Click, down
 							Random, wait5to100milis, 5, 100
 							Sleep, wait5to100milis
@@ -364,6 +383,7 @@ Smelt()
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because cant see cannonball icon in chat menu
 		Gui, Show, Y15, Msgbox
+			Sleep, 5000
 			AbortLogout()
 	BeginSmelt:
 
@@ -371,43 +391,68 @@ Smelt()
 	DisconnectCheck()
 	
 	ControlFocus, ,11700
+		Random, wait500to2000milis, 500, 2000
+		Sleep, wait500to2000milis
 	Send {Space down} ;hit space bar to begin smelting
 		Random, wait20to150milis, 20, 150
 		Sleep, wait20to150milis
 	Send {Space up}
-		Random, wait2to5sec, 2000, 5000
-		Sleep, wait2to5sec
+		Random, wait2to15sec, 2000, 15000
+		Sleep, wait2to15sec
+			Random, SelectChatRoll, 1, 150
+				if SelectChatRoll = 1 ;chance per inventory to enter predetermined text into chat (chance should be lower than BriefLogout chances to prevent duplicate messages appearing to the same people)
+					SelectChat()
+			Random, CheckStatsRoll, 1, 5
+				if CheckStatsRoll = 1 ;chance per inventory to check skill stat and xp
+					{
+					CheckStats()
+					Random, varyby760, 0, 760
+					Random, varyby500, 0, 500
+					MouseMove, ox+varyby760+0, oy+varyby500+0, 0 ;move mouse to a random spot on the screen after checking stats
+					}
 			Gui, Destroy
-			Gui, Add, Text, ,Rolling for behaviors ... ;roll for randomized "human-simulating" behavior
-			Gui, Show, Y15, Msgbox
-				Random, wait100to150milis, 100, 150
-				Sleep, wait100to150milis
-					Random, SelectChatRoll, 1, 9999999
-						if SelectChatRoll = 1 ;chance per inventory to enter predetermined text into chat (chance should be lower than BriefLogout chances to prevent duplicate messages appearing to the same people)
-							SelectChat()
-					Random, CheckStatsRoll, 1, 2
-						if CheckStatsRoll = 1 ;chance per inventory to check skill stat and xp
-							CheckStats()
-			Gui, Destroy
-		Loop, 150 ;check if client has been disconnected once per second for 150 seconds
+		Loop, 130 ;check if client has been disconnected once per second for 150 seconds
 			{
 			LogOutCheck()
 			DisconnectCheck()
-			Sleep, 990
+			Sleep, 1000
 			}
-		Loop, 900 ;use final 3 seconds waiting for last steel bar to disappear from inventory
+		Gui, Destroy
+		Gui, Add, Text, ,Waiting for smelting to finish...
+		Gui, Show, Y15, Msgbox
+		Loop, 2500 ;use final seconds waiting for last steel bar to disappear from inventory
 			{
-			PixelSearch, DoneSmeltingX, DoneSmeltingY, ox+706, oy+446, ox+706, oy+446, 0x868690, 1, Fast
+			PixelSearch, DoneSmeltingX, DoneSmeltingY, ox+705, oy+439, ox+717, oy+454, 0x868690, 50, Fast
 				if ErrorLevel
 					{
-					Random, RandomSleepRoll, 1, 2
-					if RandomSleepRoll = 1 ;chance per inventory to briefly "stall"
-						RandomSleep()
-					  GoToBank()
+					MsgBox, smelting done!
+					Gui, Destroy
+					Random, wait500to2000milis, 500, 2000
+					Sleep, wait500to2000milis
+						Random, RandomSleepRoll, 1, 2
+						if RandomSleepRoll = 1 ;chance per inventory to briefly "stall"
+							{
+							RandomSleep()
+							GoToBank()
+							}
+						else
+							GoToBank()
 					}
 				else
-					Sleep, 50
+					{
+					Msgbox, not done smelting!
+					Sleep, 150
+					}
 			}
+			Gui, Destroy
+			Random, wait500to2000milis, 500, 2000
+			Sleep, wait500to2000milis
+			Random, RandomSleepRoll, 1, 2
+			if RandomSleepRoll = 1 ;chance per inventory to briefly "stall"
+				{
+				RandomSleep()
+				GoToBank()
+				}
 	}
 
 
@@ -442,6 +487,7 @@ GoToBank()
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because cant find bank after smelting
 		Gui, Show, Y15, Msgbox
+			Sleep, 5000
 			AbortLogout()
 	BankReturn:
 
@@ -452,9 +498,9 @@ GoToBank()
 	LogOutCheck()
 	DisconnectCheck()
 
-	Random, varyby3, -3, 3
-	Random, varyby4, -4, 4
-	MouseMove, varyby3+BankReturnX+5, varyby4+BankReturnY-3, 0 ;bank on minimap
+	Random, varyby3, 0, 3
+	Random, varyby4, 0, 4
+	MouseMove, ox+varyby3+588, oy+varyby4+103, 0 ;bank on minimap
 		Random, wait200to500milis, 200, 500
 		Sleep, wait200to500milis+500
 			Click, down
@@ -484,7 +530,7 @@ GoToBank()
 		Sleep, wait4to8sec ;wait until arrived at bank booth
 	Loop, 150 ;look for bank booth
 		{
-		PixelSearch, BankAt2X, BankAt2Y, ox+595, oy+47, ox+595, oy+47, 0xe78d7b, 1, Fast
+		PixelSearch, BankAtX, BankAtY, ox+595, oy+47, ox+595, oy+47, 0xe78d7b, 1, Fast
 			if ErrorLevel = 0
 				Goto, BankAt
 			else
@@ -493,14 +539,11 @@ GoToBank()
 				Sleep, wait8to10milis
 				}
 		}
-
-
-
-
-	;ADD ADDITIONAL ELSE OPTIONS TO THIS LOOP FOR STUCK POSITIONS IN FRONT OF BANK
-
-
-
+		Gui, Destroy
+		Gui, Add, Text, ,AbortLogout called because cant reach bank
+		Gui, Show, Y15, Msgbox
+			Sleep, 5000
+			AbortLogout()
 
 	BankAt:
 
@@ -516,6 +559,7 @@ GoToBank()
 				Gui, Destroy
 				Gui, Add, Text, ,AbortLogout randomly called
 				Gui, Show, Y15, Msgbox
+					Sleep, 5000
 					AbortLogout()
 				}
 	LogOutCheck()
@@ -537,7 +581,7 @@ CheckStats()
 			Sleep, wait800to1200milis
 				Random, varyby13, -13, 13
 				Random, varyby14, -14, 14
-				MouseMove, ox+varyby13+576, oy+varyby8+185, 0 ;stats icon
+				MouseMove, ox+varyby13+576, oy+varyby14+185, 0 ;stats icon
 					Random, wait200to900milis, 200, 900
 					Sleep, wait200to900milis+300
 					LogOutCheck()
