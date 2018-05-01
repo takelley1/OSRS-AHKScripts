@@ -21,8 +21,8 @@ CoordMode, Mouse, Screen
 
 ListLines ;show log of all commands executed by script thus far, this will be updated periodically throughout the script
 ControlFocus, ,11700 ;refocus control on game client
-OrientClient()
-OpenBank()
+OrientClient() ;orient to client coordinates
+OpenBank() ;start script by calling first function
 
 OpenBank()
 	{
@@ -45,8 +45,7 @@ OpenBank()
 									Random, wait5to100milis, 5, 100
 									Sleep, wait5to100milis
 								Click, up
-						}
-	Update()					
+						}					
 	Loop, 3
 		{
 		Loop, 150 ;wait for bank screen to appear
