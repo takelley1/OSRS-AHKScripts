@@ -19,6 +19,8 @@ CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
 #Persistent
 
+ListLines ;show log of all commands executed by script thus far, this will be updated periodically throughout the script
+ControlFocus, ,11700 ;refocus control on game client
 OrientClient()
 OpenBank()
 
@@ -44,6 +46,7 @@ OpenBank()
 									Sleep, wait5to100milis
 								Click, up
 						}
+	Update()					
 	Loop, 3
 		{
 		Loop, 150 ;wait for bank screen to appear
@@ -83,7 +86,8 @@ OpenBank()
 			Sleep, 5000
 			AbortLogout()
 	}
-
+	
+Update()	
 Deposit()
 	{
 	Global
@@ -164,7 +168,8 @@ Deposit()
 						Click, up
 		AbortLogout()
 	}
-
+	
+Update()	
 Withdrawal()
 	{
 	Global
@@ -264,7 +269,8 @@ Withdrawal()
 						Click, up
 		AbortLogout()
 	}
-
+	
+Update()	
 FurnaceGo()
 	{
 	Global
@@ -340,7 +346,8 @@ FurnaceGo()
 					}
 			}
 	}
-
+	
+Update()	
 Smelt()
 	{
 	Global
@@ -390,7 +397,7 @@ Smelt()
 	LogOutCheck() ;check if client has been disconnected
 	DisconnectCheck()
 	
-	ControlFocus, ,11700
+	ControlFocus, ,11700 ;focus control on game client
 		Random, wait500to2000milis, 500, 2000
 		Sleep, wait500to2000milis
 	Send {Space down} ;hit space bar to begin smelting
@@ -455,7 +462,7 @@ Smelt()
 				}
 	}
 
-
+Update()	
 GoToBank()
 	{
 	Global
@@ -568,8 +575,7 @@ GoToBank()
 	OpenBank()
 	}
 
-
-
+Update()	
 CheckStats()
 	{
 	Global
@@ -612,7 +618,8 @@ CheckStats()
 		Gui, Destroy
 	Return
 	}
-
+	
+Update()	
 SelectChat()
 	{
 	Global
