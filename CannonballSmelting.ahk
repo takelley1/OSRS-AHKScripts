@@ -20,7 +20,9 @@ CoordMode, Mouse, Screen
 #Persistent
 
 ListLines ;show log of all commands executed by script thus far, this will be updated periodically throughout the script
-ControlFocus, ,11700 ;refocus control on game client
+ControlFocus, , 11700 ;refocus control on game client
+SetTimer, Update, 1000 ;update the LineLines log every X seconds
+
 OrientClient() ;orient to client coordinates
 OpenBank() ;start script by calling first function
 
@@ -85,8 +87,7 @@ OpenBank()
 			Sleep, 5000
 			AbortLogout()
 	}
-	
-Update()	
+		
 Deposit()
 	{
 	Global
@@ -167,8 +168,7 @@ Deposit()
 						Click, up
 		AbortLogout()
 	}
-	
-Update()	
+		
 Withdrawal()
 	{
 	Global
@@ -268,8 +268,7 @@ Withdrawal()
 						Click, up
 		AbortLogout()
 	}
-	
-Update()	
+		
 FurnaceGo()
 	{
 	Global
@@ -345,8 +344,7 @@ FurnaceGo()
 					}
 			}
 	}
-	
-Update()	
+		
 Smelt()
 	{
 	Global
@@ -460,8 +458,7 @@ Smelt()
 				GoToBank()
 				}
 	}
-
-Update()	
+	
 GoToBank()
 	{
 	Global
@@ -573,8 +570,7 @@ GoToBank()
 
 	OpenBank()
 	}
-
-Update()	
+	
 CheckStats()
 	{
 	Global
@@ -617,8 +613,7 @@ CheckStats()
 		Gui, Destroy
 	Return
 	}
-	
-Update()	
+		
 SelectChat()
 	{
 	Global
@@ -757,6 +752,12 @@ SelectChat()
 		Gui, Destroy
 	Return
 	}
+
+Update: ;update timer subroutine
+	ControlFocus, , ListLines
+	Send {F5}
+	ControlFocus, , 11700
+	Return
 
 ;hotkeys
 z::
