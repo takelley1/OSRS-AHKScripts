@@ -19,10 +19,10 @@ CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
 #Persistent
 
-ListLines ;show log of all commands executed by script thus far, this will be updated periodically throughout the script
-WinMove, 0, 0
-ControlFocus, , 11700 ;refocus control on game client
-SetTimer, Update, 1000 ;update the LineLines log every X seconds
+;ListLines ;show log of all commands executed by script thus far, this will be updated periodically throughout the script
+;WinMove, 0, 0
+;ControlFocus, , 13552 ;refocus control on game client
+;SetTimer, Update, 1000 ;update the LineLines log every X seconds
 
 OrientClient() ;orient to client coordinates
 OpenBank() ;start script by calling first function
@@ -221,7 +221,7 @@ Withdrawal()
 		{
 		Loop, 150 ;wait for bars to appear in inventory
 			{
-				PixelSearch, InvBarsX,InvBarsY, ox+706, oy+409, ox+706, oy+409, 0x868690, 15, Fast
+				PixelSearch, InvBarsX,InvBarsY, ox+580, oy+267, ox+580, oy+267, 0x868690, 15, Fast
 				if ErrorLevel = 0
 					FurnaceGo()
 				else
@@ -313,8 +313,7 @@ FurnaceGo()
 	DisconnectCheck()
 
 	Random, varyby2, 0, 2
-	Random, varyby3, 0, 3
-	MouseMove, ox+varyby2+692, oy+varyby3+63, 0 ;furnace on minimap
+	MouseMove, ox+varyby2+692, oy+64, 0 ;furnace on minimap
 		Random, wait200to500milis, 200, 500
 		Sleep, wait200to500milis+500
 			Click, down
@@ -344,6 +343,11 @@ FurnaceGo()
 					Sleep, wait5to10milis ;wait 5-10sec total
 					}
 			}
+			Gui, Destroy
+			Gui, Add, Text, ,AbortLogout called because cant reach furnace
+			Gui, Show, Y15, Msgbox
+			Sleep, 5000
+			AbortLogout()
 	}
 		
 Smelt()
@@ -365,9 +369,9 @@ Smelt()
 				Click, up
 			Random, wait300to1500milis, 300, 1500
 			Sleep, wait300to1500milis
-				Random, varyby12, -12, 12
+				Random, varyby10, -12, 12
 				Random, varyby4, -4, 4
-				MouseMove, ox+varyby4+300, oy+varyby12+162, 0 ;click on furnace to open smelting chat menu
+				MouseMove, ox+varyby4+300, oy+varyby10+162, 0 ;click on furnace to open smelting chat menu
 					Random, wait300to1500milis, 300, 1500
 					Sleep, wait300to1500milis
 						Click, down
@@ -395,7 +399,7 @@ Smelt()
 	LogOutCheck() ;check if client has been disconnected
 	DisconnectCheck()
 	
-	ControlFocus, ,11700 ;focus control on game client
+	ControlFocus, ,13552 ;focus control on game client
 		Random, wait500to2000milis, 500, 2000
 		Sleep, wait500to2000milis
 	Send {Space down} ;hit space bar to begin smelting
@@ -425,39 +429,34 @@ Smelt()
 		Gui, Destroy
 		Gui, Add, Text, ,Waiting for smelting to finish...
 		Gui, Show, Y15, Msgbox
-		Loop, 2500 ;use final seconds waiting for last steel bar to disappear from inventory
+		Loop, 150 ;use final seconds waiting for last steel bar to disappear from inventory
 			{
 			PixelSearch, DoneSmeltingX, DoneSmeltingY, ox+705, oy+439, ox+717, oy+454, 0x868690, 50, Fast
 				if ErrorLevel
 					{
-					MsgBox, smelting done!
 					Gui, Destroy
 					Random, wait500to2000milis, 500, 2000
 					Sleep, wait500to2000milis
-						Random, RandomSleepRoll, 1, 2
+						Random, RandomSleepRoll, 1, 3
 						if RandomSleepRoll = 1 ;chance per inventory to briefly "stall"
 							{
 							RandomSleep()
 							GoToBank()
 							}
 						else
+							{
+							Random, wait500to3000milis, 500, 3000
+							Sleep, wait500to3000milis
 							GoToBank()
+							}
 					}
 				else
-					{
-					Msgbox, not done smelting!
 					Sleep, 150
-					}
+					
 			}
-			Gui, Destroy
-			Random, wait500to2000milis, 500, 2000
-			Sleep, wait500to2000milis
-			Random, RandomSleepRoll, 1, 2
-			if RandomSleepRoll = 1 ;chance per inventory to briefly "stall"
-				{
-				RandomSleep()
-				GoToBank()
-				}
+			Random, wait500to3000milis, 500, 3000
+			Sleep, wait500to3000milis
+			GoToBank()
 	}
 	
 GoToBank()
@@ -502,16 +501,16 @@ GoToBank()
 	LogOutCheck()
 	DisconnectCheck()
 
-	Random, varyby3, 0, 3
+	Random, varyby2, 0, 2
 	Random, varyby4, 0, 4
-	MouseMove, ox+varyby3+588, oy+varyby4+103, 0 ;bank on minimap
+	MouseMove, ox+varyby2+589, oy+varyby4+103, 0 ;bank on minimap
 		Random, wait200to500milis, 200, 500
 		Sleep, wait200to500milis+500
 			Click, down
 				Random, wait5to100milis, 5, 100
 				Sleep, wait5to100milis
 			Click, up
-				Random, DoubleClickRoll, 1, 5 ;chance to double-click
+				Random, DoubleClickRoll, 1, 10 ;chance to double-click
 					if DoubleClickRoll = 1
 						{
 							Random, wait90to250milis, 90, 250
@@ -553,19 +552,25 @@ GoToBank()
 
 	Random, wait160to250milis, 160, 250
 	Sleep, wait160to250milis ;wait for character to stop moving
-		Random, BriefLogoutRoll, 1, 30
-			if BriefLogoutRoll = 1 ;chance per inventory to logout briefly to simulate a quick break
-				BriefLogout()
+		;Random, BriefLogoutRoll, 1, 100
+			;if BriefLogoutRoll = 1 ;chance per inventory to logout briefly to simulate a quick break
+			;	{
+			;	Gui, Destroy
+			;	Gui, Add, Text, ,BriefLogout randomly called
+			;	Gui, Show, Y15, Msgbox
+			;		Sleep, 5000
+				;	BriefLogout()
+			;	}
 
-		Random, AbortLogoutRoll, 1, 55
-			if AbortLogoutRoll = 1 ;chance per inventory to logout and stop macro completely
-				{
-				Gui, Destroy
-				Gui, Add, Text, ,AbortLogout randomly called
-				Gui, Show, Y15, Msgbox
-					Sleep, 5000
-					AbortLogout()
-				}
+		;Random, AbortLogoutRoll, 1, 100
+			;if AbortLogoutRoll = 1 ;chance per inventory to logout and stop macro completely
+			;	{
+			;	Gui, Destroy
+			;	Gui, Add, Text, ,AbortLogout randomly called
+				;Gui, Show, Y15, Msgbox
+				;	Sleep, 5000
+				;	AbortLogout()
+				;}
 	LogOutCheck()
 	DisconnectCheck()
 
@@ -611,6 +616,8 @@ CheckStats()
 									Random, wait5to100milis, 5, 100
 									Sleep, wait5to100milis
 								Click, up
+							Random, wait200to900milis, 200, 900
+							Sleep, wait200to900milis
 		Gui, Destroy
 	Return
 	}
@@ -757,7 +764,7 @@ SelectChat()
 Update: ;update timer subroutine
 	ControlFocus, , ListLines
 	Send {F5}
-	ControlFocus, , 11700
+	ControlFocus, , 13552
 	Return
 
 ;hotkeys
