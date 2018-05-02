@@ -358,9 +358,9 @@ Smelt()
 
 	Random, wait300to1500milis, 300, 1500
 	Sleep, wait300to1500milis
-		Random, varyby6, -6, 6
-		Random, varyby4, -4, 4
-		MouseMove, ox+varyby6+621, oy+varyby4+230, 0 ;select first steel bar
+		Random, varyby10, -10, 10
+		Random, varyby9, -9, 9
+		MouseMove, ox+varyby10+621, oy+varyby9+230, 0 ;select first steel bar
 			Random, wait300to1500milis, 300, 1500
 			Sleep, wait300to1500milis
 				Click, down
@@ -378,16 +378,41 @@ Smelt()
 							Random, wait5to100milis, 5, 100
 							Sleep, wait5to100milis
 						Click, up
-	Loop, 150 ;wait until cannonball icon appears in chat menu
+	Loop, 3
 		{
-		PixelSearch, BeginSmeltX, BeginSmeltY, ox+304, oy+394, ox+306, oy+394, 0xabb3b5, 5, Fast
-			if ErrorLevel = 0
-				Goto, BeginSmelt
-			else
-				{
-				Random, wait5to10milis, 5, 10
-				Sleep, wait5to10milis ;wait 5-10sec total
-				}
+		Loop, 150 ;wait until cannonball icon appears in chat menu
+			{
+			PixelSearch, BeginSmeltX, BeginSmeltY, ox+304, oy+394, ox+306, oy+394, 0xabb3b5, 5, Fast
+				if ErrorLevel = 0
+					Goto, BeginSmelt
+				else
+					{
+					Random, wait5to10milis, 5, 10
+					Sleep, wait5to10milis ;wait 5-10sec total
+					}
+			} ;if loop fails, try selecting steel bar and clicking on furnace again if cannonball icon does not appear in chat menu
+			Random, wait300to1500milis, 300, 1500
+			Sleep, wait300to1500milis
+				Random, varyby5, -5, 5
+				Random, varyby4, -4, 4
+				MouseMove, ox+varyby5+621, oy+varyby4+230, 0 ;select first steel bar
+					Random, wait300to1500milis, 300, 1500
+					Sleep, wait300to1500milis
+						Click, down
+							Random, wait5to100milis, 5, 100
+							Sleep, wait5to100milis
+						Click, up
+					Random, wait300to1500milis, 300, 1500
+					Sleep, wait300to1500milis
+						Random, varyby10, -12, 12
+						Random, varyby4, -4, 4
+						MouseMove, ox+varyby4+300, oy+varyby10+162, 0 ;click on furnace to open smelting chat menu
+							Random, wait300to1500milis, 300, 1500
+							Sleep, wait300to1500milis
+								Click, down
+									Random, wait5to100milis, 5, 100
+									Sleep, wait5to100milis
+								Click, up
 		}
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because cant see cannonball icon in chat menu
@@ -406,14 +431,17 @@ Smelt()
 		Random, wait20to150milis, 20, 150
 		Sleep, wait20to150milis
 	Send {Space up}
-		Random, wait2to15sec, 2000, 15000
-		Sleep, wait2to15sec
-			Random, SelectChatRoll, 1, 150
+		Random, wait500to8000milis, 500, 8000
+		Sleep, wait500to8000milis
+			Random, SelectChatRoll, 1, 100
 				if SelectChatRoll = 1 ;chance per inventory to enter predetermined text into chat (chance should be lower than BriefLogout chances to prevent duplicate messages appearing to the same people)
 					SelectChat()
 			Random, CheckStatsRoll, 1, 10
 				if CheckStatsRoll = 1 ;chance per inventory to check skill stat and xp
-					CheckStatsSmithing()
+					{
+					Random, TimerDuration, -1000, -120000
+					SetTimer, CheckStatsSmithing, TimerDuration ;check stats at some random point while smelting
+					}
 			Gui, Destroy
 		Loop, 130 ;check if client has been disconnected once per second for 150 seconds
 			{
@@ -424,7 +452,7 @@ Smelt()
 		Gui, Destroy
 		Gui, Add, Text, ,Waiting for smelting to finish...
 		Gui, Show, Y15, Msgbox
-		Loop, 150 ;use final seconds waiting for last steel bar to disappear from inventory
+		Loop, 180 ;use final seconds waiting for last steel bar to disappear from inventory
 			{
 			PixelSearch, DoneSmeltingX, DoneSmeltingY, ox+705, oy+439, ox+717, oy+454, 0x868690, 50, Fast
 				if ErrorLevel
@@ -713,10 +741,8 @@ SelectChat()
 	Return
 	}
 
-Update: ;update timer subroutine
-	ControlFocus, , ListLines
-	Send {F5}
-	ControlFocus, , 13552
+CheckStatsSmithing:
+	CheckStatsSmithing()
 	Return
 
 ;hotkeys
