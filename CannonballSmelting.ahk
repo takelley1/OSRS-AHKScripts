@@ -411,14 +411,9 @@ Smelt()
 			Random, SelectChatRoll, 1, 150
 				if SelectChatRoll = 1 ;chance per inventory to enter predetermined text into chat (chance should be lower than BriefLogout chances to prevent duplicate messages appearing to the same people)
 					SelectChat()
-			Random, CheckStatsRoll, 1, 5
+			Random, CheckStatsRoll, 1, 10
 				if CheckStatsRoll = 1 ;chance per inventory to check skill stat and xp
-					{
-					CheckStats()
-					Random, varyby760, 0, 760
-					Random, varyby500, 0, 500
-					MouseMove, ox+varyby760+0, oy+varyby500+0, 0 ;move mouse to a random spot on the screen after checking stats
-					}
+					CheckStatsSmithing()
 			Gui, Destroy
 		Loop, 130 ;check if client has been disconnected once per second for 150 seconds
 			{
