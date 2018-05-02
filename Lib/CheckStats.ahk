@@ -1,9 +1,6 @@
-﻿CheckStats() ;check skill level
+﻿CheckStatsMining() ;check skill level
 	{
 	Global
-	Random, CheckStatsRoll, 1, 15
-		if CheckStatsRoll != 1 ;chance per inventory to check skill xp
-			Return
 	Gui, Destroy
 	Gui, Add, Text, ,CheckStats called / %InvDeposited% Invs deposited (~%OreDeposited% Ore)
 	Gui, Show, Y15, Msgbox
