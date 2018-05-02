@@ -1,42 +1,24 @@
-﻿CheckStatsSmithing()
+CheckStatsSmithing()
 	{
-
-Global
+	Global
 	CheckStats: ;check skill level
-		
-Gui, Destroy
-		
-Gui, Add, Text, ,CheckStats called ...
-			
-Gui, Show, Y15, Msgbox
-			
-Random, wait800to1200milis, 800, 1200
-			
-Sleep, wait800to1200milis
-				
-Random, varyby13, -13, 13
-				
-Random, varyby14, -14, 14
-				
-MouseMove, ox+varyby13+576, oy+varyby14+185, 0 ;stats icon
-					
-Random, wait200to900milis, 200, 900
-					
-Sleep, wait200to900milis+300
-					
-LogOutCheck()
-					
-DisconnectCheck()
-						
-Click, down
-							
-Random, wait5to100milis, 5, 100
-							
-Sleep, wait5to100milis
-						
-Click, up
-			
-Random, wait800to1200milis, 800, 1200
+		Gui, Destroy
+		Gui, Add, Text, ,CheckStats called ...
+			Gui, Show, Y15, Msgbox
+			Random, wait800to1200milis, 800, 1200
+			Sleep, wait800to1200milis
+				Random, varyby13, -13, 13
+				Random, varyby14, -14, 14
+				MouseMove, ox+varyby13+576, oy+varyby14+185, 0 ;stats icon
+					Random, wait200to900milis, 200, 900
+					Sleep, wait200to900milis+300
+					LogOutCheck()
+					DisconnectCheck()
+						Click, down
+							Random, wait5to100milis, 5, 100
+							Sleep, wait5to100milis
+						Click, up
+			Random, wait800to1200milis, 800, 1200
 			Random, wait200to500milis, 200, 500
 			Sleep, wait800to1200milis+wait200to500milis
 				Random, varyby22, -22, 22
