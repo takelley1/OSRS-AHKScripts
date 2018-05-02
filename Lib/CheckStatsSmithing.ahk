@@ -39,6 +39,11 @@ CheckStatsSmithing()
 								Click, up
 							Random, wait200to900milis, 200, 900
 							Sleep, wait200to900milis
+			Random, varyby765, 0, 765
+			Random, varyby503, 0, 503
+			MouseMove, ox+varyby765, oy+varyby503, 0 ;move mouse to a random spot on the screen after checking stats
+			Random, wait400to900milis, 200, 900
+			Sleep, wait400to900milis
 		Gui, Destroy
 	Return
 	}
