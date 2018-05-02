@@ -653,13 +653,6 @@ SelectChat()
 					Sleep, wait400to700milis+1000
 				Send {Enter}
 				}
-			if SelectChat = 4
-				{
-				Send {Raw}12.99999m xp to 99!
-					Random, wait400to700milis, 400, 700
-					Sleep, wait400to700milis+1000
-				Send {Enter}
-				}
 			if SelectChat = 5
 				{
 				Send {Raw}any other hoomanss?
@@ -718,14 +711,14 @@ SelectChat()
 				}
 			if SelectChat = 13
 				{
-				Send {Raw}only 13m xp left till 99!
+				Send {Raw}only 12m xp left till 99!
 					Random, wait400to700milis, 400, 700
 					Sleep, wait400to700milis+1000
 				Send {Enter}
 				}
 			if SelectChat = 14
 				{
-				Send {Raw}oink
+				Send {Raw}estoy aburrido
 					Random, wait400to700milis, 400, 700
 					Sleep, wait400to700milis+1000
 				Send {Enter}
