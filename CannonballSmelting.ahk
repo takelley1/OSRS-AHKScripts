@@ -173,9 +173,9 @@ Deposit()
 Withdrawal()
 	{
 	Global
-	Loop, 500 ;look for steel bars
+	Loop, 200 ;look for steel bars
 		{
-		PixelSearch, BarsX, BarsY, ox+74, oy+119, ox+76, oy+126, 0x00ffff, 5, Fast
+		PixelSearch, BarsX, BarsY, ox+74, oy+119, ox+76, oy+126, 0x00ffff, 3, Fast
 			if ErrorLevel = 0
 				Goto, Barswithdrawal
 			else
@@ -313,7 +313,7 @@ FurnaceGo()
 	DisconnectCheck()
 
 	Random, varyby2, 0, 2
-	MouseMove, ox+varyby2+692, oy+64, 0 ;furnace on minimap
+	MouseMove, ox+varyby2+692, oy+63, 0 ;furnace on minimap
 		Random, wait200to500milis, 200, 500
 		Sleep, wait200to500milis+500
 			Click, down
@@ -440,7 +440,7 @@ Smelt()
 				if CheckStatsRoll = 1 ;chance per inventory to check skill stat and xp
 					{
 					Random, TimerDuration, -1000, -120000
-					SetTimer, CheckStatsSmithing, TimerDuration ;check stats at some random point while smelting
+					SetTimer, CheckStatsSmithing, %TimerDuration% ;check stats at some random point while smelting
 					}
 			Gui, Destroy
 		Loop, 130 ;check if client has been disconnected once per second for 150 seconds

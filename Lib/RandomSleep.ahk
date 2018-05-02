@@ -20,7 +20,7 @@ Global
 			{
 			Random, RandomSleepTwo, 10000, 60000
 				SleepSeconds := 0
-				SleepSeconds := RandomSleepOne ;convert sleep duration value into seconds to be displayed on gui
+				SleepSeconds := RandomSleepTwo ;convert sleep duration value into seconds to be displayed on gui
 				SleepSeconds /= 1000
 					Gui, Destroy
 					Gui, Add, Text, ,RandomSleep called for %SleepSeconds% seconds
@@ -34,7 +34,7 @@ Global
 			{
 			Random, RandomSleepThree, 30000, 200000
 				SleepSeconds := 0
-				SleepSeconds := RandomSleepOne ;convert sleep duration value into seconds to be displayed on gui
+				SleepSeconds := RandomSleepThree ;convert sleep duration value into seconds to be displayed on gui
 				SleepSeconds /= 1000
 					Gui, Destroy
 					Gui, Add, Text, ,RandomSleep called for %SleepSeconds% seconds

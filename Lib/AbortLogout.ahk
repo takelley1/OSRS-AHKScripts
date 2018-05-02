@@ -37,13 +37,15 @@
 						Sleep, wait300to1500milis
 							Random, varyby9, -9, 9
 							Random, varyby8, -8, 8
-							MouseMove, varyby9+486, varyby8+23, 0 ;X in top right corner of bank window
+							MouseMove, ox+varyby9+486, oy+varyby8+23, 0 ;X in top right corner of bank window
 							Random, wait300to1500milis, 300, 1500
 							Sleep, wait300to1500milis
 									Click, down
 										Random, wait5to100milis, 5, 100
 										Sleep, wait5to100milis
 									Click, up
+							Random, wait300to1500milis, 300, 1500
+							Sleep, wait300to1500milis
 						}
 					else ;if player is not currently banking, quit function
 						{
