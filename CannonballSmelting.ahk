@@ -773,7 +773,11 @@ CheckStatsSmithing:
 	
 LogoutDisconnectCheck:
 	LogoutCheck()
+		if LogoutCheck() = 1
+			AfterLogin()
 	DisconnectCheck()
+		if DisconnectCheck() = 1
+			AfterLogin()
 	Return
 	
 AfterLogin() ;function called if LogoutCheck or DisconnectCheck return positive
