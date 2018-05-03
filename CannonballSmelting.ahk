@@ -1,6 +1,6 @@
 ﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn  ; Enable warnings to assist with detecting common errors.
-SendMode Play  ; Recommended for new scripts due to its superior speed and reliability.
+SendMode Event  ; Recommended for new scripts due to its superior speed and reliability.
 
 ;begin by standing in front of Edgeville bank booth (second closest one to furnace) with cannon ball mold already in first inventory slot
 ;you must have enough run energy to make it to the furnace and back
@@ -32,7 +32,7 @@ OpenBank()
 	Global
 	Random, varyby11, -11, 11
 	Random, varyby5, -5, 5
-	MouseMove, ox+varyby11+260, oy+varyby5+188, 100 ;open bank from starting position
+	MouseMove, ox+varyby11+260, oy+varyby5+188, 1000 ;open bank from starting position
 		Random, wait200to500milis, 200, 500
 		Sleep, wait200to500milis+500
 			Click, down
@@ -64,7 +64,7 @@ OpenBank()
 			} ;if loop fails, try clicking on bank again -- try 3 times before aborting macro
 			Random, varyby11, -11, 11
 			Random, varyby5, -5, 5
-			MouseMove, ox+varyby11+260, oy+varyby5+188, 100 ;open bank from starting position (again)
+			MouseMove, ox+varyby11+260, oy+varyby5+188, 1000 ;open bank from starting position (again)
 				Random, wait200to500milis, 200, 500
 				Sleep, wait200to500milis+500
 					Click, down
