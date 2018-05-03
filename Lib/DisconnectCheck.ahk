@@ -27,7 +27,7 @@
 			Sleep, wait2to5sec
 				PixelSearch, LogoutX, LogoutY, ox+73, oy+485, ox+73, oy+485, 0xffffff ;check if client has successfully logged back in by checking for absence of white text in lower-left corner of client indicating World selection
 					if ErrorLevel 
-						Return ;if so, re-orient client and begin macro
+						Return 1;if so, re-orient client and begin macro
 					else
 						DisconnectCheck() ;if not, restart subroutine
 			}

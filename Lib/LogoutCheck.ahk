@@ -4,7 +4,6 @@
 	PixelSearch, LogoutX, LogoutY, ox+73, oy+485, ox+73, oy+485, 0xffffff, 0, Fast
 		if ErrorLevel = 0 ;if client logged out, log back in and go back to starting position
 			{ 
-			ExitApp ;REMOVE THIS LATER
 			Random, wait5to10sec, 5000, 10000
 			Sleep, wait5to10sec
 				Random, varyby15, -15, 15
@@ -75,7 +74,7 @@
 									if ErrorLevel ;if logged back in, re-orient client and begin macro
 										{
 										OrientClient()
-										Return
+										Return 1
 										}
 									else
 										Goto, PostLogin ;if not logged back in, return to post-login section of function

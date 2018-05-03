@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
@@ -14,15 +15,37 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 ;smelting 100 bars would take 0h 11m 6s (667s)
 ;smelting 1,000 bars would take 1h 51m (6,667s)
 ;smelting 10,000 bars would take 18h31m (66,667s)
+=======
+﻿#NoEnv ;Recommended for performance and compatibility with future AutoHotkey releases.
+#Warn ;Enable warnings to assist with detecting common errors.
+SendMode Input ;Recommended for new scripts due to its superior speed and reliability.
+
+/*
+begin by standing in front of Edgeville bank booth (second closest one to furnace) with cannon ball mold already in first inventory slot
+you must have enough run energy to make it to the furnace and back
+run energy must be nearly full and turned on; steel bars must be first item of second row in bank
+bank pin must have already been entered
+client must be fully zoomed out
+client brightness must be set on third tick from the left
+
+it takes just under 162 seconds to smelt an inventory
+an entire trip takes about 2m55.8s (175.84s), round up to 180s to err on side of conservatism
+smelting 100 bars would take 0h 11m 6s (667s)
+smelting 1,000 bars would take 1h 51m (6,667s)
+smelting 10,000 bars would take 18h31m (66,667s)
+
+ListLines ;show log of all commands executed by script thus far, this will be updated periodically throughout the script
+WinMove, 0, 0
+ControlFocus, , 13552 ;refocus control on game client
+SetTimer, Update, 1000 ;update the LineLines log every X seconds
+*/
+>>>>>>> 052e1c33fc459df287449e8a4f8d4750b4c48f55
 
 CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
 #Persistent
 
-;ListLines ;show log of all commands executed by script thus far, this will be updated periodically throughout the script
-;WinMove, 0, 0
-;ControlFocus, , 13552 ;refocus control on game client
-;SetTimer, Update, 1000 ;update the LineLines log every X seconds
+SetTimer, LogoutDisconnectCheck, 5000 ;check if client has been logged out or disconnected once every 5 seconds
 
 OrientClient() ;orient to client coordinates
 OpenBank() ;start script by calling first function
@@ -188,9 +211,6 @@ Withdrawal()
 			AbortLogout()
 	Barswithdrawal:
 
-	LogOutCheck() ;check if client has been disconnected
-	DisconnectCheck()
-
 	;withdrawal steel bars
 	Gui, Destroy
 	Gui, Add, Text, ,Withdrawing bars ...
@@ -308,10 +328,7 @@ FurnaceGo()
 			Sleep, 5000
 			AbortLogout()
 	FurnaceGo:
-
-	LogOutCheck() ;check if client has been disconnected
-	DisconnectCheck()
-
+	
 	Random, varyby2, 0, 2
 	MouseMove, ox+varyby2+692, oy+63, 0 ;furnace on minimap
 		Random, wait200to500milis, 200, 500
@@ -334,15 +351,79 @@ FurnaceGo()
 	Sleep, wait4to9sec
 		Loop, 150 ;wait until transportation arrow appears in right edge of minimap
 			{
+			FurnaceAtCheck:
 			PixelSearch, FurnaceAtX, FurnaceAtY, ox+711, oy+94, ox+711, oy+94, 0x1b67db, 1, Fast
 				if ErrorLevel = 0
 					Smelt()
-				else
+				else ;if not at furnace, check if stuck one tile north
 					{
+					PixelSearch, StuckNX, StuckNY, ox+640, oy+159, ox+640, oy+159, 0x0000ef, 15, Fast
+						if ErrorLevel = 0
+							{
+							Random, varyby9, -9, 9
+							Random, varyby9, -8, 8
+							MouseMove, ox+varyby9+285, oy+varyby8+204, 0 ;location of furnace from stuck n
+								Random, wait200to900milis, 200, 900 
+								Sleep, wait200to900milis
+									Click, down
+										Random, wait5to150milis, 5, 150
+										Sleep, wait5to150milis
+									Click, up
+										Random, wait2to4sec, 2000, 4000
+										Sleep, wait2to4sec
+											Goto, FurnaceAtCheck ;recheck location after correcting to make sure character at furnace before continuing
+							}
+						else ;if not stuck one tile north, check if stuck one tile south
+							{
+							PixelSearch, StuckSX, StuckSY, ox+635, oy+138, ox+635, oy+138, 0x0000f5, 15, Fast
+								if ErrorLevel = 0
+									{
+									Random, varyby8, -8, 8
+									Random, varyby7, -7, 7
+									MouseMove, ox+varyby8+284, oy+varyby7+146, 0 ;location of furnace from stuck s
+										Random, wait200to900milis, 200, 900 
+										Sleep, wait200to900milis
+											Click, down
+												Random, wait5to150milis, 5, 150
+												Sleep, wait5to150milis
+											Click, up
+												Random, wait2to4sec, 2000, 4000
+												Sleep, wait2to4sec
+													Goto, FurnaceAtCheck
+									}
+								else ;if not stuck one tile north or south, check if stuck one tile west
+									{
+									PixelSearch, StuckEX, StuckEY, ox+628, oy+38, ox+628, oy+38, 0x0000e9, 15, Fast
+										if ErrorLevel = 0
+											{
+											Random, varyby9, -9, 9
+											Random, varyby8, -8, 8
+											MouseMove, ox+varyby9+208, oy+varyby8+171, 0 ;location of furnace from stuck e
+												Random, wait200to900milis, 200, 900 
+												Sleep, wait200to900milis
+													Click, down
+														Random, wait5to150milis, 5, 150
+														Sleep, wait5to150milis
+													Click, up
+														Random, wait2to4sec, 2000, 4000
+														Sleep, wait2to4sec
+															Goto, FurnaceAtCheck
+											}
+													}
+												else ;if not at furnace and not stuck at any known location yet, wait before loop expires 
+													{
+													Random, wait100to200milis, 100, 200
+													Sleep, wait100to200milis
+													}
+
+											}
+									}
+							}
+									}
 					Random, wait5to10milis, 5, 10
 					Sleep, wait5to10milis ;wait 5-10sec total
 					}
-			}
+			} ;if loop expires and still not at furnace or any other known "stuck" locaiton, logout
 			Gui, Destroy
 			Gui, Add, Text, ,AbortLogout called because cant reach furnace
 			Gui, Show, Y15, Msgbox
@@ -353,9 +434,6 @@ FurnaceGo()
 Smelt()
 	{
 	Global
-	LogOutCheck() ;check if client has been disconnected
-	DisconnectCheck()
-
 	Random, wait300to1500milis, 300, 1500
 	Sleep, wait300to1500milis
 		Random, varyby10, -10, 10
@@ -421,9 +499,6 @@ Smelt()
 			AbortLogout()
 	BeginSmelt:
 
-	LogOutCheck() ;check if client has been disconnected
-	DisconnectCheck()
-	
 	ControlFocus, ,13552 ;focus control on game client
 		Random, wait500to2000milis, 500, 2000
 		Sleep, wait500to2000milis
@@ -445,8 +520,6 @@ Smelt()
 			Gui, Destroy
 		Loop, 130 ;check if client has been disconnected once per second for 150 seconds
 			{
-			LogOutCheck()
-			DisconnectCheck()
 			Sleep, 1000
 			}
 		Gui, Destroy
@@ -485,9 +558,6 @@ Smelt()
 GoToBank()
 	{
 	Global
-	LogOutCheck()
-	DisconnectCheck()
-
 	Loop, 150 ;look for bank on minimap
 		{
 		ImageSearch, BankReturnX, BankReturnY, ox+585, oy+108, ox+587, oy+110, BankOrient.png
@@ -517,13 +587,6 @@ GoToBank()
 			AbortLogout()
 	BankReturn:
 
-
-
-
-
-	LogOutCheck()
-	DisconnectCheck()
-
 	Random, varyby2, 0, 2
 	Random, varyby4, 0, 4
 	MouseMove, ox+varyby2+589, oy+varyby4+103, 0 ;bank on minimap
@@ -544,14 +607,7 @@ GoToBank()
 								Click, up
 						}
 	BankReturnWait:
-
-
-
-
-
-	LogOutCheck()
-	DisconnectCheck()
-
+	
 		Random, wait4to8sec, 4000, 8000
 		Sleep, wait4to8sec ;wait until arrived at bank booth
 	Loop, 150 ;look for bank booth
@@ -594,13 +650,9 @@ GoToBank()
 				;	Sleep, 5000
 				;	AbortLogout()
 				;}
-	LogOutCheck()
-	DisconnectCheck()
 
 	OpenBank()
 	}
-	
-
 		
 SelectChat()
 	{
@@ -737,7 +789,21 @@ SelectChat()
 CheckStatsSmithing:
 	CheckStatsSmithing()
 	Return
-
+	
+LogoutDisconnectCheck:
+	LogoutCheck()
+		if LogoutCheck() = 1 ;if function returns positive, look for bank to restart macro
+			AfterLogin()
+	DisconnectCheck()
+		if DisconnectCheck() = 1
+			AfterLogin()
+	Return
+	
+AfterLogin() ;function called if LogoutCheck or DisconnectCheck return positive
+	{
+	GoToBank()
+	}
+	
 ;hotkeys
 z::
 	{
