@@ -773,7 +773,7 @@ CheckStatsSmithing:
 	
 LogoutDisconnectCheck:
 	LogoutCheck()
-		if LogoutCheck() = 1
+		if LogoutCheck() = 1 ;if function returns positive, look for bank to restart macro
 			AfterLogin()
 	DisconnectCheck()
 		if DisconnectCheck() = 1
