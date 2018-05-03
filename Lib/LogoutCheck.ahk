@@ -74,7 +74,7 @@
 									if ErrorLevel ;if logged back in, re-orient client and begin macro
 										{
 										OrientClient()
-										Return
+										Return 1
 										}
 									else
 										Goto, PostLogin ;if not logged back in, return to post-login section of function
