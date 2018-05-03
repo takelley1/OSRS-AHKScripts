@@ -1,6 +1,6 @@
 ﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn  ; Enable warnings to assist with detecting common errors.
-SendMode Event  ; Recommended for new scripts due to its superior speed and reliability.
+SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 
 ;begin by standing in front of Edgeville bank booth (second closest one to furnace) with cannon ball mold already in first inventory slot
 ;you must have enough run energy to make it to the furnace and back
@@ -32,7 +32,7 @@ OpenBank()
 	Global
 	Random, varyby11, -11, 11
 	Random, varyby5, -5, 5
-	MouseMove, ox+varyby11+260, oy+varyby5+188, 1000 ;open bank from starting position
+	MouseMove, ox+varyby11+260, oy+varyby5+188, 0 ;open bank from starting position
 		Random, wait200to500milis, 200, 500
 		Sleep, wait200to500milis+500
 			Click, down
@@ -64,7 +64,7 @@ OpenBank()
 			} ;if loop fails, try clicking on bank again -- try 3 times before aborting macro
 			Random, varyby11, -11, 11
 			Random, varyby5, -5, 5
-			MouseMove, ox+varyby11+260, oy+varyby5+188, 1000 ;open bank from starting position (again)
+			MouseMove, ox+varyby11+260, oy+varyby5+188, 0 ;open bank from starting position (again)
 				Random, wait200to500milis, 200, 500
 				Sleep, wait200to500milis+500
 					Click, down
@@ -99,7 +99,7 @@ Deposit()
 		Sleep, wait300to1500milis
 			Random, varyby10, -10, 10
 			Random, varyby9, -9, 9
-			MouseMove, ox+varyby10+620, oy+varyby9+228, 100 ;second item in inventory
+			MouseMove, ox+varyby10+620, oy+varyby9+228, 0 ;second item in inventory
 				Random, wait300to1500milis, 300, 1500
 				Sleep, wait300to1500milis
 					Click, down, right
