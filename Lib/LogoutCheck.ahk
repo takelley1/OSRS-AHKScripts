@@ -4,6 +4,9 @@
 	PixelSearch, LogoutX, LogoutY, ox+73, oy+485, ox+73, oy+485, 0xffffff, 0, Fast
 		if ErrorLevel = 0 ;if client logged out, log back in and go back to starting position
 			{ 
+			Gui, Destroy
+			Gui, Add, Text, ,Client logged out, attempting to log back in...
+			Gui, Show, Y15, Msgbox
 			Random, wait5to10sec, 5000, 10000
 			Sleep, wait5to10sec
 				Random, varyby15, -15, 15
@@ -67,7 +70,7 @@
 															Sleep, wait5to150milis
 														Click, up
 												}
-												
+							Gui, Destroy				
 							Random, wait2to5sec, 2000, 5000
 							Sleep, wait2to5sec+2000
 								PixelSearch, LogoutX, LogoutY, ox+73, oy+485, ox+73, oy+485, 0xffffff ;check if client has successfully logged back in by checking for absence of white text in lower-left corner of client indicating login screen World selection

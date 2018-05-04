@@ -15,10 +15,6 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 ;smelting 1,000 bars would take 1h 51m (6,667s)
 ;smelting 10,000 bars would take 18h31m (66,667s)
 
-﻿#NoEnv ;Recommended for performance and compatibility with future AutoHotkey releases.
-#Warn ;Enable warnings to assist with detecting common errors.
-SendMode Input ;Recommended for new scripts due to its superior speed and reliability.
-
 /*
 begin by standing in front of Edgeville bank booth (second closest one to furnace) with cannon ball mold already in first inventory slot
 you must have enough run energy to make it to the furnace and back
@@ -346,8 +342,8 @@ FurnaceGo()
 									Sleep, wait5to100milis
 								Click, up
 						}
-	Random, wait4to9sec, 4000, 9000
-	Sleep, wait4to9sec
+	Random, wait7to9sec, 7000, 9000
+	Sleep, wait7to9sec
 		Loop, 150 ;wait until transportation arrow appears in right edge of minimap
 			{
 			FurnaceAtCheck:
@@ -356,12 +352,12 @@ FurnaceGo()
 					Smelt()
 				else ;if not at furnace, check if stuck one tile south
 					{
-					PixelSearch, StuckSX, StuckSY, ox+676, oy+125, ox+687, oy+125, 0xebf0f2, 15, Fast
+					PixelSearch, StuckSX, StuckSY, ox+676, oy+125, ox+687, oy+125, 0xebf0f2, 25, Fast
 						if ErrorLevel = 0
 							{
-							Random, varyby12, -12, 12
-							Random, varyby6, -6, 6
-							MouseMove, ox+varyby6+296, oy+varyby12+145, 0 ;location of furnace from stuck s
+							Random, varyby10, -10, 10
+							Random, varyby5, -5, 5
+							MouseMove, ox+varyby10+296, oy+varyby5+145, 0 ;location of furnace from stuck s
 								Random, wait200to900milis, 200, 900 
 								Sleep, wait200to900milis
 									Click, down
@@ -374,12 +370,12 @@ FurnaceGo()
 							}
 						else ;if not stuck one tile south, check if stuck one tile west
 							{
-							PixelSearch, StuckWX, StuckWY, ox+679, oy+130, ox+679, oy+130, 0xebf0f2, 15, Fast
+							PixelSearch, StuckWX, StuckWY, ox+679, oy+130, ox+679, oy+130, 0xf5f0f3, 25, Fast
 								if ErrorLevel = 0
 									{
-									Random, varyby12, -12, 12
-									Random, varyby6, -6, 6
-									MouseMove, ox+varyby12+318, oy+varyby6+165, 0 ;location of furnace from stuck w
+									Random, varyby10, -10, 10
+									Random, varyby5, -5, 5
+									MouseMove, ox+varyby10+318, oy+varyby5+165, 0 ;location of furnace from stuck w
 										Random, wait200to900milis, 200, 900 
 										Sleep, wait200to900milis
 											Click, down
@@ -392,12 +388,12 @@ FurnaceGo()
 									}
 								else ;if not stuck one tile west or south, check if stuck one tile north-west (diagonally)
 									{
-									PixelSearch, StuckNWX, StuckNWY, ox+640, oy+13, ox+643, oy+13, 0xebf0f2, 15, Fast
+									PixelSearch, StuckNWX, StuckNWY, ox+640, oy+13, ox+643, oy+13, 0xebf0f2, 25, Fast
 										if ErrorLevel = 0
 											{
-											Random, varyby12, -12, 12
-											Random, varyby6, -6, 6
-											MouseMove, ox+varyby12+320, oy+varyby6+192, 0 ;location of furnace from stuck e
+											Random, varyby10, -10, 10
+											Random, varyby5, -5, 5
+											MouseMove, ox+varyby10+320, oy+varyby5+192, 0 ;location of furnace from stuck e
 												Random, wait200to900milis, 200, 900 
 												Sleep, wait200to900milis
 													Click, down
@@ -408,19 +404,16 @@ FurnaceGo()
 														Sleep, wait2to4sec
 															Goto, FurnaceAtCheck
 											}
-												else ;if not at furnace and not stuck at any known location yet, wait before loop expires 
-													{
-													Random, wait100to200milis, 100, 200
-													Sleep, wait100to200milis
-													}
+										else ;if not at furnace and not stuck at any known location yet, wait before loop expires 
+											{
+											Random, wait5to10milis, 5, 10
+											Sleep, wait5to10milis
+											}
 									}
 							}
 					}
-			}	
-					Random, wait5to10milis, 5, 10
-					Sleep, wait5to10milis ;wait 5-10sec total
-					}
-			} ;if loop expires and still not at furnace or any other known "stuck" locaiton, logout
+			}
+			;if loop expires and still not at furnace or any other known "stuck" locaiton, logout
 			Gui, Destroy
 			Gui, Add, Text, ,AbortLogout called because cant reach furnace
 			Gui, Show, Y15, Msgbox
@@ -431,8 +424,8 @@ FurnaceGo()
 Smelt()
 	{
 	Global
-	Random, wait300to1500milis, 300, 1500
-	Sleep, wait300to1500milis
+	Random, wait100to500milis, 100, 500
+	Sleep, wait100to500milis
 		Random, varyby10, -12, 12
 		Random, varyby4, -4, 4
 		MouseMove, ox+varyby4+300, oy+varyby10+162, 0 ;click on furnace to open smelting chat menu
@@ -454,29 +447,18 @@ Smelt()
 					Random, wait5to10milis, 5, 10
 					Sleep, wait5to10milis ;wait 5-10sec total
 					}
-			} ;if loop fails, try selecting steel bar and clicking on furnace again if cannonball icon does not appear in chat menu
+			} ;if loop fails, try clicking on furnace again if cannonball icon does not appear in chat menu
 			Random, wait300to1500milis, 300, 1500
 			Sleep, wait300to1500milis
-				Random, varyby5, -5, 5
+				Random, varyby10, -12, 12
 				Random, varyby4, -4, 4
-				MouseMove, ox+varyby5+621, oy+varyby4+230, 0 ;select first steel bar
+				MouseMove, ox+varyby4+300, oy+varyby10+162, 0 ;click on furnace to open smelting chat menu
 					Random, wait300to1500milis, 300, 1500
 					Sleep, wait300to1500milis
 						Click, down
 							Random, wait5to100milis, 5, 100
 							Sleep, wait5to100milis
 						Click, up
-					Random, wait300to1500milis, 300, 1500
-					Sleep, wait300to1500milis
-						Random, varyby10, -12, 12
-						Random, varyby4, -4, 4
-						MouseMove, ox+varyby4+300, oy+varyby10+162, 0 ;click on furnace to open smelting chat menu
-							Random, wait300to1500milis, 300, 1500
-							Sleep, wait300to1500milis
-								Click, down
-									Random, wait5to100milis, 5, 100
-									Sleep, wait5to100milis
-								Click, up
 		}
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because cant see cannonball icon in chat menu
@@ -485,7 +467,6 @@ Smelt()
 			AbortLogout()
 	BeginSmelt:
 
-	ControlFocus, ,13552 ;focus control on game client
 		Random, wait500to2000milis, 500, 2000
 		Sleep, wait500to2000milis
 	Send {Space down} ;hit space bar to begin smelting
@@ -504,7 +485,10 @@ Smelt()
 					SetTimer, CheckStatsSmithing, %TimerDuration% ;check stats at some random point while smelting
 					}
 			Gui, Destroy
-		Loop, 130 ;check if client has been disconnected once per second for 150 seconds
+			Random, varyby765, 0, 765
+			Random, varyby503, 0, 503
+			MouseMove, ox+varyby765, oy+varyby503, 0 ;move mouse to a random spot on the screen
+		Loop, 135 ;check if client has been disconnected once per second for 150 seconds
 			{
 			Sleep, 1000
 			}
@@ -519,7 +503,7 @@ Smelt()
 					Gui, Destroy
 					Random, wait500to2000milis, 500, 2000
 					Sleep, wait500to2000milis
-						Random, RandomSleepRoll, 1, 3
+						Random, RandomSleepRoll, 1, 2
 						if RandomSleepRoll = 1 ;chance per inventory to briefly "stall"
 							{
 							RandomSleep()
