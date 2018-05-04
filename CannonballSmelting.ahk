@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 
@@ -15,7 +14,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 ;smelting 100 bars would take 0h 11m 6s (667s)
 ;smelting 1,000 bars would take 1h 51m (6,667s)
 ;smelting 10,000 bars would take 18h31m (66,667s)
-=======
+
 ﻿#NoEnv ;Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn ;Enable warnings to assist with detecting common errors.
 SendMode Input ;Recommended for new scripts due to its superior speed and reliability.
@@ -39,7 +38,7 @@ WinMove, 0, 0
 ControlFocus, , 13552 ;refocus control on game client
 SetTimer, Update, 1000 ;update the LineLines log every X seconds
 */
->>>>>>> 052e1c33fc459df287449e8a4f8d4750b4c48f55
+
 
 CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
@@ -294,7 +293,7 @@ FurnaceGo()
 	{
 	Global
 	Gui, Destroy
-	Random, BankCloseRoll, 1, 4 ;1 in 2 chance to close bank instead if immediately clicking on minimap
+	Random, BankCloseRoll, 1, 4 ;1 in X chance to close bank instead if immediately clicking on minimap
 		if BankCloseRoll = 1
 			{
 			Random, wait300to1500milis, 300, 1500
@@ -329,8 +328,8 @@ FurnaceGo()
 			AbortLogout()
 	FurnaceGo:
 	
-	Random, varyby2, 0, 2
-	MouseMove, ox+varyby2+692, oy+63, 0 ;furnace on minimap
+	Random, varyby7, 0, 7
+	MouseMove, ox+varyby7+689, oy+63, 0 ;furnace on minimap
 		Random, wait200to500milis, 200, 500
 		Sleep, wait200to500milis+500
 			Click, down
@@ -355,14 +354,14 @@ FurnaceGo()
 			PixelSearch, FurnaceAtX, FurnaceAtY, ox+711, oy+94, ox+711, oy+94, 0x1b67db, 1, Fast
 				if ErrorLevel = 0
 					Smelt()
-				else ;if not at furnace, check if stuck one tile north
+				else ;if not at furnace, check if stuck one tile south
 					{
-					PixelSearch, StuckNX, StuckNY, ox+640, oy+159, ox+640, oy+159, 0x0000ef, 15, Fast
+					PixelSearch, StuckSX, StuckSY, ox+676, oy+125, ox+687, oy+125, 0xebf0f2, 15, Fast
 						if ErrorLevel = 0
 							{
-							Random, varyby9, -9, 9
-							Random, varyby9, -8, 8
-							MouseMove, ox+varyby9+285, oy+varyby8+204, 0 ;location of furnace from stuck n
+							Random, varyby12, -12, 12
+							Random, varyby6, -6, 6
+							MouseMove, ox+varyby6+296, oy+varyby12+145, 0 ;location of furnace from stuck s
 								Random, wait200to900milis, 200, 900 
 								Sleep, wait200to900milis
 									Click, down
@@ -373,14 +372,14 @@ FurnaceGo()
 										Sleep, wait2to4sec
 											Goto, FurnaceAtCheck ;recheck location after correcting to make sure character at furnace before continuing
 							}
-						else ;if not stuck one tile north, check if stuck one tile south
+						else ;if not stuck one tile south, check if stuck one tile west
 							{
-							PixelSearch, StuckSX, StuckSY, ox+635, oy+138, ox+635, oy+138, 0x0000f5, 15, Fast
+							PixelSearch, StuckWX, StuckWY, ox+679, oy+130, ox+679, oy+130, 0xebf0f2, 15, Fast
 								if ErrorLevel = 0
 									{
-									Random, varyby8, -8, 8
-									Random, varyby7, -7, 7
-									MouseMove, ox+varyby8+284, oy+varyby7+146, 0 ;location of furnace from stuck s
+									Random, varyby12, -12, 12
+									Random, varyby6, -6, 6
+									MouseMove, ox+varyby12+318, oy+varyby6+165, 0 ;location of furnace from stuck w
 										Random, wait200to900milis, 200, 900 
 										Sleep, wait200to900milis
 											Click, down
@@ -391,14 +390,14 @@ FurnaceGo()
 												Sleep, wait2to4sec
 													Goto, FurnaceAtCheck
 									}
-								else ;if not stuck one tile north or south, check if stuck one tile west
+								else ;if not stuck one tile west or south, check if stuck one tile north-west (diagonally)
 									{
-									PixelSearch, StuckEX, StuckEY, ox+628, oy+38, ox+628, oy+38, 0x0000e9, 15, Fast
+									PixelSearch, StuckNWX, StuckNWY, ox+640, oy+13, ox+643, oy+13, 0xebf0f2, 15, Fast
 										if ErrorLevel = 0
 											{
-											Random, varyby9, -9, 9
-											Random, varyby8, -8, 8
-											MouseMove, ox+varyby9+208, oy+varyby8+171, 0 ;location of furnace from stuck e
+											Random, varyby12, -12, 12
+											Random, varyby6, -6, 6
+											MouseMove, ox+varyby12+320, oy+varyby6+192, 0 ;location of furnace from stuck e
 												Random, wait200to900milis, 200, 900 
 												Sleep, wait200to900milis
 													Click, down
@@ -409,17 +408,15 @@ FurnaceGo()
 														Sleep, wait2to4sec
 															Goto, FurnaceAtCheck
 											}
-													}
 												else ;if not at furnace and not stuck at any known location yet, wait before loop expires 
 													{
 													Random, wait100to200milis, 100, 200
 													Sleep, wait100to200milis
 													}
-
-											}
 									}
 							}
-									}
+					}
+			}	
 					Random, wait5to10milis, 5, 10
 					Sleep, wait5to10milis ;wait 5-10sec total
 					}
@@ -436,26 +433,15 @@ Smelt()
 	Global
 	Random, wait300to1500milis, 300, 1500
 	Sleep, wait300to1500milis
-		Random, varyby10, -10, 10
-		Random, varyby9, -9, 9
-		MouseMove, ox+varyby10+621, oy+varyby9+230, 0 ;select first steel bar
+		Random, varyby10, -12, 12
+		Random, varyby4, -4, 4
+		MouseMove, ox+varyby4+300, oy+varyby10+162, 0 ;click on furnace to open smelting chat menu
 			Random, wait300to1500milis, 300, 1500
 			Sleep, wait300to1500milis
 				Click, down
 					Random, wait5to100milis, 5, 100
 					Sleep, wait5to100milis
 				Click, up
-			Random, wait300to1500milis, 300, 1500
-			Sleep, wait300to1500milis
-				Random, varyby10, -12, 12
-				Random, varyby4, -4, 4
-				MouseMove, ox+varyby4+300, oy+varyby10+162, 0 ;click on furnace to open smelting chat menu
-					Random, wait300to1500milis, 300, 1500
-					Sleep, wait300to1500milis
-						Click, down
-							Random, wait5to100milis, 5, 100
-							Sleep, wait5to100milis
-						Click, up
 	Loop, 3
 		{
 		Loop, 150 ;wait until cannonball icon appears in chat menu
