@@ -488,9 +488,50 @@ Smelt()
 			Random, varyby765, 0, 765
 			Random, varyby503, 0, 503
 			MouseMove, ox+varyby765, oy+varyby503, 0 ;move mouse to a random spot on the screen
-		Loop, 135 ;check if client has been disconnected once per second for 150 seconds
+		Loop, 135 ;check if character has leveled up once per second for 150 seconds
 			{
-			Sleep, 1000
+			PixelSearch, LevelUpX, LevelUpY, ox+459, oy+387, ox+462, oy+390, 0x800000, 2, Fast ;look for smithing level up
+				if ErrorLevel = 0
+					{
+						Random, wait100to500milis, 100, 500
+						Sleep, wait100to500milis
+							Random, varyby10, -12, 12
+							Random, varyby4, -4, 4
+							MouseMove, ox+varyby4+300, oy+varyby10+162, 0 ;click on furnace to open smelting chat menu
+								Random, wait300to1500milis, 300, 1500
+								Sleep, wait300to1500milis
+									Click, down
+										Random, wait5to100milis, 5, 100
+										Sleep, wait5to100milis
+									Click, up
+						Loop, 3
+							{
+							Loop, 150 ;wait until cannonball icon appears in chat menu
+								{
+								PixelSearch, BeginSmeltX, BeginSmeltY, ox+304, oy+394, ox+306, oy+394, 0xabb3b5, 5, Fast
+									if ErrorLevel = 0
+										Goto, BeginSmelt
+									else
+										{
+										Random, wait5to10milis, 5, 10
+										Sleep, wait5to10milis ;wait 5-10sec total
+										}
+								} ;if loop fails, try clicking on furnace again if cannonball icon does not appear in chat menu
+								Random, wait300to1500milis, 300, 1500
+								Sleep, wait300to1500milis
+									Random, varyby10, -12, 12
+									Random, varyby4, -4, 4
+									MouseMove, ox+varyby4+300, oy+varyby10+162, 0 ;click on furnace to open smelting chat menu
+										Random, wait300to1500milis, 300, 1500
+										Sleep, wait300to1500milis
+											Click, down
+												Random, wait5to100milis, 5, 100
+												Sleep, wait5to100milis
+											Click, up
+							}
+					}
+				else
+					Sleep, 950
 			}
 		Gui, Destroy
 		Gui, Add, Text, ,Waiting for smelting to finish...
