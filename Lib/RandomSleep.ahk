@@ -32,7 +32,7 @@ Global
 			}
 		if RandomSleepRoll = 3
 			{
-			Random, RandomSleepThree, 30000, 200000
+			Random, RandomSleepThree, 30000, 150000
 				SleepSeconds := 0
 				SleepSeconds := RandomSleepThree ;convert sleep duration value into seconds to be displayed on gui
 				SleepSeconds /= 1000
