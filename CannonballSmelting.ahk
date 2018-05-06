@@ -328,7 +328,7 @@ FurnaceGo()
 	FurnaceGo:
 	
 	Random, varyby7, 0, 7
-	Random, varyby1, -1, 1
+	Random, varyby1, 0, 1
 	MouseMove, ox+varyby7+689, oy+varyby1+63, 0 ;furnace on minimap
 		Random, wait200to500milis, 200, 500
 		Sleep, wait200to500milis+500
