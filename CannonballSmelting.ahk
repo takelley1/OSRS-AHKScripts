@@ -495,7 +495,7 @@ Smelt()
 		Gui, Destroy
 		Gui, Add, Text, ,Waiting for smelting to finish...
 		Gui, Show, Y15, Msgbox
-		Loop, 130 ;use final seconds waiting for last steel bar to disappear from inventory
+		Loop, 160 ;use final seconds waiting for last steel bar to disappear from inventory
 			{
 			PixelSearch, DoneSmeltingX, DoneSmeltingY, ox+705, oy+439, ox+717, oy+454, 0x868690, 50, Fast
 				if ErrorLevel
