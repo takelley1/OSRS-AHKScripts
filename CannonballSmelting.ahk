@@ -327,9 +327,9 @@ FurnaceGo()
 			AbortLogout()
 	FurnaceGo:
 	
-	Random, varyby7, 0, 7
+	Random, varyby6, 0, 6
 	Random, varyby1, 0, 1
-	MouseMove, ox+varyby7+689, oy+varyby1+63, 0 ;furnace on minimap
+	MouseMove, ox+varyby6+690, oy+varyby1+63, 0 ;furnace on minimap
 		Random, wait200to500milis, 200, 500
 		Sleep, wait200to500milis+500
 			Click, down
@@ -495,11 +495,7 @@ Smelt()
 		Gui, Destroy
 		Gui, Add, Text, ,Waiting for smelting to finish...
 		Gui, Show, Y15, Msgbox
-<<<<<<< HEAD
 		Loop, 160 ;wait for smelting to finish
-=======
-		Loop, 160 ;use final seconds waiting for last steel bar to disappear from inventory
->>>>>>> 3b6f912b96682e057562b90119e8472becfb0c59
 			{
 			PixelSearch, DoneSmeltingX, DoneSmeltingY, ox+705, oy+439, ox+717, oy+454, 0x868690, 50, Fast
 				if ErrorLevel
