@@ -106,6 +106,7 @@ OpenBank()
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because cant open bank
 		Gui, Show, Y15, Msgbox
+		SoundPlay, AbortLogoutAlarm.mp3
 			Sleep, 5000
 			AbortLogout()
 	}
@@ -177,6 +178,7 @@ Deposit()
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because cant deposit inventory
 		Gui, Show, Y15, Msgbox
+		SoundPlay, AbortLogoutAlarm.mp3
 			Random, wait300to1500milis, 300, 1500
 			Sleep, wait300to1500milis
 				Random, varyby9, -9, 9
@@ -205,6 +207,7 @@ Withdrawal()
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because out of steel bars
 		Gui, Show, Y15, Msgbox
+		SoundPlay, AbortLogoutAlarm.mp3
 			Sleep, 5000
 			AbortLogout()
 	Barswithdrawal:
@@ -274,6 +277,7 @@ Withdrawal()
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because cant deposit inventory
 		Gui, Show, Y15, Msgbox
+		SoundPlay, AbortLogoutAlarm.mp3
 			Random, wait300to1500milis, 300, 1500
 			Sleep, wait300to1500milis
 				Random, varyby9, -9, 9
@@ -323,6 +327,7 @@ FurnaceGo()
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because cant find furnace on minimap
 		Gui, Show, Y15, Msgbox
+		SoundPlay, AbortLogoutAlarm.mp3
 			Sleep, 5000
 			AbortLogout()
 	FurnaceGo:
@@ -421,6 +426,7 @@ FurnaceGo()
 			Gui, Destroy
 			Gui, Add, Text, ,AbortLogout called because cant reach furnace
 			Gui, Show, Y15, Msgbox
+			SoundPlay, AbortLogoutAlarm.mp3
 			Sleep, 5000
 			AbortLogout()
 	}
@@ -467,6 +473,7 @@ Smelt()
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because cant see cannonball icon in chat menu
 		Gui, Show, Y15, Msgbox
+		SoundPlay, AbortLogoutAlarm.mp3
 			Sleep, 5000
 			AbortLogout()
 	BeginSmelt:
@@ -522,8 +529,8 @@ Smelt()
 						PixelSearch, LevelUpX, LevelUpY, ox+459, oy+387, ox+462, oy+390, 0x800000, 2, Fast ;look for smithing level up while smelting
 							if ErrorLevel = 0
 								{
-									Random, wait100to500milis, 100, 500
-									Sleep, wait100to500milis
+									Random, wait1to5sec, 1000, 5000
+									Sleep, wait1to5sec
 										Random, varyby10, -12, 12
 										Random, varyby4, -4, 4
 										MouseMove, ox+varyby4+300, oy+varyby10+162, 0 ;click on furnace to open smelting chat menu
@@ -533,6 +540,8 @@ Smelt()
 													Random, wait5to100milis, 5, 100
 													Sleep, wait5to100milis
 												Click, up
+											Random, wait300to1500milis, 300, 1500
+											Sleep, wait300to1500milis
 									Loop, 3
 										{
 										Loop, 150 ;wait until cannonball icon appears in chat menu
@@ -561,6 +570,7 @@ Smelt()
 										Gui, Destroy
 										Gui, Add, Text, ,AbortLogout called because cant see cannonball icon in chat menu after lvl up
 										Gui, Show, Y15, Msgbox
+										SoundPlay, AbortLogoutAlarm.mp3
 											Sleep, 5000
 											AbortLogout()
 								}
@@ -600,6 +610,7 @@ GoToBank()
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because cant find bank after smelting
 		Gui, Show, Y15, Msgbox
+		SoundPlay, AbortLogoutAlarm.mp3
 			Sleep, 5000
 			AbortLogout()
 	BankReturn:
@@ -641,6 +652,7 @@ GoToBank()
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because cant reach bank
 		Gui, Show, Y15, Msgbox
+		SoundPlay, AbortLogoutAlarm.mp3
 			Sleep, 5000
 			AbortLogout()
 
