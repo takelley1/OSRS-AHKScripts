@@ -499,6 +499,7 @@ Smelt()
 			Random, varyby765, 0, 765
 			Random, varyby503, 0, 503
 			MouseMove, ox+varyby765, oy+varyby503, 0 ;move mouse to a random spot on the screen
+			Sleep, 30000 ;wait at least X seconds in order to smelt partial inventories
 		Gui, Destroy
 		Gui, Add, Text, ,Waiting for smelting to finish...
 		Gui, Show, Y15, Msgbox
