@@ -2,19 +2,6 @@
 #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 
-;begin by standing in front of Edgeville bank booth (second closest one to furnace) with cannon ball mold already in first inventory slot
-;you must have enough run energy to make it to the furnace and back
-;run energy must be nearly full and turned on; steel bars must be first item of second row in bank
-;bank pin must have already been entered
-;client must be fully zoomed out
-;client brightness must be set on third tick from the left
-
-;it takes just under 162 seconds to smelt an inventory
-;an entire trip takes about 2m55.8s (175.84s), round up to 180s to err on side of conservatism
-;smelting 100 bars would take 0h 11m 6s (667s)
-;smelting 1,000 bars would take 1h 51m (6,667s)
-;smelting 10,000 bars would take 18h31m (66,667s)
-
 /*
 begin by standing in front of Edgeville bank booth (second closest one to furnace) with cannon ball mold already in first inventory slot
 you must have enough run energy to make it to the furnace and back
@@ -506,10 +493,11 @@ Smelt()
 			Random, varyby765, 0, 765
 			Random, varyby503, 0, 503
 			MouseMove, ox+varyby765, oy+varyby503, 0 ;move mouse to a random spot on the screen
-			Sleep, 30000 ;wait at least X seconds in order to smelt partial inventories
+			Sleep, 20000 ;wait at least X seconds in order to smelt partial inventories
 		Gui, Destroy
 		Gui, Add, Text, ,Waiting for smelting to finish...
 		Gui, Show, Y15, Msgbox
+		AfterLevelUp:
 		Loop, 160 ;wait for smelting to finish
 			{
 			PixelSearch, DoneSmeltingX, DoneSmeltingY, ox+705, oy+439, ox+717, oy+454, 0x868690, 50, Fast
@@ -550,13 +538,13 @@ Smelt()
 												Click, up
 											Random, wait300to1500milis, 300, 1500
 											Sleep, wait300to1500milis
-									Loop, 3
+									Loop, 2
 										{
 										Loop, 150 ;wait until cannonball icon appears in chat menu
 											{
 											PixelSearch, BeginSmeltX, BeginSmeltY, ox+304, oy+394, ox+306, oy+394, 0xabb3b5, 5, Fast
 												if ErrorLevel = 0
-													Goto, BeginSmelt
+													Goto, AfterLevelUp:
 												else
 													{
 													Random, wait5to10milis, 5, 10
