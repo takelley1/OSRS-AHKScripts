@@ -109,6 +109,7 @@ OpenBank()
 		SoundPlay, AbortLogoutAlarm.mp3
 			Sleep, 5000
 			AbortLogout()
+			ExitApp
 	}
 		
 Deposit()
@@ -191,6 +192,7 @@ Deposit()
 							Sleep, wait5to100milis
 						Click, up
 		AbortLogout()
+		ExitApp
 	}
 		
 Withdrawal()
@@ -210,6 +212,7 @@ Withdrawal()
 		SoundPlay, AbortLogoutAlarm.mp3
 			Sleep, 5000
 			AbortLogout()
+			ExitApp
 	Barswithdrawal:
 
 	;withdrawal steel bars
@@ -290,6 +293,7 @@ Withdrawal()
 							Sleep, wait5to100milis
 						Click, up
 		AbortLogout()
+		ExitApp
 	}
 		
 FurnaceGo()
@@ -330,6 +334,7 @@ FurnaceGo()
 		SoundPlay, AbortLogoutAlarm.mp3
 			Sleep, 5000
 			AbortLogout()
+			ExitApp
 	FurnaceGo:
 	
 	Random, varyby6, 0, 6
@@ -429,6 +434,7 @@ FurnaceGo()
 			SoundPlay, AbortLogoutAlarm.mp3
 			Sleep, 5000
 			AbortLogout()
+			ExitApp
 	}
 		
 Smelt()
@@ -476,6 +482,7 @@ Smelt()
 		SoundPlay, AbortLogoutAlarm.mp3
 			Sleep, 5000
 			AbortLogout()
+			ExitApp
 	BeginSmelt:
 
 		Random, wait500to2000milis, 500, 2000
@@ -574,6 +581,7 @@ Smelt()
 										SoundPlay, AbortLogoutAlarm.mp3
 											Sleep, 5000
 											AbortLogout()
+											ExitApp
 								}
 					
 					}
@@ -614,6 +622,7 @@ GoToBank()
 		SoundPlay, AbortLogoutAlarm.mp3
 			Sleep, 5000
 			AbortLogout()
+			ExitApp
 	BankReturn:
 
 	Random, varyby2, 0, 2
@@ -656,6 +665,7 @@ GoToBank()
 		SoundPlay, AbortLogoutAlarm.mp3
 			Sleep, 5000
 			AbortLogout()
+			ExitApp
 
 	BankAt:
 
