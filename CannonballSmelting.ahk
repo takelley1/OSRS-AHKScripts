@@ -33,6 +33,48 @@ SetTimer, LogoutDisconnectCheck, 5000 ;check if client has been logged out or di
 ControlFocus , , VirtualBox.exe
 
 OrientClient() ;orient to client coordinates
+
+
+
+
+
+
+											PixelSearch, StuckNEX, StuckNEY, ox+704, oy+106, ox+704, oy+106, 0x1b67db, 15, Fast
+											if ErrorLevel = 0
+												{
+												MsgBox, stuck Ne
+												Random, varyby10, -10, 10
+												Random, varyby5, -5, 5
+												MouseMove, ox+varyby5+268, oy+varyby10+221, 0 ;location of furnace from stuck ne
+													Random, wait200to900milis, 200, 900 
+													Sleep, wait200to900milis
+														Click, down
+															Random, wait5to150milis, 5, 150
+															Sleep, wait5to150milis
+														Click, up
+															Random, wait2to4sec, 2000, 4000
+															Sleep, wait2to4sec
+																
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 OpenBank() ;start script by calling first function
 
 OpenBank()
@@ -358,7 +400,7 @@ FurnaceGo()
 							{
 							Random, varyby10, -10, 10
 							Random, varyby5, -5, 5
-							MouseMove, ox+varyby10+296, oy+varyby5+145, 0 ;location of furnace from stuck s
+							MouseMove, ox+varyby5+296, oy+varyby10+145, 0 ;location of furnace from stuck s
 								Random, wait200to900milis, 200, 900 
 								Sleep, wait200to900milis
 									Click, down
@@ -376,7 +418,7 @@ FurnaceGo()
 									{
 									Random, varyby10, -10, 10
 									Random, varyby5, -5, 5
-									MouseMove, ox+varyby10+318, oy+varyby5+165, 0 ;location of furnace from stuck w
+									MouseMove, ox+varyby5+318, oy+varyby10+165, 0 ;location of furnace from stuck w
 										Random, wait200to900milis, 200, 900 
 										Sleep, wait200to900milis
 											Click, down
@@ -394,7 +436,7 @@ FurnaceGo()
 											{
 											Random, varyby10, -10, 10
 											Random, varyby5, -5, 5
-											MouseMove, ox+varyby10+320, oy+varyby5+192, 0 ;location of furnace from stuck e
+											MouseMove, ox+varyby5+320, oy+varyby10+192, 0 ;location of furnace from stuck nw
 												Random, wait200to900milis, 200, 900 
 												Sleep, wait200to900milis
 													Click, down
@@ -405,10 +447,29 @@ FurnaceGo()
 														Sleep, wait2to4sec
 															Goto, FurnaceAtCheck
 											}
-										else ;if not at furnace and not stuck at any known location yet, wait before loop expires 
+										else ;check if stuck in ne corner
 											{
-											Random, wait5to10milis, 5, 10
-											Sleep, wait5to10milis
+											PixelSearch, StuckNEX, StuckNEY, ox+704, oy+106, ox+704, oy+106, 0x1b67db, 15, Fast
+											if ErrorLevel = 0
+												{
+												Random, varyby10, -10, 10
+												Random, varyby5, -5, 5
+												MouseMove, ox+varyby5+268, oy+varyby10+221, 0 ;location of furnace from stuck ne
+													Random, wait200to900milis, 200, 900 
+													Sleep, wait200to900milis
+														Click, down
+															Random, wait5to150milis, 5, 150
+															Sleep, wait5to150milis
+														Click, up
+															Random, wait2to4sec, 2000, 4000
+															Sleep, wait2to4sec
+																Goto, FurnaceAtCheck
+												}
+											else ;if not at furnace and not stuck at any known location yet, wait before loop expires 
+												{
+												Random, wait5to10milis, 5, 10
+												Sleep, wait5to10milis
+												}
 											}
 									}
 							}
@@ -482,7 +543,10 @@ Smelt()
 		Sleep, wait500to8000milis
 			Random, SelectChatRoll, 1, 100
 				if SelectChatRoll = 1 ;chance per inventory to enter predetermined text into chat (chance should be lower than BriefLogout chances to prevent duplicate messages appearing to the same people)
+					{
 					SelectChat()
+					Goto, BeginSmelt
+					}
 			Random, CheckStatsRoll, 1, 10
 				if CheckStatsRoll = 1 ;chance per inventory to check skill stat and xp
 					{
@@ -544,7 +608,7 @@ Smelt()
 											{
 											PixelSearch, BeginSmeltX, BeginSmeltY, ox+304, oy+394, ox+306, oy+394, 0xabb3b5, 5, Fast
 												if ErrorLevel = 0
-													Goto, AfterLevelUp:
+													Goto, AfterLevelUp
 												else
 													{
 													Random, wait5to10milis, 5, 10
