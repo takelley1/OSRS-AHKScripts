@@ -33,48 +33,6 @@ SetTimer, LogoutDisconnectCheck, 5000 ;check if client has been logged out or di
 ControlFocus , , VirtualBox.exe
 
 OrientClient() ;orient to client coordinates
-
-
-
-
-
-
-											PixelSearch, StuckNEX, StuckNEY, ox+704, oy+106, ox+704, oy+106, 0x1b67db, 15, Fast
-											if ErrorLevel = 0
-												{
-												MsgBox, stuck Ne
-												Random, varyby10, -10, 10
-												Random, varyby5, -5, 5
-												MouseMove, ox+varyby5+268, oy+varyby10+221, 0 ;location of furnace from stuck ne
-													Random, wait200to900milis, 200, 900 
-													Sleep, wait200to900milis
-														Click, down
-															Random, wait5to150milis, 5, 150
-															Sleep, wait5to150milis
-														Click, up
-															Random, wait2to4sec, 2000, 4000
-															Sleep, wait2to4sec
-																
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 OpenBank() ;start script by calling first function
 
 OpenBank()
