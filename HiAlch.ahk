@@ -1,4 +1,4 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 
@@ -20,14 +20,14 @@ Spell()
 Spell() ;click on hi alch icon in spellbook
 	{
 	Global
-	Random, varyby11, -11, 11
+	Random, varyby4, -4, 4
 	Random, varyby5, -5, 5
-	MouseMove, ox+varyby11+260, oy+varyby5+188, 0 ;click on hi alch spell icon
+	MouseMove, ox+varyby4+260, oy+varyby5+188, 0 ;click on hi alch spell icon
 		Random, wait200to500milis, 200, 500
 		Sleep, wait200to500milis+500
 			Click, down
-				Random, wait5to100milis, 5, 100
-				Sleep, wait5to100milis
+				Random, wait5to200milis, 5, 200
+				Sleep, wait5to200milis
 			Click, up
 					
 		Loop, 150 ;wait for inventory to appear after clicking spell icon
@@ -40,17 +40,27 @@ Spell() ;click on hi alch icon in spellbook
 					Random, wait5to10milis, 5, 10
 					Sleep, wait5to10milis ;wait 5-10sec in total for inventory to appear
 					}
-		}
-		Gui, Destroy
-		Gui, Add, Text, ,AbortLogout called because cant start alching
-		Gui, Show, Y15, Msgbox
-		SoundPlay, AbortLogoutAlarm.mp3
-			Sleep, 5000
-			AbortLogout()
-			ExitApp
+			}
+			Gui, Destroy
+			SetTimer, LogoutDisconnectCheck, Off
+			Gui, Add, Text, ,AbortLogout called because cant start alching
+			Gui, Show, Y15, Msgbox
+			SoundPlay, AbortLogoutAlarm.mp3
+				Sleep, 5000
+				AbortLogout()
+				ExitApp
 	}
 
 Alch() ;click on item to be alched
-{
-;check to make sure item is still present
-else ;if item not present, stop bot and optionally logout
+	{
+	Global
+	Random, varyby4, -4, 4
+	Random, varyby5, -5, 5
+	MouseMove, ox+varyby4+260, oy+varyby5+188, 0 ;click on item
+		Random, wait200to500milis, 200, 500
+		Sleep, wait200to500milis+500
+			Click, down
+				Random, wait5to200milis, 5, 200
+				Sleep, wait5to200milis
+			Click, up
+	}
