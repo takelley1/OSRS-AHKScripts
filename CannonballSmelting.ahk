@@ -61,7 +61,7 @@ OpenBank()
 		{
 		Loop, 150 ;wait for bank screen to appear
 			{
-			PixelSearch, BankWindowX, BankWindowY, ox+360, oy+315, ox+360, oy+315, 0x42b2f4, 1, Fast
+			PixelSearch, BankWindowX, BankWindowY, ox+360, oy+315, ox+360, oy+315, 0x42b2f4, 3, Fast
 				if ErrorLevel = 0
 					Deposit()
 				else
@@ -90,8 +90,8 @@ OpenBank()
 										Click, up
 								}
 		}
-SetTimer, LogoutDisconnectCheck, off ;stop checking for client logout
 		Gui, Destroy
+		SetTimer, LogoutDisconnectCheck, Off ;stop checking for client logout
 		Gui, Add, Text, ,AbortLogout called because cant open bank
 		Gui, Show, Y15, Msgbox
 		SoundPlay, AbortLogoutAlarm.mp3
@@ -165,6 +165,7 @@ Deposit()
 						Click, up
 		}
 		Gui, Destroy
+		SetTimer, LogoutDisconnectCheck, Off
 		Gui, Add, Text, ,AbortLogout called because cant deposit inventory
 		Gui, Show, Y15, Msgbox
 		SoundPlay, AbortLogoutAlarm.mp3
@@ -266,6 +267,7 @@ Withdrawal()
 						Click, up
 		}
 		Gui, Destroy
+		SetTimer, LogoutDisconnectCheck, Off
 		Gui, Add, Text, ,AbortLogout called because cant deposit inventory
 		Gui, Show, Y15, Msgbox
 		SoundPlay, AbortLogoutAlarm.mp3
@@ -317,6 +319,7 @@ FurnaceGo()
 				}
 		}
 		Gui, Destroy
+		SetTimer, LogoutDisconnectCheck, Off
 		Gui, Add, Text, ,AbortLogout called because cant find furnace on minimap
 		Gui, Show, Y15, Msgbox
 		SoundPlay, AbortLogoutAlarm.mp3
@@ -436,6 +439,7 @@ FurnaceGo()
 			}
 			;if loop expires and still not at furnace or any other known "stuck" locaiton, logout
 			Gui, Destroy
+			SetTimer, LogoutDisconnectCheck, Off
 			Gui, Add, Text, ,AbortLogout called because cant reach furnace
 			Gui, Show, Y15, Msgbox
 			SoundPlay, AbortLogoutAlarm.mp3
@@ -484,6 +488,7 @@ Smelt()
 						Click, up
 		}
 		Gui, Destroy
+		SetTimer, LogoutDisconnectCheck, Off
 		Gui, Add, Text, ,AbortLogout called because cant see cannonball icon in chat menu
 		Gui, Show, Y15, Msgbox
 		SoundPlay, AbortLogoutAlarm.mp3
@@ -509,7 +514,8 @@ Smelt()
 			Random, CheckStatsRoll, 1, 10
 				if CheckStatsRoll = 1 ;chance per inventory to check skill stat and xp while smelting
 					{
-					Random, TimerDuration, -1000, -120000
+					Random, 
+					Duration, -1000, -120000
 					SetTimer, CheckStatsSmithing, %TimerDuration% ;check stats at some random point while smelting
 					}
 			Gui, Destroy
@@ -587,6 +593,7 @@ Smelt()
 														Click, up
 										}
 										Gui, Destroy
+										SetTimer, LogoutDisconnectCheck, Off 
 										Gui, Add, Text, ,AbortLogout called because cant see cannonball icon in chat menu after lvl up
 										Gui, Show, Y15, Msgbox
 										SoundPlay, AbortLogoutAlarm.mp3
@@ -628,6 +635,7 @@ GoToBank()
 				}
 		}
 		Gui, Destroy
+		SetTimer, LogoutDisconnectCheck, Off
 		Gui, Add, Text, ,AbortLogout called because cant find bank after smelting
 		Gui, Show, Y15, Msgbox
 		SoundPlay, AbortLogoutAlarm.mp3
@@ -671,6 +679,7 @@ GoToBank()
 				}
 		}
 		Gui, Destroy
+		SetTimer, LogoutDisconnectCheck, Off
 		Gui, Add, Text, ,AbortLogout called because cant reach bank
 		Gui, Show, Y15, Msgbox
 		SoundPlay, AbortLogoutAlarm.mp3
@@ -683,25 +692,27 @@ GoToBank()
 	Random, wait160to1600milis, 160, 1600
 	Sleep, wait160to1600milis ;wait for character to stop moving
 /*
-		;Random, BriefLogoutRoll, 1, 100
-			;if BriefLogoutRoll = 1 ;chance per inventory to logout briefly to simulate a quick break
-			;	{
-			;	Gui, Destroy
-			;	Gui, Add, Text, ,BriefLogout randomly called
-			;	Gui, Show, Y15, Msgbox
-			;		Sleep, 5000
-				;	BriefLogout()
-			;	}
+		Random, BriefLogoutRoll, 1, 100
+			if BriefLogoutRoll = 1 ;chance per inventory to logout briefly to simulate a quick break
+				{
+				Gui, Destroy
+				SetTimer, LogoutDisconnectCheck, Off
+				Gui, Add, Text, ,BriefLogout randomly called
+				Gui, Show, Y15, Msgbox
+					Sleep, 5000
+					BriefLogout()
+				}
 
-		;Random, AbortLogoutRoll, 1, 100
-			;if AbortLogoutRoll = 1 ;chance per inventory to logout and stop macro completely
-			;	{
-			;	Gui, Destroy
-			;	Gui, Add, Text, ,AbortLogout randomly called
-				;Gui, Show, Y15, Msgbox
-				;	Sleep, 5000
-				;	AbortLogout()
-				;}
+		Random, AbortLogoutRoll, 1, 100
+			if AbortLogoutRoll = 1 ;chance per inventory to logout and stop macro completely
+				{
+				Gui, Destroy
+				SetTimer, LogoutDisconnectCheck, Off
+				Gui, Add, Text, ,AbortLogout randomly called
+				Gui, Show, Y15, Msgbox
+					Sleep, 5000
+					AbortLogout()
+				}
 */
 	OpenBank()
 	}
