@@ -90,6 +90,7 @@ OpenBank()
 										Click, up
 								}
 		}
+SetTimer, LogoutDisconnectCheck, off ;stop checking for client logout
 		Gui, Destroy
 		Gui, Add, Text, ,AbortLogout called because cant open bank
 		Gui, Show, Y15, Msgbox
@@ -294,7 +295,7 @@ FurnaceGo()
 			Sleep, wait300to1500milis
 				Random, varyby9, -9, 9
 				Random, varyby8, -8, 8
-				MouseMove, ox+varyby9+486, oy+varyby8+23, 0 ;X in top right corner of bank window
+				MouseMove, ox+varyby9+486, oy+varyby8+23, 0 ;close button in top right corner of bank window
 					Random, wait300to1500milis, 300, 1500
 					Sleep, wait300to1500milis
 						Click, down
@@ -343,8 +344,8 @@ FurnaceGo()
 									Sleep, wait5to100milis
 								Click, up
 						}
-	Random, wait7to9sec, 7000, 9000
-	Sleep, wait7to9sec
+	Random, wait7ishto9sec, 6800, 9000
+	Sleep, wait7ishto9sec
 		Loop, 150 ;wait until transportation arrow appears in right edge of minimap
 			{
 			FurnaceAtCheck:
@@ -454,8 +455,8 @@ Smelt()
 			Random, wait300to1500milis, 300, 1500
 			Sleep, wait300to1500milis
 				Click, down
-					Random, wait5to100milis, 5, 100
-					Sleep, wait5to100milis
+					Random, wait5to200milis, 5, 200
+					Sleep, wait5to200milis
 				Click, up
 	Loop, 3
 		{
@@ -478,8 +479,8 @@ Smelt()
 					Random, wait300to1500milis, 300, 1500
 					Sleep, wait300to1500milis
 						Click, down
-							Random, wait5to100milis, 5, 100
-							Sleep, wait5to100milis
+							Random, wait5to200milis, 5, 200
+							Sleep, wait5to200milis
 						Click, up
 		}
 		Gui, Destroy
@@ -506,7 +507,7 @@ Smelt()
 					Goto, BeginSmelt
 					}
 			Random, CheckStatsRoll, 1, 10
-				if CheckStatsRoll = 1 ;chance per inventory to check skill stat and xp
+				if CheckStatsRoll = 1 ;chance per inventory to check skill stat and xp while smelting
 					{
 					Random, TimerDuration, -1000, -120000
 					SetTimer, CheckStatsSmithing, %TimerDuration% ;check stats at some random point while smelting
@@ -515,7 +516,7 @@ Smelt()
 			Random, varyby765, 0, 765
 			Random, varyby503, 0, 503
 			MouseMove, ox+varyby765, oy+varyby503, 0 ;move mouse to a random spot on the screen
-			Sleep, 20000 ;wait at least X seconds in order to smelt partial inventories
+			Sleep, 20000 ;wait at least X seconds before checking for empty inventory spot in order to smelt partial inventories
 		Gui, Destroy
 		Gui, Add, Text, ,Waiting for smelting to finish...
 		Gui, Show, Y15, Msgbox
@@ -523,7 +524,7 @@ Smelt()
 		Loop, 160 ;wait for smelting to finish
 			{
 			PixelSearch, DoneSmeltingX, DoneSmeltingY, ox+705, oy+439, ox+717, oy+454, 0x868690, 50, Fast
-				if ErrorLevel
+				if ErrorLevel ;if done smelting...
 					{
 					Gui, Destroy
 					Random, wait500to2000milis, 500, 2000
@@ -572,7 +573,7 @@ Smelt()
 													Random, wait5to10milis, 5, 10
 													Sleep, wait5to10milis ;wait 5-10sec total
 													}
-											} ;if loop fails, try clicking on furnace again if cannonball icon does not appear in chat menu
+											} ;try clicking on furnace again if cannonball icon does not appear in chat menu
 											Random, wait300to1500milis, 300, 1500
 											Sleep, wait300to1500milis
 												Random, varyby10, -12, 12
@@ -679,8 +680,9 @@ GoToBank()
 
 	BankAt:
 
-	Random, wait160to250milis, 160, 250
-	Sleep, wait160to250milis ;wait for character to stop moving
+	Random, wait160to1600milis, 160, 1600
+	Sleep, wait160to1600milis ;wait for character to stop moving
+/*
 		;Random, BriefLogoutRoll, 1, 100
 			;if BriefLogoutRoll = 1 ;chance per inventory to logout briefly to simulate a quick break
 			;	{
@@ -700,7 +702,7 @@ GoToBank()
 				;	Sleep, 5000
 				;	AbortLogout()
 				;}
-
+*/
 	OpenBank()
 	}
 		
@@ -869,7 +871,7 @@ x::
 	Pause
 	}
 
-shift::
+shift:: ;manual kill switch — ADD listlines LOGGING
 	{
 	Gui, Destroy
 	ExitApp
