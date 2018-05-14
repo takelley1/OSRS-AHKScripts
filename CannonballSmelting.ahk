@@ -366,9 +366,10 @@ FurnaceGo()
 							MouseMove, ox+varyby5+296, oy+varyby10+145, 0 ;location of furnace from stuck s
 								Random, wait200to900milis, 200, 900 
 								Sleep, wait200to900milis
+								Sleep, wait200to900milis
 									Click, down
-										Random, wait5to150milis, 5, 150
-										Sleep, wait5to150milis
+										Sleep, wait5to200milis, 5, 200
+										Sleep, wait5to200milis
 									Click, up
 										Random, wait2to4sec, 2000, 4000
 										Sleep, wait2to4sec
@@ -421,8 +422,8 @@ FurnaceGo()
 													Random, wait200to900milis, 200, 900 
 													Sleep, wait200to900milis
 														Click, down
-															Random, wait5to150milis, 5, 150
-															Sleep, wait5to150milis
+															Sleep, wait5to200milis, 5, 200
+															Sleep, wait5to200milis
 														Click, up
 															Random, wait2to4sec, 2000, 4000
 															Sleep, wait2to4sec
@@ -563,8 +564,8 @@ Smelt()
 											Random, wait300to1500milis, 300, 1500
 											Sleep, wait300to1500milis
 												Click, down
-													Random, wait5to100milis, 5, 100
-													Sleep, wait5to100milis
+													Random, wait5to200milis, 5, 200
+													Sleep, wait5to200milis
 												Click, up
 											Random, wait300to1500milis, 300, 1500
 											Sleep, wait300to1500milis
@@ -589,8 +590,8 @@ Smelt()
 													Random, wait300to1500milis, 300, 1500
 													Sleep, wait300to1500milis
 														Click, down
-															Random, wait5to100milis, 5, 100
-															Sleep, wait5to100milis
+															Random, wait5to200milis, 5, 200
+															Sleep, wait5to200milis
 														Click, up
 										}
 										Gui, Destroy
@@ -651,8 +652,8 @@ GoToBank()
 		Random, wait200to500milis, 200, 500
 		Sleep, wait200to500milis+500
 			Click, down
-				Random, wait5to100milis, 5, 100
-				Sleep, wait5to100milis
+				Random, wait5to200milis, 5, 200
+				Sleep, wait5to200milis
 			Click, up
 				Random, DoubleClickRoll, 1, 10 ;chance to double-click
 					if DoubleClickRoll = 1
@@ -660,8 +661,8 @@ GoToBank()
 							Random, wait90to250milis, 90, 250
 							Sleep, wait90to250milis
 								Click, down
-									Random, wait5to100milis, 5, 100
-									Sleep, wait5to100milis
+									Random, wait5to200milis, 5, 200
+									Sleep, wait5to200milis
 								Click, up
 						}
 	BankReturnWait:
@@ -730,17 +731,17 @@ SelectChat()
 				Random, wait200to500milis, 200, 500
 				Sleep, wait200to500milis
 					Click, down
-						Random, wait5to100milis, 5, 100
-						Sleep, wait5to100milis
+						Random, wait5to200milis, 5, 200
+						Sleep, wait5to200milis
 					Click, up
-						Random, DoubleClickRoll, 1, 32 ;small chance to double-click on rock
+						Random, DoubleClickRoll, 1, 32 ;small chance to double-click
 							if DoubleClickRoll = 1
 								{
-								Random, wait180to500milis, 180, 500
-								Sleep, wait180to500milis
+								Random, wait90to250milis, 90, 250
+								Sleep, wait90to250milis
 									Click, down
-										Random, wait5to100milis, 5, 100
-										Sleep, wait5to100milis
+										Random, wait5to200milis, 5, 200
+										Sleep, wait5to200milis
 									Click, up
 								Random, wait300to600milis, 300, 600
 								Sleep, wait300to600milis
