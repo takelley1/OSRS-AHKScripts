@@ -1,6 +1,7 @@
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
+SetWorkingDir %A_ScriptDir% 
 
 /*
 begin by standing in front of Edgeville bank booth (second closest one to furnace) with cannon ball mold already in first inventory slot
@@ -44,8 +45,8 @@ OpenBank()
 		Random, wait200to500milis, 200, 500
 		Sleep, wait200to500milis+500
 			Click, down
-				Random, wait5to100milis, 5, 100
-				Sleep, wait5to100milis
+				Random, wait5to200milis, 5, 200
+				Sleep, wait5to200milis
 			Click, up
 				Random, DoubleClickRoll, 1, 20 ;chance to double-click
 					if DoubleClickRoll = 1
@@ -53,8 +54,8 @@ OpenBank()
 							Random, wait90to250milis, 90, 250
 							Sleep, wait90to250milis
 								Click, down
-									Random, wait5to100milis, 5, 100
-									Sleep, wait5to100milis
+									Random, wait5to200milis, 5, 200
+									Sleep, wait5to200milis
 								Click, up
 						}					
 	Loop, 3
@@ -76,8 +77,8 @@ OpenBank()
 				Random, wait200to500milis, 200, 500
 				Sleep, wait200to500milis+500
 					Click, down
-						Random, wait5to100milis, 5, 100
-						Sleep, wait5to100milis
+						Random, wait5to200milis, 5, 200
+						Sleep, wait5t200milis
 					Click, up
 						Random, DoubleClickRoll, 1, 20 ;chance to double-click on bank
 							if DoubleClickRoll = 1
@@ -85,8 +86,8 @@ OpenBank()
 									Random, wait90to250milis, 90, 250
 									Sleep, wait90to250milis
 										Click, down
-											Random, wait5to100milis, 5, 100
-											Sleep, wait5to100milis
+											Random, wait5to200milis, 5, 200
+											Sleep, wait5to200milis
 										Click, up
 								}
 		}
@@ -114,8 +115,8 @@ Deposit()
 				Random, wait300to1500milis, 300, 1500
 				Sleep, wait300to1500milis
 					Click, down, right
-						Random, wait5to100milis, 5, 100
-						Sleep, wait5to100milis
+						Random, wait5to200milis, 5, 200
+						Sleep, wait5to200milis
 					Click, up, right
 		Random, wait300to1500milis, 300, 1500
 		Sleep, wait300to1500milis
@@ -125,8 +126,8 @@ Deposit()
 				Random, wait300to1500milis, 300, 1500
 				Sleep, wait300to1500milis
 					Click, down
-						Random, wait5to100milis, 5, 100
-						Sleep, wait5to100milis
+						Random, wait5to200milis, 5, 200
+						Sleep, wait5to200milis
 					Click, up
 	Loop, 3
 		{
@@ -149,8 +150,8 @@ Deposit()
 					Random, wait300to1500milis, 300, 1500
 					Sleep, wait300to1500milis
 						Click, down, right
-							Random, wait5to100milis, 5, 100
-							Sleep, wait5to100milis
+							Random, wait5to200milis, 5, 200
+							Sleep, wait5to200milis
 						Click, up, right
 			Random, wait300to1500milis, 300, 1500
 			Sleep, wait300to1500milis
@@ -160,8 +161,8 @@ Deposit()
 				Random, wait300to1500milis, 300, 1500
 				Sleep, wait300to1500milis
 						Click, down
-							Random, wait5to100milis, 5, 100
-							Sleep, wait5to100milis
+							Random, wait5to200milis, 5, 200
+							Sleep, wait5to200milis
 						Click, up
 		}
 		Gui, Destroy
@@ -177,8 +178,8 @@ Deposit()
 				Random, wait300to1500milis, 300, 1500
 				Sleep, wait300to1500milis
 						Click, down
-							Random, wait5to100milis, 5, 100
-							Sleep, wait5to100milis
+							Random, wait5to200milis, 5, 200
+							Sleep, wait5to200milis
 						Click, up
 		AbortLogout()
 		ExitApp
@@ -216,8 +217,8 @@ Withdrawal()
 				Random, wait300to1500milis, 300, 1500
 				Sleep, wait300to1500milis
 					Click, down, right
-						Random, wait5to100milis, 5, 100
-						Sleep, wait5to100milis
+						Random, wait5to200milis, 5, 200
+						Sleep, wait5to200milis
 					Click, up, right
 		Random, wait300to1500milis, 300, 1500
 		Sleep, wait300to1500milis
@@ -227,8 +228,8 @@ Withdrawal()
 				Random, wait300to1500milis, 300, 1500
 				Sleep, wait300to1500milis
 					Click, down
-						Random, wait5to100milis, 5, 100
-						Sleep, wait5to100milis
+						Random, wait5to200milis, 5, 200
+						Sleep, wait5to200milis
 					Click, up
 	Loop, 3
 		{
@@ -251,8 +252,8 @@ Withdrawal()
 					Random, wait300to1500milis, 300, 1500
 					Sleep, wait300to1500milis
 						Click, down, right
-							Random, wait5to100milis, 5, 100
-							Sleep, wait5to100milis
+							Random, wait5to200milis, 5, 200
+							Sleep, wait5to200milis
 						Click, up, right
 			Random, wait300to1500milis, 300, 1500
 			Sleep, wait300to1500milis
@@ -262,8 +263,8 @@ Withdrawal()
 					Random, wait300to1500milis, 300, 1500
 					Sleep, wait300to1500milis
 						Click, down
-							Random, wait5to100milis, 5, 100
-							Sleep, wait5to100milis
+							Random, wait5to200milis, 5, 200
+							Sleep, wait5to200milis
 						Click, up
 		}
 		Gui, Destroy
@@ -279,8 +280,8 @@ Withdrawal()
 					Random, wait300to1500milis, 300, 1500
 					Sleep, wait300to1500milis
 						Click, down
-							Random, wait5to100milis, 5, 100
-							Sleep, wait5to100milis
+							Random, wait5to200milis, 5, 200
+							Sleep, wait5to200milis
 						Click, up
 		AbortLogout()
 		ExitApp
@@ -301,8 +302,8 @@ FurnaceGo()
 					Random, wait300to1500milis, 300, 1500
 					Sleep, wait300to1500milis
 						Click, down
-							Random, wait5to100milis, 5, 100
-							Sleep, wait5to100milis
+							Random, wait5to200milis, 5, 200
+							Sleep, wait5to200milis
 						Click, up
 							Random, wait300to1500milis, 300, 1500
 							Sleep, wait300to1500milis
@@ -334,8 +335,8 @@ FurnaceGo()
 		Random, wait200to500milis, 200, 500
 		Sleep, wait200to500milis+500
 			Click, down
-				Random, wait5to100milis, 5, 100
-				Sleep, wait5to100milis
+				Random, wait5to200milis, 5, 200
+				Sleep, wait5to200milis
 			Click, up
 				Random, DoubleClickRoll, 1, 25 ;chance to double-click
 					if DoubleClickRoll = 5
@@ -343,8 +344,8 @@ FurnaceGo()
 							Random, wait90to250milis, 90, 250
 							Sleep, wait90to250milis
 								Click, down
-									Random, wait5to100milis, 5, 100
-									Sleep, wait5to100milis
+									Random, wait5to200milis, 5, 200
+									Sleep, wait5to200milis
 								Click, up
 						}
 	Random, wait7ishto9sec, 6800, 9000
@@ -384,8 +385,8 @@ FurnaceGo()
 										Random, wait200to900milis, 200, 900 
 										Sleep, wait200to900milis
 											Click, down
-												Random, wait5to150milis, 5, 150
-												Sleep, wait5to150milis
+												Random, wait5to200milis, 5, 200
+												Sleep, wait5to200milis
 											Click, up
 												Random, wait2to4sec, 2000, 4000
 												Sleep, wait2to4sec
@@ -402,8 +403,8 @@ FurnaceGo()
 												Random, wait200to900milis, 200, 900 
 												Sleep, wait200to900milis
 													Click, down
-														Random, wait5to150milis, 5, 150
-														Sleep, wait5to150milis
+														Random, wait5to200milis, 5, 200
+														Sleep, wait5to200milis
 													Click, up
 														Random, wait2to4sec, 2000, 4000
 														Sleep, wait2to4sec
