@@ -516,8 +516,7 @@ Smelt()
 			Random, CheckStatsRoll, 1, 10
 				if CheckStatsRoll = 1 ;chance per inventory to check skill stat and xp while smelting
 					{
-					Random, 
-					Duration, -1000, -120000
+					Random, Duration, -1000, -120000
 					SetTimer, CheckStatsSmithing, %TimerDuration% ;check stats at some random point while smelting
 					}
 			Gui, Destroy
