@@ -511,6 +511,8 @@ Smelt()
 				if SelectChatRoll = 1 ;chance per inventory to enter predetermined text into chat (chance should be lower than BriefLogout chances to prevent duplicate messages appearing to the same people)
 					{
 					SelectChat()
+					Random, wait500to8000milis, 500, 8000
+					Sleep, wait500to8000milis
 					Goto, BeginSmelt
 					}
 			Random, CheckStatsRoll, 1, 10
@@ -527,7 +529,6 @@ Smelt()
 		Gui, Destroy
 		Gui, Add, Text, ,Waiting for smelting to finish...
 		Gui, Show, Y15, Msgbox
-		AfterLevelUp:
 		Loop, 160 ;wait for smelting to finish
 			{
 			PixelSearch, DoneSmeltingX, DoneSmeltingY, ox+705, oy+439, ox+717, oy+454, 0x868690, 50, Fast
@@ -574,7 +575,7 @@ Smelt()
 											{
 											PixelSearch, BeginSmeltX, BeginSmeltY, ox+304, oy+394, ox+306, oy+394, 0xabb3b5, 5, Fast
 												if ErrorLevel = 0
-													Goto, AfterLevelUp
+													Goto, BeginSmelt
 												else
 													{
 													Random, wait5to10milis, 5, 10
