@@ -78,7 +78,7 @@ OpenBank()
 				Sleep, wait200to500milis+500
 					Click, down
 						Random, wait5to200milis, 5, 200
-						Sleep, wait5t200milis
+						Sleep, wait5to200milis
 					Click, up
 						Random, DoubleClickRoll, 1, 20 ;chance to double-click on bank
 							if DoubleClickRoll = 1
