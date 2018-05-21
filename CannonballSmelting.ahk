@@ -31,8 +31,6 @@ CoordMode, Mouse, Screen
 
 SetTimer, LogoutDisconnectCheck, 5000 ;check if client has been logged out or disconnected once every 5 seconds
 
-ControlFocus , , VirtualBox.exe
-
 OrientClient() ;orient to client coordinates
 OpenBank() ;start script by calling first function
 
@@ -693,7 +691,7 @@ GoToBank()
 
 	Random, wait160to1600milis, 160, 1600
 	Sleep, wait160to1600milis ;wait for character to stop moving
-/*
+	
 		Random, BriefLogoutRoll, 1, 100
 			if BriefLogoutRoll = 1 ;chance per inventory to logout briefly to simulate a quick break
 				{
@@ -704,7 +702,7 @@ GoToBank()
 					Sleep, 5000
 					BriefLogout()
 				}
-
+/*
 		Random, AbortLogoutRoll, 1, 100
 			if AbortLogoutRoll = 1 ;chance per inventory to logout and stop macro completely
 				{
@@ -857,11 +855,15 @@ CheckStatsSmithing:
 	
 LogoutDisconnectCheck:
 	LogoutCheck()
-		if LogoutCheck() = 1 ;if function returns positive, look for bank to restart macro
-			AfterLogin()
+		Random, wait300to1200milis, 300, 1200
+		Sleep, wait300to1200milis
+			if LogoutCheck() = 1 ;if function returns positive, look for bank to restart macro
+				AfterLogin()
 	DisconnectCheck()
-		if DisconnectCheck() = 1
-			AfterLogin()
+		Random, wait300to1200milis, 300, 1200
+		Sleep, wait300to1200milis
+			if DisconnectCheck() = 1
+				AfterLogin()
 	Return
 	
 AfterLogin() ;function called if LogoutCheck or DisconnectCheck return positive
