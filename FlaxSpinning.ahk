@@ -11,32 +11,7 @@ CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
 #Persistent
 
-Gosub, GetRandoms ;obtain random numbers
-;orient client by searching whole screen for prayer hud icon
-ImageSearch, OrientX, OrientY, 0, 0, A_Screenwidth, A_Screenheight, Orient1.png
-	if ErrorLevel = 0
-		{
-			Sleep, wait100to500milis
-		MouseMove, OrientX, OrientY ;move mouse to top left pixel of client to create new origin point for coordinate system
-			Sleep, wait200to500milis
-		MouseMove, -696, -171, 0, R ; 0, 0 ;coordinates from prayer icon to origin point
-			Sleep, wait200to500milis+wait1to15milis
-		MouseGetPos, ox, oy
-		}
-	else
-		{
-		MsgBox, Can’t find client!
-			ExitApp
-		}	
-Goto, Start
-;Start: ;begin main loop
-
-
-
-
-Gosub, GetRandoms 
-Gosub, LogOutCheck ;check if client has been disconnected
-Gosub, DisconnectCheck
+Orient()
 
 MouseMove, ox+262+varyby4, oy+132+varyby4, 0 ;open bank from starting position
 	Sleep, wait200to500milis
@@ -76,12 +51,6 @@ Loop, 10 ;try again with longer wait intervals
 ContinueBankWindow:
 
 
-
-
-Gosub, GetRandoms 
-Gosub, LogOutCheck ;check if client has been disconnected
-Gosub, DisconnectCheck
-
 Loop, 100 ;wait for inventory to be deposited
 	{
 	PixelSearch, InvSlot3EmptyX,InvSlot3EmptyY, ox+659, oy+229, ox+659, oy+229, 0x333c45
@@ -106,11 +75,6 @@ ContinueInvSlot3Empty:
 
 
 
-
-Gosub, GetRandoms 
-Gosub, LogOutCheck ;check if client has been disconnected
-Gosub, DisconnectCheck
-
 Loop, 1000 ;look for flax
 	{
 	PixelSearch, FlaxX, FlaxY, ox+228, oy+133, ox+228, oy+133, 0xBBB756
@@ -123,11 +87,6 @@ Loop, 1000 ;look for flax
 Flaxwithdrawal:
 
 
-
-
-Gosub, GetRandoms 
-Gosub, LogOutCheck ;check if client has been disconnected
-Gosub, DisconnectCheck
 
 Loop, 150 ;withdrawal and wait for flax to appear in inventory
 	{
@@ -153,11 +112,6 @@ ContinueInvFlax:
 
 
 
-
-Gosub, GetRandoms 
-Gosub, LogOutCheck ;check if client has been disconnected
-Gosub, DisconnectCheck
-
 MouseMove, ox+631+varyby2, oy+129+varyby2, 0 ;click on stairs on minimap
 		Click
 		Random, DoubleClick, 200, 250
@@ -174,10 +128,6 @@ Loop, 100 ;wait until bank teller minimap yellow dot moves towards top of minima
 	}
 StairsAtTop:
 
-
-
-
-Gosub, GetRandoms 
 
 ;go down stairs
 Sleep, 5000
@@ -202,9 +152,6 @@ Loop, 500 ;wait until at bottom of stairs
 ContinueToWheel:
 
 
-
-
-Gosub, GetRandoms 
 
 MouseMove, ox+337+varyby3, oy+81+varyby3, 0 ;spinning wheel, click to go to it, through wall
 	Sleep, wait100to500milis
@@ -236,8 +183,7 @@ Loop, 10
 			Sleep, 100
 	}
 Sleep, 3000
-Gosub, GetRandoms
- 
+
 Loop, 150 ;check if got unstuck and reached spinning wheel by looking for chat menu
 	{
 	PixelSearch, SpinningChatMenuX, SpinningChatMenuY, ox+468, oy+356, ox+468, oy+356, 0x7E9194
@@ -251,7 +197,6 @@ StartSpinning:
 
 
 
-Gosub, GetRandoms 
 
 Send {Raw}3 ;hit 3 key to begin spinning bow strings
 Loop, 144 ;check if client has been disconnected twice per second for 72 seconds
@@ -276,7 +221,6 @@ AfterSpinning:
 
 
 
-Gosub, GetRandoms 
 
 MouseMove, ox+107+varyby2, oy+333+varyby2, 0 ;click on stairs within client, just above chat menu on left side
 	Sleep, 150
@@ -299,7 +243,6 @@ StairsAtBottom:
 
 
 
-Gosub, GetRandoms 
 
 Send {Raw}1 ;select chat option to climb up stairs
 	Sleep, wait200to500milis
@@ -319,7 +262,6 @@ AfterLogin:
 
 
 
-Gosub, GetRandoms 
 
 Loop, 100 ;look for bank on minimap
 	{
@@ -345,7 +287,6 @@ BankReturn:
 
 
 
-Gosub, GetRandoms 
 
 MouseMove, BankReturnX-11+varyby2, BankReturnY-2+varyby2, 0 ;click on bank booth on minimap to return to bank
 		Click
@@ -394,102 +335,7 @@ Sleep, 65+wait100to500milis ;wait for character to stop moving
 Goto, Start
 
 
-
-
-;beginning of subroutines
-
-LogOutCheck: ;if client has been unexpectedly booted to main login screen, attempt to log back in
-	PixelSearch, LogOutX, LogOutY, ox+73, oy+485, ox+73, oy+485, 0xffffff
-		if ErrorLevel = 0 ;if client logged out, log back in and go back to starting position
-		{ 
-			Gosub, GetRandoms 
-			Sleep, wait5to10sec+2000
-		Send {Enter} ;same as clicking "existing user" button
-			Random, wait2to5sec, 2000, 5000
-			Sleep, wait2to5sec-1000
-		Send {Raw}B
-			Random, wait2to5sec, 2000, 5000
-			Sleep, wait2to5sec-1000
-		Send {Tab}
-			Random, wait2to5sec, 2000, 5000
-			Sleep, wait2to5sec-1500
-		Send {Raw}zkRE6rJc3URG8ic6Vwyt
-			Random, wait2to5sec, 2000, 5000
-			Sleep, wait2to5sec-1000
-		Send {Enter}
-			Random, wait5to10sec, 2000, 5000
-			Sleep, wait5to10sec
-			PostLogin:
-		Loop, 25
-			{
-			PixelSearch, PostLoginX, PostLoginY, ox+762, oy+500, ox+762, oy+500, 0x000000 ;look for black pixel in bottom right corner of screen where HUD should be
-				if Errorlevel = 0
-					{	
-					ImageSearch, PostLoginButtonX, PostLoginButtonY, 0, 0, A_Screenwidth, A_Screenheight, PostLoginButton.png ;check if post-login screen has been reached, if not, try hitting login button again
-						if ErrorLevel = 0
-								{
-								MouseMove, PostLoginButtonX+varyby8+35, PostLoginButtonY+varyby8+25, 50
-									Sleep, wait1to3sec
-										Click
-									Random, wait5to10sec, 2000, 5000
-									Sleep, wait5to10sec+2000
-								PixelSearch, LogOutX, LogOutY, ox+73, oy+485, ox+73, oy+485, 0xffffff ;check if client has successfully logged back in by checking for absence of white text in lower-left corner of client indicating World selection
-									if ErrorLevel
-										Goto, AfterLogin
-									else
-										Goto, PostLogin
-								}
-						else
-								{
-									Random, wait2to5sec, 2000, 5000 
-									Sleep, Wait2to5sec
-								Send {Enter} ;try hitting login button again if can't connect to server yet
-									Random, wait5to10sec, 2000, 5000
-									Sleep, wait5to10sec+5000
-								}
-					}
-				else
-					{
-						Random, wait2to5sec, 2000, 5000 
-						Sleep, Wait2to5sec
-					Send {Enter} ;try hitting login button again if can't connect to server yet
-						Random, wait5to10sec, 2000, 5000
-						Sleep, wait5to10sec+5000
-					}
-			}
-			MsgBox, cant get past post-login or error with LogOutCheck loop
-				ExitApp
-		}
-		else
-Return ;abort subroutine and return to location it was called from
 			
-DisconnectCheck: ;check if client has been unexpectedly disconnected and booted to post-login screen; if so, attempt to log back in
-		PixelSearch, PostLoginX, PostLoginY, ox+762, oy+500, ox+762, oy+500, 0x000000 ;look for black pixel in bottom right corner of screen where HUD should be
-			if ErrorLevel = 0
-				{
-			ImageSearch, PostLoginButtonX, PostLoginButtonY, 0, 0, A_Screenwidth, A_Screenheight, PostLoginButton.png ;to make sure client has been disconnected, look for post-login button
-				if ErrorLevel = 0
-					{
-							Random, wait2to5sec, 2000, 5000 
-							Sleep, wait2to5sec
-						MouseMove, PostLoginButtonX+varyby8+40, PostLoginButtonY+varyby4+20, 50
-							Random, wait2to5sec, 2000, 5000 
-							Sleep, wait2to5sec
-								Click
-						Random, wait5to10sec, 2000, 5000
-							Sleep, wait5to10sec
-					PixelSearch, LogOutX, LogOutY, ox+73, oy+485, ox+73, oy+485, 0xffffff ;check if client has successfully logged back in by checking for absence of white text in lower-left corner of client indicating World selection
-						if ErrorLevel 
-							Goto, AfterLogin
-						else
-							Goto, DisconnectCheck
-					}
-				else
-Return ;abort subroutine and return to location it was called from
-				}
-			else
-Return ;abort subroutine and return to location it was called from
-				
 WhereAmI: ;look for pixel colors at a handful of different locations on-screen to determine where character is after logging back in due to a disconnect
 	Loop, 100 ;check if at spinning wheel by looking for corner of castle on minimap
 		{
@@ -525,63 +371,6 @@ WhereAmI: ;look for pixel colors at a handful of different locations on-screen t
 		}
 		MsgBox, cant tell where character is after loggin in after disconnect, or error with WhereAmI loop
 			ExitApp
-			
-CheckStats: ;check skill level at randomized intervals 
-		Random, wait800to1200milis, 800, 1200
-		Sleep, wait800to1200milis
-	MouseMove, ox+varyby5+582, oy+varyby8+315, 0 ;stats icon
-		Random, wait200to500milis, 200, 500 
-		Sleep, wait200to500milis+100
-		Click
-		Random, wait800to1200milis, 800, 1200 
-		Sleep, wait800to1200milis+wait200to500milis
-	MouseMove, ox+varyby8+625, oy+varyby5+160, 0 ;crafting stat box
-		Random, wait1to3sec, 1000, 300
-		Sleep, wait1to3sec+500
-			Random, ViewSkillGuide, 1, 10 ;1/10 chance to click on crafting stat box and view skill guide
-				if ViewSkillGuide = 10
-					{
-					Sleep, wait200to500milis
-					Click
-					Random, wait800to1200milis
-					Sleep, wait800to1200milis
-					}
-				else
-					Continue
-	MouseMove, ox+varyby8+636, oy+varyby6+307, 0 ;inventory bag icon
-		Random, wait200to500milis, 200, 500 
-		Sleep, wait200to500milis+400
-		Click
-Return
-
-GetRandoms:	
-	;generate random delays for character actions
-	Random, wait1to5milis, 1, 5
-	Random, wait1to15milis, 1, 15
-	Random, wait50to100milis, 50, 100
-	Random, wait100to500milis, 100, 500 
-	Random, wait200to500milis, 200, 500 
-	Random, wait800to1200milis, 800, 1200 
-	Random, wait1to2sec, 1000, 2000 
-	Random, wait1to3sec, 1000, 3000 
-	Random, wait2to5sec, 2000, 5000 
-	Random, wait5to10sec, 5000, 10000 
-
-	;generate random numbers for varying mouse clicking coordinates
-	Random, varyby1, -1, 1
-	Random, varyby2, -2, 2
-	Random, varyby3, -3, 3
-	Random, varyby4, -4, 4
-	Random, varyby5, -5, 5
-	Random, varyby6, -6, 6
-	Random, varyby7, -7, 7
-	Random, varyby8, -8, 8
-	Random, varyby9, -9, 9
-	Random, varyby10, -10, 10
-	Random, varyby11, -11, 11
-	Random, varyby12, -12, 12
-	Random, varyby15, -15, 15
-Return
 
 ^q::ExitApp
 ^p::Pause
