@@ -49,12 +49,12 @@ OpenBank()
 				Random, DoubleClickRoll, 1, 20 ;chance to double-click
 					if DoubleClickRoll = 1
 						{
-							Random, wait90to250milis, 90, 250
-							Sleep, wait90to250milis
-								Click, down
-									Random, wait5to200milis, 5, 200
-									Sleep, wait5to200milis
-								Click, up
+						Random, wait90to250milis, 90, 250
+						Sleep, wait90to250milis
+							Click, down
+								Random, wait5to200milis, 5, 200
+								Sleep, wait5to200milis
+							Click, up
 						}					
 	Loop, 3
 		{
@@ -81,12 +81,12 @@ OpenBank()
 						Random, DoubleClickRoll, 1, 20 ;chance to double-click on bank
 							if DoubleClickRoll = 1
 								{
-									Random, wait90to250milis, 90, 250
-									Sleep, wait90to250milis
-										Click, down
-											Random, wait5to200milis, 5, 200
-											Sleep, wait5to200milis
-										Click, up
+								Random, wait90to250milis, 90, 250
+								Sleep, wait90to250milis
+									Click, down
+										Random, wait5to200milis, 5, 200
+										Sleep, wait5to200milis
+									Click, up
 								}
 		}
 		Gui, Destroy
@@ -94,7 +94,8 @@ OpenBank()
 		Gui, Add, Text, ,AbortLogout called because cant open bank
 		Gui, Show, Y15, Msgbox
 		SoundPlay, AbortLogoutAlarm.mp3
-			Sleep, 5000
+			Random, wait4to8sec, 4000, 8000
+			Sleep, wait4to8sec
 			AbortLogout()
 			ExitApp
 	}
@@ -168,17 +169,17 @@ Deposit()
 		Gui, Add, Text, ,AbortLogout called because cant deposit inventory
 		Gui, Show, Y15, Msgbox
 		SoundPlay, AbortLogoutAlarm.mp3
-			Random, wait300to1500milis, 300, 1500
-			Sleep, wait300to1500milis
-				Random, varyby9, -9, 9
-				Random, varyby8, -8, 8
-				MouseMove, varyby9+486, varyby8+23, 0 ;X in top right corner of bank window
+			Random, wait4to8sec, 4000, 8000
+			Sleep, wait4to8sec
+			Random, varyby9, -9, 9
+			Random, varyby8, -8, 8
+			MouseMove, varyby9+486, varyby8+23, 0 ;X in top right corner of bank window
 				Random, wait300to1500milis, 300, 1500
 				Sleep, wait300to1500milis
-						Click, down
-							Random, wait5to200milis, 5, 200
-							Sleep, wait5to200milis
-						Click, up
+					Click, down
+						Random, wait5to200milis, 5, 200
+						Sleep, wait5to200milis
+					Click, up
 		AbortLogout()
 		ExitApp
 	}
@@ -198,7 +199,8 @@ Withdrawal()
 		Gui, Add, Text, ,AbortLogout called because out of steel bars
 		Gui, Show, Y15, Msgbox
 		SoundPlay, AbortLogoutAlarm.mp3
-			Sleep, 5000
+			Random, wait4to8sec, 4000, 8000
+			Sleep, wait4to8sec
 			AbortLogout()
 			ExitApp
 	Barswithdrawal:
@@ -322,7 +324,8 @@ FurnaceGo()
 		Gui, Add, Text, ,AbortLogout called because cant find furnace on minimap
 		Gui, Show, Y15, Msgbox
 		SoundPlay, AbortLogoutAlarm.mp3
-			Sleep, 5000
+			Random, wait4to8sec, 4000, 8000
+			Sleep, wait4to8sec
 			AbortLogout()
 			ExitApp
 	FurnaceGo:
@@ -337,14 +340,14 @@ FurnaceGo()
 				Sleep, wait5to200milis
 			Click, up
 				Random, DoubleClickRoll, 1, 25 ;chance to double-click
-					if DoubleClickRoll = 5
+					if DoubleClickRoll = 1
 						{
-							Random, wait90to250milis, 90, 250
-							Sleep, wait90to250milis
-								Click, down
-									Random, wait5to200milis, 5, 200
-									Sleep, wait5to200milis
-								Click, up
+						Random, wait90to250milis, 90, 250
+						Sleep, wait90to250milis
+							Click, down
+								Random, wait5to200milis, 5, 200
+								Sleep, wait5to200milis
+							Click, up
 						}
 	Random, wait7ishto9sec, 6800, 9000
 	Sleep, wait7ishto9sec
@@ -443,9 +446,10 @@ FurnaceGo()
 			Gui, Add, Text, ,AbortLogout called because cant reach furnace
 			Gui, Show, Y15, Msgbox
 			SoundPlay, AbortLogoutAlarm.mp3
-			Sleep, 5000
-			AbortLogout()
-			ExitApp
+				Random, wait4to8sec, 4000, 8000
+				Sleep, wait4to8sec
+				AbortLogout()
+				ExitApp
 	}
 		
 Smelt()
@@ -492,7 +496,8 @@ Smelt()
 		Gui, Add, Text, ,AbortLogout called because cant see cannonball icon in chat menu
 		Gui, Show, Y15, Msgbox
 		SoundPlay, AbortLogoutAlarm.mp3
-			Sleep, 5000
+			Random, wait4to8sec, 4000, 8000
+			Sleep, wait4to8sec
 			AbortLogout()
 			ExitApp
 	BeginSmelt:
@@ -597,7 +602,8 @@ Smelt()
 										Gui, Add, Text, ,AbortLogout called because cant see cannonball icon in chat menu after lvl up
 										Gui, Show, Y15, Msgbox
 										SoundPlay, AbortLogoutAlarm.mp3
-											Sleep, 5000
+											Random, wait4to8sec, 4000, 8000
+											Sleep, wait4to8sec
 											AbortLogout()
 											ExitApp
 								}
@@ -639,7 +645,8 @@ GoToBank()
 		Gui, Add, Text, ,AbortLogout called because cant find bank after smelting
 		Gui, Show, Y15, Msgbox
 		SoundPlay, AbortLogoutAlarm.mp3
-			Sleep, 5000
+			Random, wait4to8sec, 4000, 8000
+			Sleep, wait4to8sec
 			AbortLogout()
 			ExitApp
 	BankReturn:
@@ -656,12 +663,12 @@ GoToBank()
 				Random, DoubleClickRoll, 1, 10 ;chance to double-click
 					if DoubleClickRoll = 1
 						{
-							Random, wait90to250milis, 90, 250
-							Sleep, wait90to250milis
-								Click, down
-									Random, wait5to200milis, 5, 200
-									Sleep, wait5to200milis
-								Click, up
+						Random, wait90to250milis, 90, 250
+						Sleep, wait90to250milis
+							Click, down
+								Random, wait5to200milis, 5, 200
+								Sleep, wait5to200milis
+							Click, up
 						}
 	BankReturnWait:
 	
@@ -683,7 +690,8 @@ GoToBank()
 		Gui, Add, Text, ,AbortLogout called because cant reach bank
 		Gui, Show, Y15, Msgbox
 		SoundPlay, AbortLogoutAlarm.mp3
-			Sleep, 5000
+			Random, wait4to8sec, 4000, 8000
+			Sleep, wait4to8sec
 			AbortLogout()
 			ExitApp
 
@@ -692,14 +700,15 @@ GoToBank()
 	Random, wait160to1600milis, 160, 1600
 	Sleep, wait160to1600milis ;wait for character to stop moving
 	
-		Random, BriefLogoutRoll, 1, 100
+		Random, BriefLogoutRoll, 1, 50
 			if BriefLogoutRoll = 1 ;chance per inventory to logout briefly to simulate a quick break
 				{
 				Gui, Destroy
 				SetTimer, LogoutDisconnectCheck, Off
 				Gui, Add, Text, ,BriefLogout randomly called
 				Gui, Show, Y15, Msgbox
-					Sleep, 5000
+					Random, wait4to8sec, 4000, 8000
+					Sleep, wait4to8sec
 					BriefLogout()
 				}
 /*
@@ -710,7 +719,8 @@ GoToBank()
 				SetTimer, LogoutDisconnectCheck, Off
 				Gui, Add, Text, ,AbortLogout randomly called
 				Gui, Show, Y15, Msgbox
-					Sleep, 5000
+					Random, wait4to8sec, 4000, 8000
+					Sleep, wait4to8sec
 					AbortLogout()
 				}
 */
