@@ -455,6 +455,7 @@ FurnaceGo()
 Smelt()
 	{
 	Global
+	TrySmelt:
 	Random, wait100to500milis, 100, 500
 	Sleep, wait100to500milis
 		Random, varyby10, -12, 12
@@ -510,13 +511,13 @@ Smelt()
 	Send {Space up}
 		Random, wait500to8000milis, 500, 8000
 		Sleep, wait500to8000milis
-			Random, SelectChatRoll, 1, 100
+			Random, SelectChatRoll, 1, 200
 				if SelectChatRoll = 1 ;chance per inventory to enter predetermined text into chat (chance should be lower than BriefLogout chances to prevent duplicate messages appearing to the same people)
 					{
 					SelectChat()
 					Random, wait500to8000milis, 500, 8000
 					Sleep, wait500to8000milis
-					Goto, BeginSmelt
+					Goto, TrySmelt
 					}
 			Random, CheckStatsRoll, 1, 10
 				if CheckStatsRoll = 1 ;chance per inventory to check skill stat and xp while smelting
