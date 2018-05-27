@@ -29,7 +29,7 @@ CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
 #Persistent
 
-SetTimer, LogoutDisconnectCheck, 5000 ;check if client has been logged out or disconnected once every 5 seconds
+SetTimer, LogoutDisconnectCheck, 3000 ;check if client has been logged out or disconnected once every 5 seconds
 
 OrientClient() ;orient to client coordinates
 OpenBank() ;start script by calling first function
