@@ -29,7 +29,7 @@ CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
 #Persistent
 
-SetTimer, LogoutDisconnectCheck, 3000 ;check if client has been logged out or disconnected once every 5 seconds
+SetTimer, LogoutDisconnectCheck, 3000 ;check if client has been logged out or disconnected once every X seconds
 
 OrientClient() ;orient to client coordinates
 OpenBank() ;start script by calling first function
@@ -329,133 +329,139 @@ FurnaceGo()
 			AbortLogout()
 			ExitApp
 	FurnaceGo:
-	
-	Random, varyby6, 0, 6
-	Random, varyby1, 0, 1
-	MouseMove, ox+varyby6+690, oy+varyby1+63, 0 ;furnace on minimap
-		Random, wait200to500milis, 200, 500
-		Sleep, wait200to500milis+500
-			Click, down
-				Random, wait5to200milis, 5, 200
-				Sleep, wait5to200milis
-			Click, up
-				Random, DoubleClickRoll, 1, 25 ;chance to double-click
-					if DoubleClickRoll = 1
-						{
-						Random, wait90to250milis, 90, 250
-						Sleep, wait90to250milis
-							Click, down
-								Random, wait5to200milis, 5, 200
-								Sleep, wait5to200milis
-							Click, up
-						}
-	Random, wait7ishto9sec, 6800, 9000
-	Sleep, wait7ishto9sec
-		Loop, 150 ;wait until transportation arrow appears in right edge of minimap
-			{
-			FurnaceAtCheck:
-			PixelSearch, FurnaceAtX, FurnaceAtY, ox+711, oy+94, ox+711, oy+94, 0x1b67db, 1, Fast
-				if ErrorLevel = 0
-					Smelt()
-				else ;if not at furnace, check if stuck one tile south
-					{
-					PixelSearch, StuckSX, StuckSY, ox+676, oy+125, ox+687, oy+125, 0xebf0f2, 25, Fast
-						if ErrorLevel = 0
+	Loop, 3
+		{
+		Random, varyby6, 0, 6
+		Random, varyby1, 0, 1
+		MouseMove, ox+varyby6+690, oy+varyby1+63, 0 ;furnace on minimap
+			Random, wait200to500milis, 200, 500
+			Sleep, wait200to500milis+500
+				Click, down
+					Random, wait5to200milis, 5, 200
+					Sleep, wait5to200milis
+				Click, up
+					Random, DoubleClickRoll, 1, 25 ;chance to double-click
+						if DoubleClickRoll = 1
 							{
-							Random, varyby10, -10, 10
-							Random, varyby5, -5, 5
-							MouseMove, ox+varyby5+296, oy+varyby10+145, 0 ;location of furnace from stuck s
-								Random, wait200to900milis, 200, 900 
-								Sleep, wait200to900milis
-								Sleep, wait200to900milis
-									Click, down
-										Sleep, wait5to200milis, 5, 200
-										Sleep, wait5to200milis
-									Click, up
-										Random, wait2to4sec, 2000, 4000
-										Sleep, wait2to4sec
-											Goto, FurnaceAtCheck ;recheck location after correcting to make sure character at furnace before continuing
+							Random, wait90to250milis, 90, 250
+							Sleep, wait90to250milis
+								Click, down
+									Random, wait5to200milis, 5, 200
+									Sleep, wait5to200milis
+								Click, up
 							}
-						else ;if not stuck one tile south, check if stuck one tile west
-							{
-							PixelSearch, StuckWX, StuckWY, ox+679, oy+130, ox+679, oy+130, 0xf5f0f3, 25, Fast
-								if ErrorLevel = 0
-									{
-									Random, varyby10, -10, 10
-									Random, varyby5, -5, 5
-									MouseMove, ox+varyby5+318, oy+varyby10+165, 0 ;location of furnace from stuck w
-										Random, wait200to900milis, 200, 900 
-										Sleep, wait200to900milis
-											Click, down
-												Random, wait5to200milis, 5, 200
-												Sleep, wait5to200milis
-											Click, up
-												Random, wait2to4sec, 2000, 4000
-												Sleep, wait2to4sec
-													Goto, FurnaceAtCheck
-									}
-								else ;if not stuck one tile west or south, check if stuck one tile north-west (diagonally)
-									{
-									PixelSearch, StuckNWX, StuckNWY, ox+640, oy+13, ox+643, oy+13, 0xebf0f2, 25, Fast
-										if ErrorLevel = 0
-											{
-											Random, varyby10, -10, 10
-											Random, varyby5, -5, 5
-											MouseMove, ox+varyby5+320, oy+varyby10+192, 0 ;location of furnace from stuck nw
-												Random, wait200to900milis, 200, 900 
-												Sleep, wait200to900milis
-													Click, down
-														Random, wait5to200milis, 5, 200
-														Sleep, wait5to200milis
-													Click, up
-														Random, wait2to4sec, 2000, 4000
-														Sleep, wait2to4sec
-															Goto, FurnaceAtCheck
-											}
-										else ;check if stuck in ne corner
-											{
-											PixelSearch, StuckNEX, StuckNEY, ox+704, oy+106, ox+704, oy+106, 0x1b67db, 15, Fast
+		Random, wait7ishto9sec, 6800, 9000
+		Sleep, wait7ishto9sec
+		Gui, Destroy
+		Gui, Add, Text, ,Checking if at furnace yet
+		Gui, Show, Y15, Msgbox
+			Loop, 25 ;wait until transportation arrow appears in right edge of minimap
+				{
+				FurnaceAtCheck:
+				PixelSearch, FurnaceAtX, FurnaceAtY, ox+711, oy+94, ox+711, oy+94, 0x1b67db, 1, Fast
+					if ErrorLevel = 0
+						Smelt()
+					else ;if not at furnace, check if stuck one tile south
+						{
+						PixelSearch, StuckSX, StuckSY, ox+676, oy+125, ox+687, oy+125, 0xebf0f2, 25, Fast
+							if ErrorLevel = 0
+								{
+								Random, varyby10, -10, 10
+								Random, varyby5, -5, 5
+								MouseMove, ox+varyby5+296, oy+varyby10+145, 0 ;location of furnace from stuck s
+									Random, wait200to900milis, 200, 900 
+									Sleep, wait200to900milis
+									Sleep, wait200to900milis
+										Click, down
+											Sleep, wait5to200milis, 5, 200
+											Sleep, wait5to200milis
+										Click, up
+											Random, wait2to4sec, 2000, 4000
+											Sleep, wait2to4sec
+												Goto, FurnaceAtCheck ;recheck location after correcting to make sure character at furnace before continuing
+								}
+							else ;if not stuck one tile south, check if stuck one tile west
+								{
+								PixelSearch, StuckWX, StuckWY, ox+679, oy+130, ox+679, oy+130, 0xf5f0f3, 25, Fast
+									if ErrorLevel = 0
+										{
+										Random, varyby10, -10, 10
+										Random, varyby5, -5, 5
+										MouseMove, ox+varyby5+318, oy+varyby10+165, 0 ;location of furnace from stuck w
+											Random, wait200to900milis, 200, 900 
+											Sleep, wait200to900milis
+												Click, down
+													Random, wait5to200milis, 5, 200
+													Sleep, wait5to200milis
+												Click, up
+													Random, wait2to4sec, 2000, 4000
+													Sleep, wait2to4sec
+														Goto, FurnaceAtCheck
+										}
+									else ;if not stuck one tile west or south, check if stuck one tile north-west (diagonally)
+										{
+										PixelSearch, StuckNWX, StuckNWY, ox+640, oy+13, ox+643, oy+13, 0xebf0f2, 25, Fast
 											if ErrorLevel = 0
 												{
 												Random, varyby10, -10, 10
 												Random, varyby5, -5, 5
-												MouseMove, ox+varyby5+268, oy+varyby10+221, 0 ;location of furnace from stuck ne
+												MouseMove, ox+varyby5+320, oy+varyby10+192, 0 ;location of furnace from stuck nw
 													Random, wait200to900milis, 200, 900 
 													Sleep, wait200to900milis
 														Click, down
-															Sleep, wait5to200milis, 5, 200
+															Random, wait5to200milis, 5, 200
 															Sleep, wait5to200milis
 														Click, up
 															Random, wait2to4sec, 2000, 4000
 															Sleep, wait2to4sec
 																Goto, FurnaceAtCheck
 												}
-											else ;if not at furnace and not stuck at any known location yet, wait before loop expires 
+											else ;check if stuck in ne corner
 												{
-												Random, wait5to10milis, 5, 10
-												Sleep, wait5to10milis
+												PixelSearch, StuckNEX, StuckNEY, ox+704, oy+106, ox+704, oy+106, 0x1b67db, 15, Fast
+												if ErrorLevel = 0
+													{
+													Random, varyby10, -10, 10
+													Random, varyby5, -5, 5
+													MouseMove, ox+varyby5+268, oy+varyby10+221, 0 ;location of furnace from stuck ne
+														Random, wait200to900milis, 200, 900 
+														Sleep, wait200to900milis
+															Click, down
+																Sleep, wait5to200milis, 5, 200
+																Sleep, wait5to200milis
+															Click, up
+																Random, wait2to4sec, 2000, 4000
+																Sleep, wait2to4sec
+																	Goto, FurnaceAtCheck
+													}
+												else ;if not at furnace and not stuck at any known location yet, wait before loop expires 
+													{
+													Random, wait5to10milis, 5, 10
+													Sleep, wait5to10milis
+													}
 												}
-											}
-									}
-							}
-					}
-			}
-			;if loop expires and still not at furnace or any other known "stuck" locaiton, logout
-			Gui, Destroy
-			SetTimer, LogoutDisconnectCheck, Off
-			Gui, Add, Text, ,AbortLogout called because cant reach furnace
-			Gui, Show, Y15, Msgbox
-			SoundPlay, AbortLogoutAlarm.mp3
-				Random, wait4to8sec, 4000, 8000
-				Sleep, wait4to8sec
-				AbortLogout()
-				ExitApp
+										}
+								}
+						}
+				}
+		}
+		;if loop expires and still not at furnace or any other known "stuck" locaiton, logout
+		Gui, Destroy
+		SetTimer, LogoutDisconnectCheck, Off
+		Gui, Add, Text, ,AbortLogout called because cant reach furnace
+		Gui, Show, Y15, Msgbox
+		SoundPlay, AbortLogoutAlarm.mp3
+			Random, wait4to8sec, 4000, 8000
+			Sleep, wait4to8sec
+			AbortLogout()
+			ExitApp
 	}
 		
 Smelt()
 	{
 	Global
 	TrySmelt:
+	Gui, Destroy
 	Random, wait100to500milis, 100, 500
 	Sleep, wait100to500milis
 		Random, varyby10, -12, 12
@@ -866,13 +872,9 @@ CheckStatsSmithing:
 	
 LogoutDisconnectCheck:
 	LogoutCheck()
-		Random, wait300to1200milis, 300, 1200
-		Sleep, wait300to1200milis
 			if LogoutCheck() = 1 ;if function returns positive, look for bank to restart macro
 				AfterLogin()
 	DisconnectCheck()
-		Random, wait300to1200milis, 300, 1200
-		Sleep, wait300to1200milis
 			if DisconnectCheck() = 1
 				AfterLogin()
 	Return
