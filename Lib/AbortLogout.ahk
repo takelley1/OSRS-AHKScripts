@@ -6,15 +6,22 @@
 		PixelSearch, LogOutButtonX, LogOutButtonY, ox+640, oy+473, ox+644, oy+473, 0x53af52, 10 ;check if logout button is available on hud to be clicked (player is not banking)
 			if ErrorLevel = 0 ;if logout button is available, click it and logout
 				{
-				Random, varyby11, -11, 11
-				Random, varyby12, -12, 12
-				MouseMove, ox+varyby11+644, oy+varyby12+484, 0 ;logout tab on hud
+				Gui, Destroy
+				Random, varyby9, -9, 9
+				Random, varyby10, -10, 10
+				MouseMove, ox+varyby9+644, oy+varyby10+484, 0 ;logout tab on hud
 					Random, wait400to1200milis, 400, 1200
 					Sleep, wait400to1200milis
 						Click, down
-							Random, wait5to150milis, 5, 150
-							Sleep, wait5to150milis
+							Random, wait5to200milis, 5, 200
+							Sleep, wait5to200milis
 						Click, up
+							Random, wait300to600milis, 300, 600
+							Sleep, wait300to600milis
+								Click, down
+									Random, wait5to200milis, 5, 200
+									Sleep, wait5to200milis
+								Click, up
 					Random, wait800to1200milis, 800, 1200
 					Sleep, wait800to1200milis+500
 						Random, varyby60, -60, 60
@@ -26,6 +33,7 @@
 									Random, wait5to150milis, 5, 150
 									Sleep, wait5to150milis
 								Click, up
+
 							Return
 							
 				}
