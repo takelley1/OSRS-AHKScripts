@@ -350,11 +350,11 @@ FurnaceGo()
 									Sleep, wait5to200milis
 								Click, up
 							}
+			Gui, Destroy
+			Gui, Add, Text, ,Checking if at furnace yet
+			Gui, Show, Y15, Msgbox
 		Random, wait7ishto9sec, 6800, 9000
 		Sleep, wait7ishto9sec
-		Gui, Destroy
-		Gui, Add, Text, ,Checking if at furnace yet
-		Gui, Show, Y15, Msgbox
 			Loop, 25 ;wait until transportation arrow appears in right edge of minimap
 				{
 				FurnaceAtCheck:
