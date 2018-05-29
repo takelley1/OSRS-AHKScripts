@@ -706,7 +706,7 @@ GoToBank()
 
 	Random, wait160to1600milis, 160, 1600
 	Sleep, wait160to1600milis ;wait for character to stop moving
-	
+/*	
 		Random, BriefLogoutRoll, 1, 50
 			if BriefLogoutRoll = 1 ;chance per inventory to logout briefly to simulate a quick break
 				{
@@ -718,7 +718,7 @@ GoToBank()
 					Sleep, wait4to8sec
 					BriefLogout()
 				}
-/*
+
 		Random, AbortLogoutRoll, 1, 100
 			if AbortLogoutRoll = 1 ;chance per inventory to logout and stop macro completely
 				{
