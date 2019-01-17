@@ -5,9 +5,12 @@ SetWorkingDir %A_ScriptDir%
 
 /*
 begin by standing in front of Edgeville bank booth (second closest one to furnace) with cannon ball mold already in first inventory slot
-you must have enough run energy to make it to the furnace and back
-run energy must be nearly full and turned on; steel bars must be first item of second row in bank
+run energy must be at least ~75% and turned on
+steel bars must be first item of second row in bank
+bank must open to the tab containing the steel bars by default
 bank pin must have already been entered
+client must be oriented north (click on the compass)
+camera must be in highest position (hold the up arrow until camera stops moving)
 client must be fully zoomed out
 client brightness must be set on third tick from the left
 
