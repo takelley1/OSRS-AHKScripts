@@ -4,7 +4,8 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir% 
 
 /*
-begin by standing in front of Edgeville bank booth (second closest one to furnace) with cannon ball mold already in first inventory slot
+
+begin while standing in front of Edgeville bank booth (second closest one to furnace) with cannon ball mold already in first inventory slot
 run energy must be at least ~75% and turned on
 steel bars must be first item of second row in bank
 bank must open to the tab containing the steel bars by default
@@ -13,6 +14,7 @@ client must be oriented north (click on the compass)
 camera must be in highest position (hold the up arrow until camera stops moving)
 client must be fully zoomed out
 client brightness must be set on third tick from the left
+script has only been tested on the native OSRS client
 
 it takes just under 162 seconds to smelt an inventory
 an entire trip takes about 2m55.8s (175.84s), round up to 180s to err on side of conservatism
