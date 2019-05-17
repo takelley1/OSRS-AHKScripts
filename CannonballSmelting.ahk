@@ -4,17 +4,21 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir% 
 
 /*
+All scripts have only been tested on the native OSRS client (fullscreen disabled). 
 
-begin while standing in front of Edgeville bank booth (second closest one to furnace) with cannon ball mold already in first inventory slot
-run energy must be at least ~75% and turned on
-steel bars must be first item of second row in bank
-bank must open to the tab containing the steel bars by default
-bank pin must have already been entered
-client must be oriented north (click on the compass)
-camera must be in highest position (hold the up arrow until camera stops moving)
-client must be fully zoomed out
-client brightness must be set on third tick from the left
-script has only been tested on the native OSRS client
+The starting position for this script is in Edgeville bank, at the second-closest bank window to the furnace.
+The cannon ball mold must already be in your first inventory slot (top row, leftmost column).
+Run energy must be at least ~75% full and turned on.
+Steel bars must be the first item of the second row in your bank (second row down from top, leftmost column).
+The script will not change bank tabs in order to find items.
+Your bank must open to the tab containing the steel bars by default.
+Your bank PIN must have already been entered for the current login session or be disabled.
+
+The OSRS client must be oriented North. Click on the compass icon near the minimap to orient the client properly.
+The OSRS client's camera must be in highest position possible. Hold the up arrow on your keyboard until the camera stops moving.
+The OSRS client must be fully zoomed out.
+The OSRS client's brightness must be set to the third tick from the left.
+
 
 it takes just under 162 seconds to smelt an inventory
 an entire trip takes about 2m55.8s (175.84s), round up to 180s to err on side of conservatism
@@ -26,9 +30,10 @@ ListLines ;show log of all commands executed by script thus far, this will be up
 WinMove, 0, 0
 ControlFocus, , 13552 ;refocus control on game client
 SetTimer, Update, 1000 ;update the LineLines log every X seconds
+
 */
 
-ControlFocus , , VirtualBox.exe
+;ControlFocus , , VirtualBox.exe
 
 CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
