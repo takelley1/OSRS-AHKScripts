@@ -1,7 +1,4 @@
 # encoding: utf-8
-# import pyximport
-# pyximport.install(pyimport=True)
-import cProfile
 import logging
 import random
 import sys
@@ -15,9 +12,9 @@ import pyautogui as pag
 import tkinter
 from tkinter import ttk
 
-from src import bookmarks as bkmk, docked as doc, drones, locate as lo, \
-    mining as mng, navigation as nav, overview as o
-from src.vars import originx, originy, system_mining, windowx, windowy
+#from src import bookmarks as bkmk, docked as doc, drones, locate as lo, \
+    #mining as mng, navigation as nav, overview as o
+#from src.vars import originx, originy, system_mining, windowx, windowy
 
 # TODO: add support for mining drones.
 
@@ -41,10 +38,95 @@ unsuitable_site = 0
 runs_var = 1
 # ------------------------------------------------------------------------------
 
-# MAIN SCRIPTS #################################################################
+log.basicConfig(format='(%(asctime)s) %(funcName)s - %(''message)s',
+                level=log.DEBUG)
 
+# MAIN SCRIPTS #################################################################
+'''
+def cannonball_smelter():
+orient player -- orient_player()
+if bank is closed -- m_locate(needle=minimap_at_bank)
+
+def cannonball_smelter():
+    pass
+    return
+    bank_booth = lo.click_image('./bank_booth')
+    if bank_booth == 1:
+        print('error, couldnt find bank booth')
+
+    bank_window = lo.wait_for_image('./bank_window')
+    if bank_window == 1:
+        print('timed out waiting for bank booth to open')
+
+    right_click_steel = lo.click_image('./steel_bar_in_bank', button='right')
+    if right_click_steel == 1:
+        sys.exit(1)
+    withdrawl = lo.click_image('./windrawl_all')
+    if withdrawl == 1:
+        sys.exit(1)
+
+    steel_bars_in_inventory = lo.wait_for_image('./steel_bar_in_inv')
+    if steel_bars_in_inventory == 1:
+        print('timed out waiting for steel bars to show up in inv')
+
+    lo.click_image('./minimap_furnace_from_bank')
+    lo.wait_for_image('./minimap_at_furnace')
+    lo.click_image('furnace')
+    lo.wait_for_image('smelting_menu')
+    key.keypress('space')
+
+    ### wait for smelting to finish
+    for i in range(1, 1000)
+        lo.m_locate('./inv_empty')
+        lo.m_locate('./login_screen')
+
+        if lo.m_locate('./inv_empty') = 0:
+            lo.click_image('./minimap_bank_from_furnace')
+            lo.wait_forImage('./minimap_at_bank')
+            lo.click_image('./bank_teller')
+            lo.wait_for_image('./bank_window')
+            lo.click_image('./steel_bars_in_inv',button='right')
+            lo.click_image('./deposit_all')
+            lo.wait_for_image('./empty_inventory')
+    return
+    ###
+
+    click on bank
+    wait for bank window to open -- m_locate(neelde=bank_window)
+if bank is open, continue
+look for steel bar -- m_locate(needle=steel_bar, haystack=bank_window)
+right click steel bar -- click(button=right)
+     click 'withdrawal all' -- m_locate(needle=withdrawal_all), click
+     check for warnings -- m_locate(needle=warnings)
+ wait for steel bar to appear in inventory -- m_locate(needle=steel_bar, haystack=inventory)
+ click on minimap objective -- m_locate(needle=minimap_furance_from_bank, 
+ haystack=minimap)
+ wait for palyer to reach objective -- m_locate(needle=minimap_at_furnace, 
+ haystack=minimap)
+ click on furnace -- m_locate(needle=furnace)
+ use hotkeys to select correct options for smelting steel bars -- hotkey(1,2,3)
+ while bars are smelting, run checks
+     random chat messages -- random_chat()
+     check for steel bars depleted -- m_locate(needle=steel_bar, haystack=inv)
+     check for warning messages -- m_locate(needle=warning_message)
+     check for logout -- m_locate(needle=login_page)
+ when empty, click on bank objective -- m_locate(
+ needle=minimap_bank_from_furnace,
+ haystack=minimap)
+ wait to reach bank -- m_locate(needle=at_bank)
+ when at bank, re-orient player
+ click on bank -- 
+ wait for bank window to open
+ right click steel bars in inv
+     click 'deposit all'
+     check for warnings
+ wait for steel bars to deposit
+ restart script
+ return    
+'''
 
 def miner():
+
     """An automatic mining script."""
 
     # Ores to mine, in order of priority.
