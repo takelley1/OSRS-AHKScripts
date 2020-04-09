@@ -1,3 +1,5 @@
 venv/*
 .idea/*
 /Project.xml
+.idea
+.pytest_cache/*
