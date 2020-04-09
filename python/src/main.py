@@ -38,8 +38,6 @@ unsuitable_site = 0
 runs_var = 1
 # ------------------------------------------------------------------------------
 
-log.basicConfig(format='(%(asctime)s) %(funcName)s - %(''message)s',
-                level=log.DEBUG)
 
 # MAIN SCRIPTS #################################################################
 '''

@@ -7,7 +7,7 @@ from python.src import misc, input
 from python.src.orient import client_xmax, client_ymin, client_ymax, client_xmin
 
 
-class Image:
+class Vision:
     def __init__(self, needle, haystack=0, grayscale=False):
         self.needle = needle
         self.haystack = haystack
@@ -98,7 +98,7 @@ class Image:
 
         for tries in range(1, loop_num):
             #target_image = Image(needle=self.needle, haystack=self.haystack)
-            target_image = Image.m_locate(self, loctype='center')
+            target_image = Vision.m_locate(self, loctype='center')
 
             if target_image != 0:
                 log.debug('Found ' + str(self.needle) + ', after trying ' + str(tries)
@@ -139,7 +139,7 @@ class Image:
         for tries in range(1, loop_num):
             #target_image = m_locate(needle=needle, haystack=haystack,
                                     #loctype='center')
-            target_image = Image.m_locate(self, loctype='center')
+            target_image = Vision.m_locate(self, loctype='center')
 
             if target_image != 0:
                 (x, y) = target_image
