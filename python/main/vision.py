@@ -8,6 +8,7 @@ from python.src.orient import client_xmax, client_ymin, client_ymax, client_xmin
 
 
 class Vision:
+
     def __init__(self, needle, haystack=0, grayscale=False):
         self.needle = needle
         self.haystack = haystack
@@ -21,11 +22,11 @@ class Vision:
 
         parameters:
 
-            needle: The image to search for. Must be a filepath.
+            self.needle: The image to search for. Must be a filepath string.
 
-            haystack (default = 0): The image to search within for the needle.
-                                    If this is 0, the function will search the
-                                    client window.
+            self.haystack (default = 0): The image to search within for the needle.
+                                         If this is 0, the function will search the
+                                         client window.
 
             conf (default = 0.95): The confidence value required to match the image
                                    successfully. This is used by Pyautogui.
@@ -41,9 +42,9 @@ class Vision:
                         returns the XY coordinates of its center, relative to the
                         coordinate plane of the haystack image.
 
-            grayscale (default = False): Converts the haystack to grayscale before
-                                         searching within it. Speeds up searching by
-                                         about 30%."""
+            self.grayscale (default = False): Converts the haystack to grayscale before
+                                              searching within it. Speeds up searching by
+                                              about 30%."""
 
         if self.haystack != 0:
             m_locate_var = pag.locate(self.needle, self.haystack, confidence=conf,
@@ -65,8 +66,6 @@ class Vision:
             if m_locate_var is not None:
                 log.debug('Found regular image ' + str(self.needle) + ', ' +
                           str(m_locate_var))
-                # If the center of the image is not needed, don't return any
-                # coordinates.
                 return 1
             elif m_locate_var is None:
                 log.info('Cannot find regular image ' + str(self.needle) + ' conf=' +
@@ -116,21 +115,28 @@ class Vision:
                     loop_sleep_min=100, loop_sleep_max=1000,
                     rand_xmin=3, rand_xmax=3,
                     rand_ymin=3, rand_ymax=3):
+
         """Moves the mouse to the provided needle image and clicks on it. If a
         haystack is provided, searches for the provided image within the
         haystack. If a haystack is not provided, searches within an area defined by
         the loctype parameter.
-        parameters:
+
+        Arguments:
+
             needle: a filepath to the image to search for, relative to the
                     script's working directory
+
             haystack: the image to search for the needle within. Must be a PIL
                       image variable.
+
             loctype: if the haystack parameter is 0, this parameter is used to
                      create a haystack.
+
                 c: (default) searches client for the xy center of the needle.
                    Returns x,y coordinates
+
                 co: Searches the overview for the xy center of the needle.
-            button: the mouse button to click when the script locates the image.
+
             rx1 / ry1: the minimum x/y value to generate a random variable from.
             rx2 / ry2: the maximum x/y/ value to generate a random variable from."""
 

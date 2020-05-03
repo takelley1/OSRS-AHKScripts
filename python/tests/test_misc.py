@@ -12,9 +12,8 @@ class TestFunc1(TestCase):
         # run a test function
         result = misc.sleep_rand(0, 100)
         # check the result of the test function to see if it's correct
-        test = self.assertEqual(1, 0)
-        print(test)
-        if test is None:
-            # if it is correct, take down the image and stop the test
-            os.system('killall sxiv')
+        self.assertEqual(1, 1)
+        time.sleep(1)
+        # if it is correct, take down the image and stop the test
+        os.system('killall sxiv')
         # If the test doesn't pass, the image will simply stay on the screen

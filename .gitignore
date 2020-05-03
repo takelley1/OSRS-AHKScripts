@@ -1,5 +1,9 @@
 venv/*
+venv_pypy*
 .idea/*
 /Project.xml
 .idea
 .pytest_cache/*
+python/main/__pycache__/
+todo.md
+python/tests/images/*

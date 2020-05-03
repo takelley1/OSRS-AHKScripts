@@ -5,7 +5,7 @@ import logging as log
 import pyautogui as pag
 from python.src import misc
 from python.src.orient import client_xmax, client_xmin, client_ymax, client_ymin
-sys.setrecursionlimit(9999999)
+sys.setrecursionlimit()
 
 
 class Mouse:
@@ -14,7 +14,17 @@ class Mouse:
     def move_away(direction=rand.choice(['left', 'right'])):
         """Moves the mouse to a random spot on right half or the left half of
         the client window, away from wherever it clicked,
-        to prevent tooltips from interfering with the script."""
+        to prevent tooltips from interfering with the script.
+
+        Arguments:
+            
+            direction (default = [random]): Which side of the screen to move
+                                            the mouse.
+
+        Returns:
+
+            Always returns 0."""
+
         log.debug('Moving mouse away towards ' +
                   str(direction) + ' side of client.')
         misc.sleep_rand(0, 500)
@@ -39,19 +49,24 @@ class Mouse:
         """Moves the mouse to a 'neutral zone', away from any buttons or tooltop
         icons that could get in the way of the script.
 
-        parameters:
+        Arguments:
 
             xmin (default = 50): The minimum X-distance the mouse position should be
-            randomized from the origin (top left corner of client window).
+                                 randomized from the origin
+                                 (top left corner of client window).
 
             xmax (default = 300): The maximum X-distance the mouse position
-            should be randomized from the origin.
+                                  should be randomized from the origin.
 
             ymin (default = 300): The minimum Y-distance the mouse position
-            should be randomized from the origin.
+                                  should be randomized from the origin.
 
             ymax (default = 500): The maximum X-distance the mouse position
-            should be randomized from the origin."""
+                                  should be randomized from the origin.
+
+        Returns:
+
+            Always returns 0."""
 
         log.debug('Moving mouse towards neutral area.')
         pag.moveTo((client_xmin + (rand.randint(xmin, xmax))),
@@ -65,7 +80,8 @@ class Mouse:
         """Clicks the left or right mouse button, waiting before and after for a
         randomized period of time.
 
-        parameters:
+        Arguments:
+
             button (default = 'left'): Which mouse button to click with.
 
             before_min (default = 0): Minimum number of miliseconds to wait
@@ -78,7 +94,11 @@ class Mouse:
             clicking.
 
             after_max (default = 500): Maximum number of miliseconds to wait
-            after clicking."""
+            after clicking.
+
+        Returns:
+
+            Always returns 0."""
 
         log.debug('Clicking ' + button + ' mouse button.')
         misc.sleep_rand(before_min, before_max)
@@ -91,12 +111,17 @@ class Mouse:
         """Randomizes the amount of time the mouse cursor takes to move to a
         new location.
 
-        parameters:
+        Arguments:
+
             duration_min (default = 50): Minimum number of miliseconds for mouse
-            movement.
+                                         movement.
 
             duration_max (default = 1500): Maximum number of miliseconds for
-            mouse movement."""
+                                           mouse movement.
+
+        Returns:
+
+            Returns a float between duration_min and duration_max."""
 
         move_duration_var = (misc.rand_val(duration_min, duration_max))
         return move_duration_var
@@ -105,10 +130,13 @@ class Mouse:
     def move_path():
         """Randomizes the movement behavior of the mouse cursor as it moves to a
         new location. One of 22 different movement patters is chosen at random.
-        """
+
+        Returns:
+
+            Returns a random PyAutoGUI function for different mouse movement."""
+
         # TODO: implement bezier-curve mouse behavior
-        # https://stackoverflow.com/questions/44467329
-        # /pyautogui-mouse-movement-with-bezier-curve
+        # https://stackoverflow.com/questions/44467329/pyautogui-mouse-movement-with-bezier-curve
         rand_path = rand.randint(1, 22)
         if rand_path == 1:
             log.debug('Generated rand_path easeInQuad.')
@@ -193,11 +221,11 @@ class Keyboard:
     def keypress(key, timedown_min=5, timedown_max=190, before_min=500,
                  before_max=1000, after_min=500, after_max=1000):
         """Holds down the specified key for a random period of time. All
-        times are in miliseconds.
+        values are in miliseconds.
 
-        parameters:
+        Arguments:
 
-            key: The key on the keyboard to press, according to PyAutoGui.
+            key: The key on the keyboard to press, according to PyAutoGUI.
 
             timedown_min (default = 5): The shortest time the key can be down.
             timedown_max (default = 190): The longest time the key can be down.
@@ -207,10 +235,14 @@ class Keyboard:
             before_max (default = 1000): The longest time to wait before
                                          pressing the key down.
 
-            afterm_in (default = 500): The shortest time to wait after
-                                       releasing the key.
-            afterm_ax (default = 1000): The longest time to wait after
+            afterm_min (default = 500): The shortest time to wait after
                                         releasing the key.
+            afterm_max (default = 1000): The longest time to wait after
+                                         releasing the key.
+
+        Returns:
+
+            Always returns 0.
         """
         log.debug('Pressing key: ' + str(key))
         misc.sleep_rand(before_min, before_max)
