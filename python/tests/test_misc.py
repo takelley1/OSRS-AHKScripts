@@ -1,19 +1,26 @@
-from unittest import TestCase
-from python.src import misc
 import os
 import time
+from unittest import TestCase
+from python.main import misc
+from python.main import orient
 
-class TestFunc1(TestCase):
-    def test_func1(self):
-        # present an ingame screenshot to the script to simulate running the
-        # actual bot
-        os.system('sxiv -f -z 100 '
-                  '/home/austin/OSRS-AHKScripts/python/test2.png &')
-        # run a test function
-        result = misc.sleep_rand(0, 100)
-        # check the result of the test function to see if it's correct
-        self.assertEqual(1, 1)
-        time.sleep(1)
-        # if it is correct, take down the image and stop the test
-        os.system('killall sxiv')
-        # If the test doesn't pass, the image will simply stay on the screen
+
+class Tests(TestCase):
+
+    def test_orient(self):
+        # Present an ingame screenshot to the bot to simulate the game client.
+        # The process MUST be forked into the background using '&'.
+        os.system('sxiv -z 100 ./tests/images/'
+                  'smithing-edgeville-cannonballs/CSAtBank.png &')
+        # This sleep is required or the test will fail before the image is
+        #   displayed.
+        time.sleep(0.1)
+        # Run the image-recognition test function(s).
+        orient_test = orient.orient()
+        # Check the return value of the test function to see if it was
+        #   successful.
+        self.assertEqual(orient_test, 0)
+        # If the test passes, remove the image.
+        # If the test fails, the image will stay on the screen.
+        os.system('pkill -f "sxiv -z 100 ./tests/images/'
+                  'smithing-edgeville-cannonballs/CSAtBank.png"')

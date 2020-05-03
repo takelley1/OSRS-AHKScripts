@@ -2,30 +2,32 @@
 import sys
 import logging as log
 import pyautogui as pag
-import pyaml as yaml
+import yaml
 
 
 # Set high recursion limit for functions that call themselves.
-sys.setrecursionlimit(9999999)
+sys.setrecursionlimit(9999)
 conf = 0.95
 
 
 # Search for 'anchor image'.
 # This will become the origin of the coordinate system.
 def orient():
-    anchor = pag.locateCenterOnScreen('./', confidence=0.90)
+    global client_xmin
+    global client_ymin
+    anchor = pag.locateCenterOnScreen('./tests/images/Orient1.PNG', confidence=conf)
     if anchor is None:
         log.fatal('Cannot find image ' + str(anchor) + ' on client!')
-        sys.exit(1)
+        return 1
     else:
+        log.debug('Found anchor' + str(anchor))
         (client_xmin, client_ymin) = anchor
         # Move the origin up and to the left slightly to get it to the exact top
-        # left corner of the eve client window. This is necessary  because the image
-        # searching algorithm returns coordinates to the center of the image rather
-        # than its top right corner.
-        client_xmin -= 20
-        client_ymin -= 20
-        return
+        # left corner of the eve client window.
+        #   This is necessary because the image
+        # searching algorithm returns coordinates to the center of the image
+        #   rather than its top right corner.
+        return 0
 
 
 # Read config file and get client resolution.

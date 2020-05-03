@@ -1,7 +1,7 @@
 # encoding: utf-8
-import logging
-import random
 import sys
+import logging as log
+import random as rand
 import time
 import traceback
 
@@ -26,7 +26,7 @@ from tkinter import ttk
 #  to activate its lasers on a target that has been locked but is not yet in
 #  range, which can look suspicious.
 
-sys.setrecursionlimit(9999999)
+sys.setrecursionlimit()
 playerfound = 0
 
 # These variables are for the mining script only -------------------------------
@@ -43,7 +43,7 @@ runs_var = 1
 '''
 def cannonball_smelter():
 orient player -- orient_player()
-if bank is closed -- m_locate(needle=minimap_at_bank)
+if bank is closed -- mlocate(needle=minimap_at_bank)
 
 def cannonball_smelter():
     pass
@@ -75,10 +75,10 @@ def cannonball_smelter():
 
     ### wait for smelting to finish
     for i in range(1, 1000)
-        lo.m_locate('./inv_empty')
-        lo.m_locate('./login_screen')
+        lo.mlocate('./inv_empty')
+        lo.mlocate('./login_screen')
 
-        if lo.m_locate('./inv_empty') = 0:
+        if lo.mlocate('./inv_empty') = 0:
             lo.click_image('./minimap_bank_from_furnace')
             lo.wait_forImage('./minimap_at_bank')
             lo.click_image('./bank_teller')
@@ -90,28 +90,28 @@ def cannonball_smelter():
     ###
 
     click on bank
-    wait for bank window to open -- m_locate(neelde=bank_window)
+    wait for bank window to open -- mlocate(neelde=bank_window)
 if bank is open, continue
-look for steel bar -- m_locate(needle=steel_bar, haystack=bank_window)
+look for steel bar -- mlocate(needle=steel_bar, haystack=bank_window)
 right click steel bar -- click(button=right)
-     click 'withdrawal all' -- m_locate(needle=withdrawal_all), click
-     check for warnings -- m_locate(needle=warnings)
- wait for steel bar to appear in inventory -- m_locate(needle=steel_bar, haystack=inventory)
- click on minimap objective -- m_locate(needle=minimap_furance_from_bank, 
+     click 'withdrawal all' -- mlocate(needle=withdrawal_all), click
+     check for warnings -- mlocate(needle=warnings)
+ wait for steel bar to appear in inventory -- mlocate(needle=steel_bar, haystack=inventory)
+ click on minimap objective -- mlocate(needle=minimap_furance_from_bank, 
  haystack=minimap)
- wait for palyer to reach objective -- m_locate(needle=minimap_at_furnace, 
+ wait for palyer to reach objective -- mlocate(needle=minimap_at_furnace, 
  haystack=minimap)
- click on furnace -- m_locate(needle=furnace)
+ click on furnace -- mlocate(needle=furnace)
  use hotkeys to select correct options for smelting steel bars -- hotkey(1,2,3)
  while bars are smelting, run checks
      random chat messages -- random_chat()
-     check for steel bars depleted -- m_locate(needle=steel_bar, haystack=inv)
-     check for warning messages -- m_locate(needle=warning_message)
-     check for logout -- m_locate(needle=login_page)
- when empty, click on bank objective -- m_locate(
+     check for steel bars depleted -- mlocate(needle=steel_bar, haystack=inv)
+     check for warning messages -- mlocate(needle=warning_message)
+     check for logout -- mlocate(needle=login_page)
+ when empty, click on bank objective -- mlocate(
  needle=minimap_bank_from_furnace,
  haystack=minimap)
- wait to reach bank -- m_locate(needle=at_bank)
+ wait to reach bank -- mlocate(needle=at_bank)
  when at bank, re-orient player
  click on bank -- 
  wait for bank window to open
@@ -122,275 +122,6 @@ right click steel bar -- click(button=right)
  restart script
  return    
 '''
-
-def miner():
-
-    """An automatic mining script."""
-
-    # Ores to mine, in order of priority.
-    o1 = './img/overview/ore_types/plagioclase.bmp'
-    o2 = './img/overview/ore_types/pyroxeres.bmp'
-    o3 = './img/overview/ore_types/veldspar.bmp'
-    o4 = './img/overview/ore_types/scordite.bmp'
-    o5 = 0
-
-    global playerfound, unsuitable_site, runs_var, pc_list, npc_list
-
-    timer_var = 0
-    # Build the lists of ship icons to check for based on the user-specified
-    # checkboxes in the GUI.
-    (npc_list, pc_list) = o.build_ship_list(detect_npcs, npc_frig_dest,
-                                            npc_cruiser_bc, detect_pcs, pc_indy,
-                                            pc_barge, pc_frig_dest,
-                                            pc_cruiser_bc, pc_bs,
-                                            pc_capindy_freighter, pc_rookie,
-                                            pc_pod)
-    logging.info('beginning run ' + (str(runs_var)))
-    
-    while doc.is_docked() == 0 and unsuitable_site <= total_sites:
-        # Check if ship has any drones in space.
-        if lo.mlocate('./img/indicators/drones/0_drone_in_bay.bmp',
-                      conf=0.99) == 1:
-            o.focus_client()
-            drones.recall_drones(drone_num)
-        if bkmk.iterate_through_bookmarks_rand(total_sites) == 1:
-            # Once arrived at site, check for hostile npcs and human players.
-            # If either exist, warp to another site.
-            # If no hostiles npcs or players are present, check for asteroids.
-            # If no asteroids exist,  warp to another site.
-            if o.select_overview_tab('general') == 1:
-                if o.look_for_ship(npc_list, pc_list) == 1:
-                    unsuitable_site += 1
-                    miner()
-            o.select_overview_tab('mining')
-            target = o.look_for_targets(o1, o2, o3, o4, o5)
-            while target != 0:
-                unsuitable_site = 0
-                drones.launch_drones(drone_num)
-                if o.initiate_target_lock(target) == 0:
-                    miner()
-                time.sleep(float(random.randint(5000, 15000)) / 1000)
-                mng.activate_miners(module_num)
-                # If ship inventory isn't full, continue to mine ore and wait
-                # for popups or errors.
-                # Switch back to the general tab for easier ship detection
-                o.select_overview_tab('general')
-                client = pag.screenshot(region=(
-                    originx, originy, windowx, windowy))
-                ship_full = lo.mlocate('./img/popups/ship_inv_full.bmp',
-                                       haystack=client, conf=0.9)
-
-                # main mining loop # -------------------------------------------
-                while ship_full == 0:
-                    time.sleep(1)
-                    logging.debug('loop START -----')
-                    # overview = pag.screenshot(region=(
-                    #    (originx + (windowx - (int(windowx / 3.8)))),
-                    #    originy, (int(windowx / 3.8)), windowy))
-                    client = pag.screenshot(region=(
-                        originx, originy, windowx, windowy))
-                    overview = ImageOps.crop(client, (755, 0, 0, 0))
-
-                    ship_full = lo.mlocate('./img/popups/ship_inv_full.bmp',
-                                           haystack=client, conf=0.9)
-                    timer_var += 1
-                    
-                    if lo.mlocate('./img/popups/asteroid_depleted.bmp',
-                                  haystack=client, conf=0.9) == 1:
-                        # Sleep to wait for all mining modules to disable
-                        # themselves automatically
-                        logging.info('waiting for modules to deactivate')
-                        time.sleep(float(random.randint(10000, 15000)) / 1000)
-                        o.select_overview_tab('mining')
-                        target = o.look_for_targets(o1, o2, o3, o4, o5)
-                        if target == 0:
-                            miner()
-                        elif target != 0:
-                            if o.initiate_target_lock(target) == 0:
-                                miner()
-                            # This sleep is experimental, and prevents the
-                            # script from attempting to mine an asteroid that
-                            # is too far away.
-                            time.sleep(
-                                float(random.randint(5000, 15000)) / 1000)
-                            mng.activate_miners(module_num)
-                            ship_full = lo.mlocate(
-                                './img/popups/ship_inv_full.bmp',
-                                haystack=client, conf=0.9)
-                            continue
-
-                    if mng.time_at_site(timer_var) == 1 or lo.mlocate(
-                            './img/indicators/no_object_selected.bmp',
-                            haystack=client, conf=0.9) == 1:
-                        drones.recall_drones(drone_num)
-                        miner()
-
-                    if o.look_for_ship(npc_list, pc_list, haystack=overview) \
-                            == 1 \
-                            or o.is_jammed(detect_jam, haystack=overview) == 1:
-                        drones.recall_drones(drone_num)
-                        miner()
-                    logging.info('loop END -----')
-                # end of main mining loop --------------------------------------
-
-                if ship_full == 1:
-                    # Once inventory is full, dock at home station and unload.
-                    drones.recall_drones(drone_num)
-                    logging.info('finishing up run ' + (str(runs_var)))
-                    if system_mining == 0:
-                        if bkmk.set_home() == 1:
-                            if navigator() == 1:
-                                doc.unload_ship()
-                                doc.wait_for_undock()
-                                playerfound = 0
-                                time.sleep(3)
-                                runs_var += 1
-                                miner()
-                    # If ship is mining in the same system it will dock in,
-                    # a different set of functions is required.
-                    elif system_mining == 1:
-                        bkmk.dock_at_local_bookmark()
-                        doc.unload_ship()
-                        doc.wait_for_undock()
-                        playerfound = 0
-                        time.sleep(3)
-                        runs_var += 1
-                        miner()
-
-            if target == 0:
-                unsuitable_site += 1
-                logging.debug('unsuitable_site is' + (str(unsuitable_site)))
-                logging.debug('no targets, restarting')
-                miner()
-
-        elif bkmk.iterate_through_bookmarks_rand(total_sites) == 0:
-            nav.emergency_terminate()
-            sys.exit(0)
-            
-    if doc.is_docked() == 1 and unsuitable_site <= total_sites:
-        o.focus_client()
-        doc.wait_for_undock()
-        miner()
-        
-    if doc.is_docked() == 1 and unsuitable_site > total_sites:
-        logging.debug('unsuitable site limit reached')
-        sys.exit()
-        
-    if doc.is_docked() == 0 and unsuitable_site > total_sites:
-        logging.debug('unsuitable site limit reached')
-        nav.emergency_terminate()
-        nav.emergency_logout()
-        sys.exit()
-
-
-def navigator():
-    """A standard warp-to-zero autopilot script. Warp to the destination, then
-    terminate."""
-    logging.debug('running navigator')
-    nav.has_route()
-    dockedcheck = doc.is_docked()
-
-    while dockedcheck == 0:
-        o.focus_overview()
-        selectwaypoint = nav.warp_to_waypoint()
-        while selectwaypoint == 1:  # Value of 1 indicates stargate waypoint.
-            time.sleep(5)  # Wait for jump to begin.
-            detectjump = nav.wait_for_jump()
-            if detectjump == 1:
-                selectwaypoint = nav.warp_to_waypoint()
-            else:
-                logging.critical('error detecting jump')
-                nav.emergency_terminate()
-                traceback.print_exc()
-                traceback.print_stack()
-                sys.exit()
-
-        while selectwaypoint == 2:  # Value of 2 indicates a station waypoint.
-            time.sleep(5)
-            detectdock = nav.wait_for_dock()
-            if detectdock == 1:
-                logging.info('arrived at destination')
-                return 1
-        else:
-            logging.warning('likely at destination')
-            return 1
-
-    while dockedcheck == 1:
-        doc.wait_for_undock()
-        time.sleep(5)
-        navigator()
-
-
-def collector():
-    """Haul all items from a predetermined list of stations to a single 'home'
-    station, as specified by the user. The home station is identified by a
-    station bookmark beginning with '000', while the remote stations are any
-    station bookmark beginning with the numbers 1-9. This means up to 10
-    remote stations are supported."""
-    logging.debug('running collector')
-    dockedcheck = doc.is_docked()
-    while dockedcheck == 0:
-        selectwaypoint = nav.warp_to_waypoint()
-
-        while selectwaypoint == 1:
-            time.sleep(3)  # Wait for warp to start.
-            detectjump = nav.wait_for_jump()
-            if detectjump == 1:
-                selectwaypoint = nav.warp_to_waypoint()
-        while selectwaypoint == 2:
-            time.sleep(3)
-            detectdock = nav.wait_for_dock()
-            if detectdock == 1:
-                collector()
-        else:
-            logging.critical('error with at_dest_check_var and '
-                             'at_home_check_var')
-            traceback.print_exc()
-            traceback.print_stack()
-            sys.exit()
-
-    while dockedcheck == 1:
-        athomecheck = bkmk.is_home()
-        # If docked at home station, set a destination waypoint to a remote
-        # station and unload cargo from ship into home station inventory.
-        if athomecheck == 1:
-            doc.unload_ship()
-            bkmk.set_dest()
-            doc.wait_for_undock()
-            collector()
-        elif athomecheck == 0:
-            logging.debug('not at home')
-            loadship = doc.load_ship()
-            logging.debug('loadship is ' + (str(loadship)))
-
-            if loadship == 2 or loadship == 0 or loadship is None:
-                atdestnum = bkmk.detect_bookmark_location()
-                if atdestnum == -1:
-                    doc.wait_for_undock()
-                    collector()
-                else:
-                    bkmk.set_dest()
-                    bkmk.blacklist_station()
-                    doc.wait_for_undock()
-                    collector()
-            elif loadship == 1:  # Value of 1 indicates ship is full.
-                bkmk.set_home()
-                doc.wait_for_undock()
-                collector()
-
-        else:
-            logging.critical('error with detect_at_home and at_dest_check')
-            traceback.print_exc()
-            traceback.print_stack()
-            sys.exit()
-    if dockedcheck is None:
-        collector()
-
-
-print("originx =", originx)
-print("originy =", originy)
-print("windowx =", windowx)
-print("windowy =", windowy)
 
 # GUI ##########################################################################
 gui = tkinter.Tk()
@@ -588,19 +319,19 @@ def start(event):
     detect_jam = (int(detect_jam_gui.get()))
     logging.debug('detect ecm jamming is ' + (str(detect_jam)))
 
-    miner()
+    #miner()
     return
 
 
 def start_navigator(event):
     """Starts the navigator() script."""
-    navigator()
+    #navigator()
     return
 
 
 def start_collector(event):
     """Starts the collector() script."""
-    collector()
+    #collector()
     return
 
 
