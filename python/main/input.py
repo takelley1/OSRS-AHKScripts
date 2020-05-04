@@ -22,25 +22,25 @@ def move_away(direction=rand.choice(['left', 'right'])):
 
         Always returns 0."""
 
-    log.debug('Moving mouse away towards ' +
-              str(direction) + ' side of client.')
+    log.debug('Moving mouse away towards ' + str(direction) +
+              ' side of client.')
     misc.sleep_rand(0, 500)
+
     if direction == 'right':
-        pag.moveTo((rand.randint(
-            ((ori.client_xmax - 100) - (ori.client_xmax / 2)),
-            (ori.client_xmax - 100))),
-            (rand.randint(10, (ori.client_ymax - 100))),
+        pag.moveTo(
+            (rand.randint((ori.client_xmax / 2), ori.client_xmax)),
+            (rand.randint(0, ori.client_ymax)),
             move_duration(), move_path())
         misc.sleep_rand(0, 500)
-        return 0
 
     elif direction == 'left':
-        pag.moveTo((rand.randint(10, ((ori.client_xmax - 100) -
-                   (ori.client_xmax / 2)))),
-                   (rand.randint(10,(ori.client_ymax - 100))),
-                   move_duration(), move_path())
+        pag.moveTo(
+            (rand.randint(0, (ori.client_xmax / 2))),
+            (rand.randint(0, ori.client_ymax)),
+            move_duration(), move_path())
         misc.sleep_rand(0, 500)
-        return 0
+
+    return 0
 
 
 def move_to_neutral(xmin=50, xmax=300, ymin=300, ymax=500):
@@ -49,24 +49,18 @@ def move_to_neutral(xmin=50, xmax=300, ymin=300, ymax=500):
 
     Arguments:
 
-        xmin (default = 50): The minimum X-distance the mouse position should be
-                             randomized from the origin
-                             (top left corner of client window).
+        xmin (default = 50) : The minimum X-distance.
+        xmax (default = 300): The maximum X-distance.
 
-        xmax (default = 300): The maximum X-distance the mouse position
-                              should be randomized from the origin.
-
-        ymin (default = 300): The minimum Y-distance the mouse position
-                              should be randomized from the origin.
-
-        ymax (default = 500): The maximum X-distance the mouse position
-                              should be randomized from the origin.
+        ymin (default = 300): The minimum Y-distance.
+        ymax (default = 500): The maximum X-distance.
 
     Returns:
 
-        Always returns 0."""
+        Returns 0 upon completion of mouse movement."""
 
     log.debug('Moving mouse towards neutral area.')
+
     pag.moveTo((ori.client_xmin + (rand.randint(xmin, xmax))),
                (ori.client_ymin + (rand.randint(ymin, ymax))),
                move_duration(), move_path())
@@ -80,25 +74,28 @@ def click(button='left', before_min=0, before_max=500, after_min=0,
 
     Arguments:
 
-        button (default = 'left'): Which mouse button to click with.
+        button (default = 'left'): Which mouse button to click.
+            Left
+            Right
 
-        before_min (default = 0): Minimum number of miliseconds to wait
-        before clicking.
+        before_min (default = 0)  : Minimum number of miliseconds to wait
+                                    before clicking.
 
         before_max (default = 500): Maximum number of miliseconds to wait
-        before clicking.
+                                    before clicking.
 
-        after_min (default = 0): Minimum number of miliseconds to wait after
-        clicking.
+        after_min (default = 0)   : Minimum number of miliseconds to wait after
+                                    clicking.
 
-        after_max (default = 500): Maximum number of miliseconds to wait
-        after clicking.
+        after_max (default = 500) : Maximum number of miliseconds to wait
+                                    after clicking.
 
     Returns:
 
-        Always returns 0."""
+        Returns 0 after clicking mouse."""
 
     log.debug('Clicking ' + button + ' mouse button.')
+
     misc.sleep_rand(before_min, before_max)
     pag.click(button=button, duration=misc.rand_val)
     misc.sleep_rand(after_min, after_max)
