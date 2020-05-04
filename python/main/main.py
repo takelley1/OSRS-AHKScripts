@@ -1,6 +1,7 @@
 # encoding: utf-8
 import sys
 import logging as log
+import python.main.vision as vis
 import random as rand
 import time
 import traceback
@@ -12,66 +13,40 @@ import pyautogui as pag
 import tkinter
 from tkinter import ttk
 
-#from src import bookmarks as bkmk, docked as doc, drones, locate as lo, \
-    #mining as mng, navigation as nav, overview as o
-#from src.vars import originx, originy, system_mining, windowx, windowy
-
-# TODO: add support for mining drones.
-
-# TODO: add ability to save default settings config using an ini file
-
-# TODO: for mining script, add a user-defined sleep variable that waits for a
-#  short duration between the ship locking a target and the ship activating
-#  its mining lasers. This is to prevent the ship from constantly attempting
-#  to activate its lasers on a target that has been locked but is not yet in
-#  range, which can look suspicious.
-
-sys.setrecursionlimit()
-playerfound = 0
-
-# These variables are for the mining script only -------------------------------
-# Total number of saved bookmark locations. This variable is set by the user.
-total_sites = 10
-unsuitable_site = 0
-# Number of 'runs' completed by the mining script. This will always start
-# at 1
-runs_var = 1
-# ------------------------------------------------------------------------------
-
-
-# MAIN SCRIPTS #################################################################
-'''
 def cannonball_smelter():
-orient player -- orient_player()
-if bank is closed -- mlocate(needle=minimap_at_bank)
 
-def cannonball_smelter():
-    pass
-    return
-    bank_booth = lo.click_image('./bank_booth')
+    # Click on the bank booth.
+    bank_booth = vis.Vision(needle='./bank_booth').click_image()
     if bank_booth == 1:
-        print('error, couldnt find bank booth')
+        logout()
+        raise RuntimeError('couldnt find bank booth')
 
-    bank_window = lo.wait_for_image('./bank_window')
+    # Wait for the bank window to appear.
+    bank_window = vis.Vision(needle='./bank_window').wait_for_image()
     if bank_window == 1:
-        print('timed out waiting for bank booth to open')
+        logout()
+        raise RuntimeError ('timed out waiting for bank booth to open')
 
-    right_click_steel = lo.click_image('./steel_bar_in_bank', button='right')
+    # Withdrawl the steel bars.
+    right_click_steel = vis.Vision(needle='./steel_bar_in_bank').\
+                                     click_image(button='right')
     if right_click_steel == 1:
         sys.exit(1)
-    withdrawl = lo.click_image('./windrawl_all')
-    if withdrawl == 1:
+
+    withdrawl_steel = vis.Vision(needle='./windrawl_all').click_image()
+    if withdrawl_steel == 1:
         sys.exit(1)
 
-    steel_bars_in_inventory = lo.wait_for_image('./steel_bar_in_inv')
+'''
+    steel_bars_in_inventory = vis.wait_for_image('./steel_bar_in_inv')
     if steel_bars_in_inventory == 1:
         print('timed out waiting for steel bars to show up in inv')
 
-    lo.click_image('./minimap_furnace_from_bank')
-    lo.wait_for_image('./minimap_at_furnace')
-    lo.click_image('furnace')
-    lo.wait_for_image('smelting_menu')
-    key.keypress('space')
+     vis.click_image('./minimap_furnace_from_bank')
+     vis.wait_for_image('./minimap_at_furnace')
+     vis.click_image('furnace')
+     vis.wait_for_image('smelting_menu')
+     vis.keypress('space')
 
     ### wait for smelting to finish
     for i in range(1, 1000)
@@ -112,7 +87,7 @@ right click steel bar -- click(button=right)
  needle=minimap_bank_from_furnace,
  haystack=minimap)
  wait to reach bank -- mlocate(needle=at_bank)
- when at bank, re-orient player
+ when at bank, re-test_orient player
  click on bank -- 
  wait for bank window to open
  right click steel bars in inv
@@ -273,51 +248,51 @@ def start(event):
     # user clicks the start button.
     module_num = (int(combo_modules.get()))
     drone_num = (int(combo_drones.get()))
-    logging.debug((str(module_num)) + ' modules')
-    logging.debug((str(drone_num)) + ' drones')
+    log.debug((str(module_num)) + ' modules')
+    log.debug((str(drone_num)) + ' drones')
 
     detect_pcs = (int(detect_pcs_gui.get()))
-    logging.debug('detect pcs is ' + (str(detect_pcs)))
+    log.debug('detect pcs is ' + (str(detect_pcs)))
 
     pc_indy = (int(pc_indy_gui.get()))
-    logging.debug('detect pc indy is ' + (str(pc_indy)))
+    log.debug('detect pc indy is ' + (str(pc_indy)))
 
     pc_barge = (int(pc_barge_gui.get()))
-    logging.debug('detect pc barge is ' + (str(pc_barge)))
+    log.debug('detect pc barge is ' + (str(pc_barge)))
 
     pc_frig_dest = (int(pc_frig_dest_gui.get()))
-    logging.debug('detect pc frig/dest is ' + (str(pc_frig_dest)))
+    log.debug('detect pc frig/dest is ' + (str(pc_frig_dest)))
 
     pc_capindy_freighter = (int(pc_capindy_freighter_gui.get()))
-    logging.debug('detect pc capital indy/freighter is ' + (str(
+    log.debug('detect pc capital indy/freighter is ' + (str(
         pc_capindy_freighter)))
 
     pc_cruiser_bc = (int(pc_cruiser_bc_gui.get()))
-    logging.debug('detect pc cruiser/bc is ' + (str(pc_cruiser_bc)))
+    log.debug('detect pc cruiser/bc is ' + (str(pc_cruiser_bc)))
 
     pc_bs = (int(pc_bs_gui.get()))
-    logging.debug('detect pc bs is ' + (str(pc_bs)))
+    log.debug('detect pc bs is ' + (str(pc_bs)))
 
     pc_rookie = (int(pc_rookie_gui.get()))
-    logging.debug('detect pc rookie is ' + (str(pc_rookie)))
+    log.debug('detect pc rookie is ' + (str(pc_rookie)))
 
     pc_pod = (int(pc_pod_gui.get()))
-    logging.debug('detect pc pod is ' + (str(pc_pod)))
+    log.debug('detect pc pod is ' + (str(pc_pod)))
 
     detect_npcs = (int(detect_npcs_gui.get()))
-    logging.debug('detect npcs is ' + (str(detect_npcs)))
+    log.debug('detect npcs is ' + (str(detect_npcs)))
 
     npc_frig_dest = (int(npc_frig_dest_gui.get()))
-    logging.debug('detect npc frig/dest is ' + (str(npc_frig_dest)))
+    log.debug('detect npc frig/dest is ' + (str(npc_frig_dest)))
 
     npc_cruiser_bc = (int(npc_cruiser_bc_gui.get()))
-    logging.debug('detect npc cruiser/bc is ' + (str(npc_cruiser_bc)))
+    log.debug('detect npc cruiser/bc is ' + (str(npc_cruiser_bc)))
 
     npc_bs = (int(npc_bs_gui.get()))
-    logging.debug('detect npc bs is ' + (str(npc_bs)))
+    log.debug('detect npc bs is ' + (str(npc_bs)))
 
     detect_jam = (int(detect_jam_gui.get()))
-    logging.debug('detect ecm jamming is ' + (str(detect_jam)))
+    log.debug('detect ecm jamming is ' + (str(detect_jam)))
 
     #miner()
     return
