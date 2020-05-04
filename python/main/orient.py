@@ -1,23 +1,22 @@
 # encoding: utf-8
 import sys
 import logging as log
-import pyautogui as pag
+import python.main.vision as vision
 import yaml
 
 
 # Set high recursion limit for functions that call themselves.
 sys.setrecursionlimit(9999)
-conf = 0.95
 
 
-# Search for 'anchor image'.
-# This will become the origin of the coordinate system.
+# Search for the 'anchor image'.
+# This will provide the basis for the client's the coordinate system.
 def orient():
     global client_xmin
     global client_ymin
-    anchor = pag.locateCenterOnScreen('./tests/images/Orient1.PNG', confidence=conf)
+    anchor = vision.Vision(needle='./tests/images/Orient1.PNG').wait_for_image()
     if anchor is None:
-        log.fatal('Cannot find image ' + str(anchor) + ' on client!')
+        log.fatal('Cannot find anchor image ' + str(anchor) + ' on client!')
         return 1
     else:
         log.debug('Found anchor' + str(anchor))
@@ -28,7 +27,6 @@ def orient():
         # searching algorithm returns coordinates to the center of the image
         #   rather than its top right corner.
         return 0
-
 
 # Read config file and get client resolution.
 #with open('./config.yaml') as f:
