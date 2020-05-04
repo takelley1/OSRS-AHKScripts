@@ -1,17 +1,14 @@
-# encoding: utf-8
-import sys
 import logging as log
-import python.main.vision as vis
-import random as rand
-import time
-import traceback
-
-import yaml
 from PIL import ImageOps
-
-import pyautogui as pag
+import random as rand
+import sys
+import time
 import tkinter
 from tkinter import ttk
+import traceback
+import yaml
+import python.main.vision as vis
+sys.setrecursionlimit(9999)
 
 def cannonball_smelter():
 

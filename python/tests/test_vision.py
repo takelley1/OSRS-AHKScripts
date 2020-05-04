@@ -1,7 +1,9 @@
-from unittest import TestCase
-from python.main import vision
 import os
 import time
+import sys
+from unittest import TestCase
+from python.main import vision
+sys.setrecursionlimit(9999)
 
 
 class TestWait_for_image(TestCase):

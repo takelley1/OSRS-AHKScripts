@@ -1,11 +1,11 @@
-# encoding: utf-8
-import sys
 import logging as log
 import pyautogui as pag
 import random as rand
+import sys
 from python.main import misc
 from python.main import input
 from python.main import orient as ori
+sys.setrecursionlimit(9999)
 
 
 class Vision:

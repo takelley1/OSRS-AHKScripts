@@ -1,8 +1,8 @@
-# encoding: utf-8
-import sys
 import logging as log
+import sys
 import python.main.vision as vision
 import yaml
+sys.setrecursionlimit(9999)
 
 
 # Set high recursion limit for functions that call themselves.

@@ -1,6 +1,8 @@
-import time
 import logging as log
 import random as rand
+import sys
+import time
+sys.setrecursionlimit(9999)
 
 
 def rand_val(rmin=0, rmax=100):
