@@ -10,12 +10,13 @@ from python.main import orient as ori
 
 class Vision:
 
-    def __init__(self, needle, haystack=0, grayscale=False):
+    def __init__(self, needle, haystack=0, grayscale=False, conf=0.95):
         self.needle = needle
         self.haystack = haystack
         self.grayscale = grayscale
+        self.conf = conf
 
-    def mlocate(self, conf=0.95, loctype= 'regular'):
+    def mlocate(self, loctype='regular'):
 
         """Searches the haystack image for the needle image, returning a tuple
         containing the needle's XY coordinates within the haystack. If a
@@ -51,7 +52,7 @@ class Vision:
 
         if self.haystack != 0:
             target_image = pag.locate(self.needle, self.haystack,
-                                      confidence=conf, grayscale=self.grayscale)
+                                      confidence=self.conf, grayscale=self.grayscale)
             if target_image is not None:
                 log.debug('Found needle: ' + (str(self.needle)) +
                           ' in haystack: ' + str(self.haystack) + ', ' +
@@ -60,12 +61,12 @@ class Vision:
             else:
                 log.info('Cannot find needle: ' + str(self.needle) +
                          ' in haystack: ' + str(self.haystack) + ', ' +
-                         str(target_image) + ', conf=' + str(conf))
+                         str(target_image) + ', conf=' + str(self.conf))
                 return 0
 
         if self.haystack == 0 and loctype == 'regular':
             target_image = pag.locateCenterOnScreen(self.needle,
-                                                    confidence=conf,
+                                                    confidence=self.conf,
                                                     region=(ori.client_xmin,
                                                             ori.client_ymin,
                                                             ori.client_xmax,
@@ -77,12 +78,12 @@ class Vision:
                 return 1
             elif target_image is None:
                 log.info('Cannot find regular image ' + str(self.needle) +
-                         ' conf=' + str(conf))
+                         ' conf=' + str(self.conf))
                 return 0
 
         if self.haystack == 0 and loctype == 'center':
             target_image = pag.locateCenterOnScreen(self.needle,
-                                                    confidence=conf,
+                                                    confidence=self.conf,
                                                     region=(ori.client_xmin,
                                                             ori.client_ymin,
                                                             ori.client_xmax,
@@ -94,12 +95,11 @@ class Vision:
                 return target_image
             elif target_image is None:
                 log.info('Cannot find center of ' + str(self.needle) +
-                         ', conf=' + str(conf))
+                         ', conf=' + str(self.conf))
                 return 0
 
         else:
-            log.critical('Incorrect mlocate function parameters!')
-            sys.exit(1)
+            raise RuntimeError('Incorrect mlocate function parameters!')
 
     def wait_for_image(self, loop_num=10, loop_sleep_min=100,
                        loop_sleep_max=1000):
