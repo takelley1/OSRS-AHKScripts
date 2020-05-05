@@ -20,7 +20,7 @@ def rand_val(rmin=0, rmax=100):
         Returns a FLOAT."""
 
     randval = float(rand.randint(rmin, rmax)) / 1000
-    log.debug('Got random value of ' + str(randval) + ' .')
+    log.debug('Got random value of ' + str(randval) + '.')
     return randval
 
 
@@ -40,5 +40,3 @@ def sleep_rand(rmin=0, rmax=100):
     log.debug('Sleeping for ' + str(sleeptime) + ' seconds.')
     time.sleep(float(sleeptime))
     return 0
-
-
