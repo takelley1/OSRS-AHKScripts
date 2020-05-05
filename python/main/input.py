@@ -67,7 +67,7 @@ def move_to_neutral(xmin=50, xmax=300, ymin=300, ymax=500):
 
 
 def click(button='left', before_min=0, before_max=500, after_min=0,
-          after_max=500):
+          after_max=500, duration_min=0, duration_max=100):
     """Clicks the left or right mouse button, waiting before and after for a
     randomized period of time.
 
@@ -93,10 +93,13 @@ def click(button='left', before_min=0, before_max=500, after_min=0,
 
         Returns 0 after clicking mouse."""
 
-    log.debug('Clicking ' + button + ' mouse button.')
-
     misc.sleep_rand(before_min, before_max)
-    pag.click(button=button, duration=misc.rand_val)
+
+    duration = misc.rand_val(rmin=duration_min, rmax=duration_max)
+    log.debug('Clicking ' + button + ' mouse button for ' + str(duration) +
+              ' seconds.')
+
+    pag.click(button=button, duration=duration)
     misc.sleep_rand(after_min, after_max)
     return 0
 
