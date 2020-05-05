@@ -118,6 +118,7 @@ class Vision:
                 log.warning('Cannot find ' + str(self.needle) + ', tried '
                             + str(tries) + ' times.')
                 misc.sleep_rand(loop_sleep_min, loop_sleep_max)
+                return 1
 
         log.error('Timed out looking for ' + str(self.needle) + ' !')
         return 1
@@ -134,14 +135,14 @@ class Vision:
 
         Arguments:
 
-            needle: a filepath to the image to search for, relative to the
-                    script's working directory
+            self.needle: A filepath to the image to search for, relative to the
+                         script's working directory.
 
-            haystack: the image to search for the needle within. Must be a PIL
-                      image variable.
+            self.haystack: The image to search for the needle within. Must be a
+                           PIL image object.
 
-            loctype: if the haystack parameter is 0, this parameter is used to
-                     create a haystack.
+            self.loctype: If the haystack parameter is 0, this parameter is used
+                          to create a haystack.
 
                 c: (default) searches client for the xy center of the needle.
                    Returns x,y coordinates
@@ -157,13 +158,13 @@ class Vision:
         target_image = self.wait_for_image(loop_num=loop_num,
                                            loop_sleep_min=loop_sleep_min,
                                            loop_sleep_max=loop_sleep_max)
-        if target_image != 1:
+        if target_image == 1:
+            return 1
+        else:
             (x, y) = target_image
             pag.moveTo((x + (rand.randint(rand_xmin, rand_xmax))),
                        (y + (rand.randint(rand_ymin, rand_ymax))),
                        input.move_duration(), input.move_path())
             input.click(button=button)
-            log.debug('Clicking on ' + str(self.needle) + ' .')
+            log.debug('Clicking on ' + str(self.needle) + '.')
             return 0
-
-        return 1
