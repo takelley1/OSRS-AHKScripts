@@ -5,16 +5,13 @@ import yaml
 sys.setrecursionlimit(9999)
 
 
-# Set high recursion limit for functions that call themselves.
-sys.setrecursionlimit(9999)
-
-
 # Search for the 'anchor image'.
 # This will provide the basis for the client's the coordinate system.
 def orient():
     global client_xmin
     global client_ymin
-    anchor = vision.Vision(needle='./tests/images/Orient1.PNG').wait_for_image()
+    anchor = vision.Vision(needle='./main/needles/menu/prayers.png').\
+                                                                wait_for_image()
     if anchor is None:
         log.fatal('Cannot find anchor image ' + str(anchor) + ' on client!')
         return 1
