@@ -23,11 +23,9 @@ from tkinter import ttk
 
 log.basicConfig(format='%(asctime)s -- %(filename)s.%(funcName)s - %(message)s',
                 level='DEBUG')
+test_return = vision.Vision(needle='./main/needles/menu/prayers.png') \
+    .click_image()
 
-#os.system('sxiv -z 100 /home/austin/OSRS-AHKScripts/python/tests/images/'
-          #'smithing-edgeville-cannonballs/CSAtBank2.png &')
-test = vision.wait_for_image(conf=0.7, needle='/home/austin/OSRS-AHKScripts/python/tests/images/Orient1.PNG')
-#pag.mouseInfo()
-#Mouse('left').move_away()
+print("hello")
 
 sys.exit(0)
