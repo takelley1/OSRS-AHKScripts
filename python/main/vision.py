@@ -103,24 +103,23 @@ class Vision:
 
     def wait_for_image(self, loop_num=10, loop_sleep_min=100,
                        loop_sleep_max=1000):
-        """Continuously loops until the desired image is found."""
+        """Repeatedly searches the haystack for the needle."""
 
         log.debug('Searching for ' + str(self.needle))
 
         for tries in range(1, loop_num):
-            target_image = Vision.mlocate(self, loctype= 'center')
+            target_image = Vision.mlocate(self, loctype='center')
 
             if target_image != 0:
-                log.debug('Found ' + str(self.needle) + ', after trying '
+                log.debug('Found ' + str(self.needle) + ' after trying '
                           + str(tries) + ' times.')
                 return target_image
             else:
                 log.warning('Cannot find ' + str(self.needle) + ', tried '
                             + str(tries) + ' times.')
                 misc.sleep_rand(loop_sleep_min, loop_sleep_max)
-                return 1
 
-        log.error('Timed out looking for ' + str(self.needle) + ' !')
+        log.error('Timed out looking for ' + str(self.needle) + '!')
         return 1
 
     def click_image(self, button='left', loop_num=10,
@@ -129,25 +128,16 @@ class Vision:
                     rand_ymin=3, rand_ymax=3):
 
         """Moves the mouse to the provided needle image and clicks on it. If a
-        haystack is provided, searches for the provided image within the
-        haystack. If a haystack is not provided, searches within an area defined
-        by the loctype parameter.
+        haystack is provided, searches for the provided needle image within the
+        haystack. If a haystack is not provided, searches within the entire
+        display.
 
         Arguments:
 
             self.needle: A filepath to the image to search for, relative to the
                          script's working directory.
 
-            self.haystack: The image to search for the needle within. Must be a
-                           PIL image object.
-
-            self.loctype: If the haystack parameter is 0, this parameter is used
-                          to create a haystack.
-
-                c: (default) searches client for the xy center of the needle.
-                   Returns x,y coordinates
-
-                co: Searches the overview for the xy center of the needle.
+            self.haystack: The image in which to search for the needle.
 
             rx1 / ry1: the minimum x/y value to generate a random variable from.
             rx2 / ry2: the maximum x/y/ value to generate a random variable
@@ -162,9 +152,12 @@ class Vision:
             return 1
         else:
             (x, y) = target_image
+            # TODO: Add parameter that lets this function determine the
+            # resolution of the needle image and automatically use the
+            # needle image's dimensions for rand_xmin/xmax/ymin/ymax.
             pag.moveTo((x + (rand.randint(rand_xmin, rand_xmax))),
                        (y + (rand.randint(rand_ymin, rand_ymax))),
                        input.move_duration(), input.move_path())
-            input.click(button=button)
             log.debug('Clicking on ' + str(self.needle) + '.')
+            input.click(button=button)
             return 0
