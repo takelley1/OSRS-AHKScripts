@@ -7,6 +7,16 @@ from python.main import orient as ori
 sys.setrecursionlimit(9999)
 
 
+def move_to(x, y, xmin=0, xmax=10, ymin=0, ymax=10):
+    """Moves the mouse pointer to the specific coordinates. Coordinates are
+    relative to the display's dimensions."""
+
+    xrand = rand.randint(xmin, xmax)
+    yrand = rand.randint(ymin, ymax)
+    pag.moveTo((x + xrand), (y + yrand), move_duration(), move_path())
+    return 0
+
+
 def move_away(direction=rand.choice(['left', 'right'])):
     """Moves the mouse to a random spot on right half or the left half of
     the client window, away from wherever it clicked,
@@ -60,9 +70,8 @@ def move_to_neutral(xmin=50, xmax=300, ymin=300, ymax=500):
 
     log.debug('Moving mouse towards neutral area.')
 
-    pag.moveTo((ori.client_xmin + (rand.randint(xmin, xmax))),
-               (ori.client_ymin + (rand.randint(ymin, ymax))),
-               move_duration(), move_path())
+    move_to(x=ori.client_xmin, y=ori.client_ymin,
+            xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
     return 0
 
 
