@@ -16,14 +16,15 @@ class Vision:
         self.grayscale = grayscale
         self.conf = conf
 
-    def mlocate(self, loctype='regular'):
-
+    def mlocate(self, loctype='regular',
+                xmin=ori.client_xmin, ymin=ori.client_ymin,
+                xmax=ori.client_xmax, ymax=ori.client_ymax):
         """Searches the haystack image for the needle image, returning a tuple
         containing the needle's XY coordinates within the haystack. If a
         haystack image is not provided, this function searches the entire client
         window.
 
-        parameters:
+        Arguments:
 
             self.needle: The image to search for. Must be a filepath string.
 
@@ -68,10 +69,7 @@ class Vision:
         if self.haystack == 0 and loctype == 'regular':
             target_image = pag.locateOnScreen(self.needle,
                                               confidence=self.conf,
-                                              region=(ori.client_xmin,
-                                                      ori.client_ymin,
-                                                      ori.client_xmax,
-                                                      ori.client_ymax),
+                                              region=(xmin, xmax, ymin, ymax),
                                               grayscale=self.grayscale)
             if target_image is not None:
                 log.debug('Found regular image ' + str(self.needle) + ', ' +
@@ -85,10 +83,8 @@ class Vision:
         if self.haystack == 0 and loctype == 'center':
             target_image = pag.locateCenterOnScreen(self.needle,
                                                     confidence=self.conf,
-                                                    region=(ori.client_xmin,
-                                                            ori.client_ymin,
-                                                            ori.client_xmax,
-                                                            ori.client_ymax),
+                                                    region=(xmin, xmax,
+                                                            ymin, ymax),
                                                     grayscale=self.grayscale)
             if target_image is not None:
                 log.debug('Found center of ' + str(self.needle) + ', ' +
@@ -103,13 +99,17 @@ class Vision:
             raise RuntimeError('Incorrect mlocate function parameters!')
 
     def wait_for_image(self, loctype='regular', loop_num=10,
-                       loop_sleep_min=10, loop_sleep_max=1000):
+                       loop_sleep_min=10, loop_sleep_max=1000,
+                       xmin=ori.client_xmin, ymin=ori.client_ymin,
+                       xmax=ori.client_xmax, ymax=ori.client_ymax):
         """Repeatedly searches the haystack for the needle."""
 
         log.debug('Searching for ' + str(self.needle))
 
         for tries in range(1, loop_num):
-            target_image = Vision.mlocate(self, loctype=loctype)
+            target_image = Vision.mlocate(self, loctype=loctype,
+                                          xmin=xmin, xmax=xmax,
+                                          ymin=ymin, ymax=ymax)
 
             if target_image != 0:
                 log.debug('Found ' + str(self.needle) + ' after trying '
@@ -124,12 +124,13 @@ class Vision:
         return 1
 
     def click_image(self, button='left', loop_num=25,
-                    loop_sleep_min=10, loop_sleep_max=1000):
-
+                    loop_sleep_min=10, loop_sleep_max=1000,
+                    xmin=ori.client_xmin, ymin=ori.client_ymin,
+                    xmax=ori.client_xmax, ymax=ori.client_ymax):
         """Moves the mouse to the provided needle image and clicks on it. If a
         haystack is provided, searches for the provided needle image within the
-        haystack. If a haystack is not provided, searches within the entire
-        display.
+        haystack. If a haystack or set of coordinates is not provided, searches
+        within the entire display.
 
         Arguments:
 
@@ -144,7 +145,9 @@ class Vision:
         target_image = self.wait_for_image(loop_num=loop_num,
                                            loop_sleep_min=loop_sleep_min,
                                            loop_sleep_max=loop_sleep_max,
-                                           loctype='regular')
+                                           loctype='regular',
+                                           xmin=xmin, xmax=xmax,
+                                           ymin=ymin, ymax=ymax)
         if target_image == 1:
             return 1
         else:
