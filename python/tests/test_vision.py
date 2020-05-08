@@ -8,9 +8,10 @@ sys.setrecursionlimit(9999)
 
 log.basicConfig(format='%(asctime)s -- %(filename)s.%(funcName)s - %(message)s',
                 level='DEBUG')
-os.system('pkill feh &')
 
-class TestWait_for_image(TestCase):
+
+class TestWaitForImage(TestCase):
+    os.system('pkill feh')
 
     def test_wait_for_image_prayers(self):
         # Tests if the script can see the prayers icon in the main menu for
@@ -19,8 +20,8 @@ class TestWait_for_image(TestCase):
                   'smithing-edgeville-cannonballs/edgeville-bank-booth.png &')
         time.sleep(.3)
         test_return = vision.Vision(needle='./main/needles/menu/prayers.png')\
-            .click_image()
-        self.assertEqual(test_return, 0)
+            .wait_for_image()
+        self.assertNotEqual(test_return, 1)
         os.system('pkill -f "tests/haystacks/'
                   'smithing-edgeville-cannonballs/edgeville-bank-booth.png" &')
         time.sleep(.3)
@@ -33,8 +34,8 @@ class TestWait_for_image(TestCase):
         time.sleep(.3)
         test_return = vision.Vision(needle='./main/needles/minimap/'
                                            'edgeville-bank-booth.png') \
-            .click_image()
-        self.assertEqual(test_return, 0)
+            .wait_for_image()
+        self.assertNotEqual(test_return, 1)
         os.system('pkill -f "tests/haystacks/'
                   'smithing-edgeville-cannonballs/edgeville-bank-booth.png" &')
         time.sleep(.3)
@@ -47,8 +48,8 @@ class TestWait_for_image(TestCase):
         time.sleep(.3)
         test_return = vision.Vision(needle='./main/needles/game-screen/'
                                            'edgeville-bank-booth.png') \
-            .click_image()
-        self.assertEqual(test_return, 0)
+            .wait_for_image()
+        self.assertNotEqual(test_return, 1)
         os.system('pkill -f "tests/haystacks/'
                   'smithing-edgeville-cannonballs/edgeville-bank-booth.png" &')
         time.sleep(.3)
