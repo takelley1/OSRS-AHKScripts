@@ -7,9 +7,9 @@ from python.main import orient as ori
 sys.setrecursionlimit(9999)
 
 
-def move_to(x, y, xmin=0, xmax=10, ymin=0, ymax=10):
+def move_to(x, y, xmax, ymax, xmin=0, ymin=0):
     """Moves the mouse pointer to the specific coordinates. Coordinates are
-    relative to the display's dimensions."""
+    relative to the display's dimensions. Units are in pixels."""
 
     xrand = rand.randint(xmin, xmax)
     yrand = rand.randint(ymin, ymax)
@@ -36,6 +36,7 @@ def move_away(direction=rand.choice(['left', 'right'])):
     misc.sleep_rand(0, 500)
 
     if direction == 'right':
+        # TODO: Refactor this to input.move_to.
         pag.moveTo(
             (rand.randint((ori.client_xmax / 2), ori.client_xmax)),
             (rand.randint(0, ori.client_ymax)),
@@ -54,7 +55,7 @@ def move_away(direction=rand.choice(['left', 'right'])):
 
 def move_to_neutral(xmin=50, xmax=300, ymin=300, ymax=500):
     """Moves the mouse to a 'neutral zone', away from any buttons or tooltop
-    icons that could get in the way of the script.
+    icons that could get in the way of the script. Units are in pixels.
 
     Arguments:
 
@@ -98,13 +99,19 @@ def click(button='left', before_min=0, before_max=500, after_min=0,
         after_max (default = 500) : Maximum number of miliseconds to wait
                                     after clicking.
 
+        duration_min (default = 0) : Minimum number of miliseconds to hold down
+                                     the mouse button.
+
+        duration_max (default = 100) : Maximum number of miliseconds to hold
+                                       down the mouse button.
+
     Returns:
 
         Returns 0 after clicking mouse."""
 
     misc.sleep_rand(before_min, before_max)
 
-    duration = misc.rand_val(rmin=duration_min, rmax=duration_max)
+    duration = misc.rand_seconds(rmin=duration_min, rmax=duration_max)
     log.debug('Clicking ' + button + ' mouse button for ' + str(duration) +
               ' seconds.')
 
@@ -115,21 +122,24 @@ def click(button='left', before_min=0, before_max=500, after_min=0,
 
 def move_duration(duration_min=50, duration_max=1500):
     """Randomizes the amount of time the mouse cursor takes to move to a
-    new location.
+    new location. Input arguments are in miliseconds but return value is in
+    seconds.
 
     Arguments:
 
-        duration_min (default = 50): Minimum number of miliseconds for mouse
-                                     movement.
+        duration_min (default = 50): Minimum number of miliseconds the mouse
+                                     pointer will take to move to its
+                                     destination.
 
-        duration_max (default = 1500): Maximum number of miliseconds for
-                                       mouse movement.
+        duration_max (default = 1500): Maximum number of miliseconds the mouse
+                                       pointer will take to move to its
+                                       destination.
 
     Returns:
 
-        Returns a float between duration_min and duration_max."""
+        Returns a float between duration_min and duration_max / 1000."""
 
-    move_duration_var = (misc.rand_val(duration_min, duration_max))
+    move_duration_var = (misc.rand_seconds(duration_min, duration_max))
     return move_duration_var
 
 
