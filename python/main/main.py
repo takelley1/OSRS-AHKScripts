@@ -10,6 +10,7 @@ import yaml
 import python.main.vision as vis
 sys.setrecursionlimit(9999)
 
+
 def cannonball_smelter():
 
     # Click on the bank booth.
@@ -25,20 +26,25 @@ def cannonball_smelter():
         raise RuntimeError ('timed out waiting for bank booth to open')
 
     # Withdrawl the steel bars.
+    #   Right click icon of steel bars.
     right_click_steel = vis.Vision(needle='./steel_bar_in_bank').\
                                      click_image(button='right')
     if right_click_steel == 1:
         sys.exit(1)
 
+    #   Select withdrawl option in right-click menu.
     withdrawl_steel = vis.Vision(needle='./windrawl_all').click_image()
     if withdrawl_steel == 1:
         sys.exit(1)
 
 '''
-    steel_bars_in_inventory = vis.wait_for_image('./steel_bar_in_inv')
+    #   Wait for the items to appear in the player's inventory.
+    steel_bars_in_inventory = vis.Vision(needle='./steel_bar_in_inv')\
+        .wait_for_image(xmin=inv_xmin, xmax=inv_xmax, ymin=inv_ymin, ymax=inv_ymax)
     if steel_bars_in_inventory == 1:
         print('timed out waiting for steel bars to show up in inv')
 
+    # Move to the furnace room from the bank.
      vis.click_image('./minimap_furnace_from_bank')
      vis.wait_for_image('./minimap_at_furnace')
      vis.click_image('furnace')

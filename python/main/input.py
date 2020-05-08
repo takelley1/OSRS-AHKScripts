@@ -2,8 +2,9 @@ import logging as log
 import pyautogui as pag
 import random as rand
 import sys
+
+import python.main.vision
 from python.main import misc
-from python.main import orient as ori
 sys.setrecursionlimit(9999)
 
 
@@ -38,15 +39,16 @@ def move_away(direction=rand.choice(['left', 'right'])):
     if direction == 'right':
         # TODO: Refactor this to input.move_to.
         pag.moveTo(
-            (rand.randint((ori.client_xmax / 2), ori.client_xmax)),
-            (rand.randint(0, ori.client_ymax)),
+            (rand.randint((python.main.vision.client_xmax / 2),
+                          python.main.vision.client_xmax)),
+            (rand.randint(0, python.main.vision.client_ymax)),
             move_duration(), move_path())
         misc.sleep_rand(0, 500)
 
     elif direction == 'left':
         pag.moveTo(
-            (rand.randint(0, (ori.client_xmax / 2))),
-            (rand.randint(0, ori.client_ymax)),
+            (rand.randint(0, (python.main.vision.client_xmax / 2))),
+            (rand.randint(0, python.main.vision.client_ymax)),
             move_duration(), move_path())
         misc.sleep_rand(0, 500)
 
@@ -71,7 +73,7 @@ def move_to_neutral(xmin=50, xmax=300, ymin=300, ymax=500):
 
     log.debug('Moving mouse towards neutral area.')
 
-    move_to(x=ori.client_xmin, y=ori.client_ymin,
+    move_to(x=python.main.vision.client_xmin, y=python.main.vision.client_ymin,
             xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
     return 0
 

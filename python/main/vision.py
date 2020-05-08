@@ -4,8 +4,40 @@ import random as rand
 import sys
 from python.main import misc
 from python.main import input
-from python.main import orient as ori
 sys.setrecursionlimit(9999)
+
+
+def orient():
+    global client_xmin
+    global client_ymin
+    anchor = Vision(needle='./main/needles/menu/prayers.png').wait_for_image()
+    if anchor is None:
+        log.fatal('Cannot find anchor image ' + str(anchor) + ' on client!')
+        return 1
+    else:
+        log.debug('Found anchor' + str(anchor))
+        (client_xmin, client_ymin) = anchor
+        # Move the origin up and to the left slightly to get it to the exact top
+        # left corner of the eve client window.
+        #   This is necessary because the image
+        # searching algorithm returns coordinates to the center of the image
+        #   rather than its top right corner.
+        return 0
+
+    # Search for the 'anchor image'.
+    # This will provide the basis for the client's the coordinate system.
+
+    # Read config file and get client resolution.
+    #with open('./config.yaml') as f:
+    #config = yaml.safe_load(f)
+
+    #client_xmax = config['client_width']
+    #client_ymax = config['client_height']
+
+client_xmin = 0
+client_ymin = 0
+client_xmax = 1920
+client_ymax = 1080
 
 
 class Vision:
@@ -17,8 +49,8 @@ class Vision:
         self.conf = conf
 
     def mlocate(self, loctype='regular',
-                xmin=ori.client_xmin, ymin=ori.client_ymin,
-                xmax=ori.client_xmax, ymax=ori.client_ymax):
+                xmin=client_xmin, ymin=client_ymin,
+                xmax=client_xmax, ymax=client_ymax):
         """Searches the haystack image for the needle image, returning a tuple
         containing the needle's XY coordinates within the haystack. If a
         haystack image is not provided, this function searches the entire client
@@ -100,8 +132,8 @@ class Vision:
 
     def wait_for_image(self, loctype='regular', loop_num=10,
                        loop_sleep_min=10, loop_sleep_max=1000,
-                       xmin=ori.client_xmin, ymin=ori.client_ymin,
-                       xmax=ori.client_xmax, ymax=ori.client_ymax):
+                       xmin=client_xmin, ymin=client_ymin,
+                       xmax=client_xmax, ymax=client_ymax):
         """Repeatedly searches the haystack for the needle."""
 
         log.debug('Searching for ' + str(self.needle))
@@ -125,8 +157,8 @@ class Vision:
 
     def click_image(self, button='left', loop_num=25,
                     loop_sleep_min=10, loop_sleep_max=1000,
-                    xmin=ori.client_xmin, ymin=ori.client_ymin,
-                    xmax=ori.client_xmax, ymax=ori.client_ymax):
+                    xmin=client_xmin, ymin=client_ymin,
+                    xmax=client_xmax, ymax=client_ymax):
         """Moves the mouse to the provided needle image and clicks on it. If a
         haystack is provided, searches for the provided needle image within the
         haystack. If a haystack or set of coordinates is not provided, searches
@@ -158,3 +190,5 @@ class Vision:
             log.debug('Clicking on ' + str(self.needle) + '.')
             input.click(button=button)
             return 0
+
+

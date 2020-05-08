@@ -11,7 +11,6 @@ import os
 import time
 from unittest import TestCase
 from python.main import misc
-from python.main import orient
 from python.main import vision as vis
 
 # This file is a full regression test of the bot that intends to test every
@@ -62,8 +61,12 @@ def test_cannonball_smelter():
     if withdrawl_steel == 1:
         sys.exit(1)
 
+'''
     #   Wait for the items to appear in the player's inventory.
     steel_bars_in_inventory = vis.Vision(needle='./steel_bar_in_inv') \
         .wait_for_image(xmin=inv_xmin, xmax=inv_xmax, ymin=inv_ymin, ymax=inv_ymax)
     if steel_bars_in_inventory == 1:
         print('timed out waiting for steel bars to show up in inv')
+'''
+
+test_cannonball_smelter()
