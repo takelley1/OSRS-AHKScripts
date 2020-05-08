@@ -5,7 +5,7 @@ import time
 sys.setrecursionlimit(9999)
 
 
-def rand_val(rmin=0, rmax=100):
+def rand_seconds(rmin=0, rmax=100):
     """Gets a random integer between two values. Input is in miliseconds but
     output is in seconds. For example, if this function generates a random value
     of 391, it will return a value of 0.391.
@@ -25,7 +25,8 @@ def rand_val(rmin=0, rmax=100):
 
 
 def sleep_rand(rmin=0, rmax=100):
-    """Does nothing for a random period of time.
+    """Does nothing for a random period of time. Input arguments are in
+    miliseconds.
 
     Arguments:
 
@@ -36,7 +37,7 @@ def sleep_rand(rmin=0, rmax=100):
 
         Returns 0 after sleeping."""
 
-    sleeptime = rand_val(rmin, rmax)
+    sleeptime = rand_seconds(rmin, rmax)
     log.debug('Sleeping for ' + str(sleeptime) + ' seconds.')
     time.sleep(float(sleeptime))
     return 0
