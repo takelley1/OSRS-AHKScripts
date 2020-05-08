@@ -101,7 +101,7 @@ class Vision:
         if self.haystack == 0 and loctype == 'regular':
             target_image = pag.locateOnScreen(self.needle,
                                               confidence=self.conf,
-                                              region=(xmin, xmax, ymin, ymax),
+                                              region=(xmin, ymin, xmax, ymax),
                                               grayscale=self.grayscale)
             if target_image is not None:
                 log.debug('Found regular image ' + str(self.needle) + ', ' +
@@ -115,8 +115,8 @@ class Vision:
         if self.haystack == 0 and loctype == 'center':
             target_image = pag.locateCenterOnScreen(self.needle,
                                                     confidence=self.conf,
-                                                    region=(xmin, xmax,
-                                                            ymin, ymax),
+                                                    region=(xmin, ymin,
+                                                            xmax, ymax),
                                                     grayscale=self.grayscale)
             if target_image is not None:
                 log.debug('Found center of ' + str(self.needle) + ', ' +
@@ -140,8 +140,8 @@ class Vision:
 
         for tries in range(1, loop_num):
             target_image = Vision.mlocate(self, loctype=loctype,
-                                          xmin=xmin, xmax=xmax,
-                                          ymin=ymin, ymax=ymax)
+                                          xmin=xmin, ymin=ymin,
+                                          xmax=xmax, ymax=ymax)
 
             if target_image != 0:
                 log.debug('Found ' + str(self.needle) + ' after trying '
@@ -178,8 +178,8 @@ class Vision:
                                            loop_sleep_min=loop_sleep_min,
                                            loop_sleep_max=loop_sleep_max,
                                            loctype='regular',
-                                           xmin=xmin, xmax=xmax,
-                                           ymin=ymin, ymax=ymax)
+                                           xmin=xmin, ymin=ymin,
+                                           xmax=xmax, ymax=ymax)
         if target_image == 1:
             return 1
         else:
