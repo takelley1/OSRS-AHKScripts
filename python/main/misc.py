@@ -11,16 +11,14 @@ def rand_seconds(rmin=0, rmax=100):
     of 391, it will return a value of 0.391.
 
     Arguments:
-
         rmin (default = 0)  : The minimum number of miliseconds.
         rmax (default = 100): The maximum number of miliseconds.
 
     Returns:
-        
         Returns a FLOAT."""
 
     randval = float(rand.randint(rmin, rmax)) / 1000
-    log.debug('Got random value of ' + str(randval) + '.')
+    # log.debug('Got random value of ' + str(randval) + '.')
     return randval
 
 
@@ -29,15 +27,13 @@ def sleep_rand(rmin=0, rmax=100):
     miliseconds.
 
     Arguments:
-
         rmin (default = 0)  : The minimum number of miliseconds to wait.
         rmax (default = 100): The maximum number of miliseconds to wait.
 
     Returns:
-
         Returns 0 after sleeping."""
 
     sleeptime = rand_seconds(rmin, rmax)
-    log.debug('Sleeping for ' + str(sleeptime) + ' seconds.')
+    # log.debug('Sleeping for ' + str(sleeptime) + ' seconds.')
     time.sleep(float(sleeptime))
     return 0
