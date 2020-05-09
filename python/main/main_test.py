@@ -8,7 +8,7 @@ from python.main import vision as vis
 
 # This file is a full regression test of the bot that intends to test every
 #   "main" behavior in sequence, as if the actual bot is being run.
-# Images are presented in sequence to simluate the game client.
+# Images are presented in sequence to simulate the game client.
 # Intended for Linux with the feh image viewer.
 
 log.basicConfig(format='%(asctime)s -- %(filename)s.%(funcName)s - %(message)s'

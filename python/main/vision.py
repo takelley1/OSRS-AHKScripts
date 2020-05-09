@@ -11,17 +11,31 @@ sys.setrecursionlimit(9999)
 
 class Vision:
     """
-    Arguments:
-        self.needle: The image to search for. Must be a filepath
-        string.
+    The primary object used for locating images on the display. All
+    coordinates are relative to the display's dimensoins. Coordinate
+    units are in pixels.
 
-        self.haystack (default = 0): The image to search within for the
-        needle. If this is 0, the function will search the client
-        window.
+    Parameters:
+        self.haystack (default = 0): The image within which to search
+        for the needle. By default this will cause mlocate() to search
+        within the coordinates provided by left/top/width/height.
 
         self.grayscale (default = False): Converts the haystack to
         grayscale before searching within it. Speeds up searching by
-        about 30%."""
+        about 30%.
+
+        self.left: The left edge (x) of the coordinate space to search
+        within for the needle.
+
+        self.top: The top edge (y) of the coordinate space to search
+        within for the needle.
+
+        self.width: The total x width of the coordinate space to search
+        within for the needle (going right from self.left).
+
+        self.height: The total y height of the coordinate space to
+        search within for the needle (going down from left.top).
+    """
 
     def __init__(self, left, top, width, height, haystack=0, grayscale=False):
         self.haystack = haystack
@@ -38,8 +52,9 @@ class Vision:
         searches the entire client window.
 
         Arguments:
-            conf (default = 0.95): The confidence value required to
-            match the image successfully. This is used by Pyautogui.
+            needle: The image to search within the haystack or
+            left/top/width/height coordinate space for. Must be a
+            filepath.
 
             loctype (default = 'regular'): The method and/or haystack
             used to search for images. If a haystack is provided, this
@@ -52,7 +67,15 @@ class Vision:
                 center: Searches the client window. If the needle is
                 found, returns the XY coordinates of its center,
                 relative to the coordinate plane of the haystack
-                image."""
+                image.
+
+            conf (default = 0.95): The confidence value required to
+            match the image successfully. This is used by Pyautogui.
+
+        Returns:
+            If the needle is found, returns the needle as a PIL image
+            object. If the needle is not found, returns 1.
+        """
 
         if self.haystack != 0:
             target_image = pag.locate(needle,
@@ -112,7 +135,27 @@ class Vision:
 
     def wait_for_image(self, needle, loctype='regular', conf=0.95,
                        loop_num=10, loop_sleep_min=10, loop_sleep_max=1000):
-        """Repeatedly searches the haystack for the needle."""
+        """
+        Repeatedly searches within the haystack or coordinate space
+        for the needle.
+
+        Arguments:
+            needle: See mlocate()'s docstring.
+            loctype (default = 'regular'): see mlocate()'s docstring.
+            conf (default = 0.95): See mlocate()'s docstring.
+
+            loop_num (default = 10): The number of times to search for
+            the needle before giving up.
+
+            loop_sleep_min (default = 10): The minimum number of
+            miliseconds to wait after each search attempt.
+
+            loop_sleep_max (default = 1000): The maximum number of
+            miliseconds to wait after wach search attempt.
+
+        Returns:
+            See mlocate()'s docstring.
+        """
 
         # log.debug('Looking for ' + str(needle))
 
@@ -138,15 +181,26 @@ class Vision:
 
     def click_image(self, needle, button='left', conf=0.95,
                     loop_num=25, loop_sleep_min=10, loop_sleep_max=1000):
-
-        """Moves the mouse to the provided needle image and clicks on
+        """
+        Moves the mouse to the provided needle image and clicks on
         it. If a haystack is provided, searches for the provided needle
         image within the haystack. If a haystack or set of coordinates
         is not provided, searches within the entire display.
 
         Arguments:
-            needle: A filepath to the image to search for, relative
-            to the script's working directory."""
+            needle: See mlocate()'s docstring.
+            loctype (default = 'regular'): see mlocate()'s docstring.
+            conf (default = 0.95): See mlocate()'s docstring.
+
+            loop_num (default = 10): See wait_for_image()'s docstring.
+            loop_sleep_min (default = 10): See wait_for_image()'s
+            docstring.
+            loop_sleep_max (default = 1000): See wait_for_image()'s
+            docstring.
+
+        Returns:
+            See mlocate()'s docstring.
+        """
 
         log.debug('Looking for ' + str(needle) + ' to click on.')
 

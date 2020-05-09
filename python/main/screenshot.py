@@ -5,8 +5,10 @@ from python.main import vision as vis
 
 
 def main():
-    """Takes and automatically crops a screenshot to capture the OSRS
-    client window. Useful for running on demand manually."""
+    """
+    Takes and automatically crops a screenshot to capture the OSRS
+    client window. Useful for running on demand manually.
+    """
 
     os.chdir('/home/austin/OSRS-AHKScripts/python/tests')
     target_image = vis.Vision(left=0, top=0, width=1920, height=1080)

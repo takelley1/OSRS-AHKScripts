@@ -4,8 +4,8 @@ import time
 import sys
 from unittest import TestCase
 from python.main import vision
-sys.setrecursionlimit(9999)
 
+sys.setrecursionlimit(9999)
 log.basicConfig(format='%(asctime)s -- %(filename)s.%(funcName)s - %(message)s',
                 level='DEBUG')
 
