@@ -1,7 +1,8 @@
 import logging as log
-import os
+import subprocess as sub
 import time
 
+import psutil
 import pyautogui as pag
 
 from python.main import vision as vis
@@ -13,19 +14,27 @@ from python.main import vision as vis
 
 log.basicConfig(format='%(asctime)s -- %(filename)s.%(funcName)s - %(message)s'
                 , level='DEBUG')
-kill_cmd = 'pkill --signal 9 feh &> /dev/null'
+
+
+def kill(procname):
+    """Kills the provided process by name."""
+    for proc in psutil.process_iter():
+        if proc.name() == procname:
+            proc.kill()
 
 
 def test_cannonball_smelter():
-    interval = 1
-    global kill_cmd
+    """Full simulation of the cannonball_smelter script using
+    screenshots."""
+    interval = 0.3
 
     # -------------------------------------------------------------------------
     # Present the first client image to the bot.
-    os.system(kill_cmd)
     time.sleep(interval)
-    os.system('feh ./tests/haystacks/'
-              'smithing-edgeville-cannonballs/edgeville-bank-booth.png &')
+    kill('feh')
+    sub.Popen(["feh", "./tests/haystacks/"
+                      "smithing-edgeville-cannonballs/"
+                      "edgeville-bank-booth.png"])
     time.sleep(interval)
     # -------------------------------------------------------------------------
 
@@ -46,7 +55,7 @@ def test_cannonball_smelter():
     #   the game client relative to the display's coordinate space.
     anchor = vis.Vision(left=0, top=0,
                         width=screen_width,
-                        height=screen_height)\
+                        height=screen_height) \
         .wait_for_image(needle='./main/needles/menu/prayers.png')
 
     # The wait_for_image function returns a tuple with a few vars we don't
@@ -78,10 +87,11 @@ def test_cannonball_smelter():
     # -------------------------------------------------------------------------
     # If the function passes, remove the client image and replace it with a new
     #   one.
-    os.system(kill_cmd)
+    kill('feh')
     time.sleep(interval)
-    os.system('feh ./tests/haystacks/'
-              'smithing-blast-furnace/blast-furnace-bank-window-05.png &')
+    sub.Popen(["feh", "./tests/haystacks/"
+                      "smithing-blast-furnace/"
+                      "blast-furnace-bank-window-05.png"])
     time.sleep(interval)
     # -------------------------------------------------------------------------
 
@@ -102,10 +112,11 @@ def test_cannonball_smelter():
         raise RuntimeError('Could not right click steel bars!')
 
     # -------------------------------------------------------------------------
-    os.system(kill_cmd)
+    kill('feh')
     time.sleep(interval)
-    os.system('feh ./tests/haystacks/'
-              'smithing-blast-furnace/blast-furnace-bank-window-02.png &')
+    sub.Popen(["feh", "./tests/haystacks/"
+                      "smithing-blast-furnace/"
+                      "blast-furnace-bank-window-02.png"])
     time.sleep(interval)
     # -------------------------------------------------------------------------
 
@@ -117,10 +128,11 @@ def test_cannonball_smelter():
         raise RuntimeError('Could not click "Withdraw All" for steel bars!')
 
     # -------------------------------------------------------------------------
-    os.system(kill_cmd)
+    kill('feh')
     time.sleep(interval)
-    os.system('feh ./tests/haystacks/'
-              'smithing-edgeville-cannonballs/edgeville-furnace-01.png &')
+    sub.Popen(["feh", "./tests/haystacks/"
+                      "smithing-edgeville-cannonballs/"
+                      "edgeville-furnace-01.png"])
     time.sleep(interval)
     # -------------------------------------------------------------------------
 
@@ -148,7 +160,7 @@ def test_cannonball_smelter():
 
 
 # -----------------------------------------------------------------------------
-os.system(kill_cmd)
+kill('feh')
 # -----------------------------------------------------------------------------
 
 test_cannonball_smelter()
