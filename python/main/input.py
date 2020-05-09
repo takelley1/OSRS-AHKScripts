@@ -1,16 +1,20 @@
 import logging as log
-import pyautogui as pag
 import random as rand
 import sys
 
+import pyautogui as pag
+
 import python.main.vision
 from python.main import misc
+
 sys.setrecursionlimit(9999)
 
 
 def move_to(x, y, xmax, ymax, xmin=0, ymin=0):
-    """Moves the mouse pointer to the specific coordinates. Coordinates are
-    relative to the display's dimensions. Units are in pixels."""
+    """Moves the mouse pointer to the specified coordinates.
+
+    Coordinates are relative to the display's dimensions.
+    Units are in pixels."""
 
     xrand = rand.randint(xmin, xmax)
     yrand = rand.randint(ymin, ymax)
@@ -19,17 +23,15 @@ def move_to(x, y, xmax, ymax, xmin=0, ymin=0):
 
 
 def move_away(direction=rand.choice(['left', 'right'])):
-    """Moves the mouse to a random spot on right half or the left half of
-    the client window, away from wherever it clicked,
-    to prevent tooltips from interfering with the script.
+    """Moves the mouse to a random spot on right half or the left half
+    of the client window, away from wherever it clicked, to prevent
+    tooltips from interfering with the script.
 
     Arguments:
-
         direction (default = [random]): Which side of the screen to move
-                                        the mouse.
+        the mouse (left or right).
 
     Returns:
-
         Always returns 0."""
 
     log.debug('Moving mouse away towards ' + str(direction) +
@@ -56,8 +58,9 @@ def move_away(direction=rand.choice(['left', 'right'])):
 
 
 def move_to_neutral(x, y, xmin=50, xmax=300, ymin=300, ymax=500):
-    """Moves the mouse to a 'neutral zone', away from any buttons or tooltop
-    icons that could get in the way of the script. Units are in pixels.
+    """Moves the mouse to a 'neutral zone', away from any buttons or
+    tooltop icons that could get in the way of the script. Units are in
+    pixels.
 
     Arguments:
         xmin (default = 50) : The minimum X-distance in pixels to move.
@@ -77,34 +80,33 @@ def move_to_neutral(x, y, xmin=50, xmax=300, ymin=300, ymax=500):
 
 def click(button='left', before_min=0, before_max=500, after_min=0,
           after_max=500, duration_min=0, duration_max=100):
-    """Clicks the left or right mouse button, waiting before and after for a
-    randomized period of time.
+    """Clicks the left or right mouse button, waiting before and after
+    for a randomized period of time.
 
     Arguments:
-        button (default = 'left'): Which mouse button to click.
-            Left
-            Right
+        button (default = 'left'): Which mouse button to click (left or
+        right)
 
-        before_min (default = 0)  : Minimum number of miliseconds to wait
-                                    before clicking.
+        before_min (default = 0)  : Minimum number of miliseconds to
+        wait before clicking.
 
-        before_max (default = 500): Maximum number of miliseconds to wait
-                                    before clicking.
+        before_max (default = 500): Maximum number of miliseconds to
+        wait before clicking.
 
-        after_min (default = 0)   : Minimum number of miliseconds to wait after
-                                    clicking.
+        after_min (default = 0)   : Minimum number of miliseconds to
+        wait after clicking.
 
-        after_max (default = 500) : Maximum number of miliseconds to wait
-                                    after clicking.
+        after_max (default = 500) : Maximum number of miliseconds to
+        wait after clicking.
 
-        duration_min (default = 0) : Minimum number of miliseconds to hold down
-                                     the mouse button.
+        duration_min (default = 0) : Minimum number of miliseconds to
+        hold down the mouse button.
 
-        duration_max (default = 100) : Maximum number of miliseconds to hold
-                                       down the mouse button.
+        duration_max (default = 100) : Maximum number of miliseconds to
+        hold down the mouse button.
 
     Returns:
-        Returns 0 after clicking mouse."""
+        Always returns 0."""
 
     misc.sleep_rand(before_min, before_max)
 
@@ -119,32 +121,31 @@ def click(button='left', before_min=0, before_max=500, after_min=0,
 
 def move_duration(duration_min=50, duration_max=1500):
     """Randomizes the amount of time the mouse cursor takes to move to a
-    new location. Input arguments are in miliseconds but return value is in
-    seconds.
+    new location. Input arguments are in miliseconds but return value is
+    in seconds.
 
     Arguments:
-        duration_min (default = 50): Minimum number of miliseconds the mouse
-                                     pointer will take to move to its
-                                     destination.
+        duration_min (default = 50): Minimum number of miliseconds the
+        mouse pointer will take to move to its destination.
 
-        duration_max (default = 1500): Maximum number of miliseconds the mouse
-                                       pointer will take to move to its
-                                       destination.
+        duration_max (default = 1500): Maximum number of miliseconds the
+        mouse pointer will take to move to its destination.
 
     Returns:
-        Returns a float between duration_min and duration_max / 1000."""
+        Returns a float."""
 
     move_duration_var = (misc.rand_seconds(duration_min, duration_max))
     return move_duration_var
 
 
 def move_path():
-    """Randomizes the movement behavior of the mouse cursor as it moves to a
-    new location. One of 22 different movement patters is chosen at random.
+    """Randomizes the movement behavior of the mouse cursor as it moves
+    to a new location. One of 22 different movement patters is chosen at
+    random.
 
     Returns:
-
-        Returns a random PyAutoGUI function for different mouse movement."""
+        Returns a random PyAutoGUI function for different mouse
+        movement."""
 
     # TODO: implement bezier-curve mouse behavior
     # https://stackoverflow.com/questions/44467329/pyautogui-mouse-movement-with-bezier-curve
@@ -234,22 +235,24 @@ def keypress(key, timedown_min=5, timedown_max=190, before_min=500,
     Arguments:
         key: The key on the keyboard to press, according to PyAutoGUI.
 
-        timedown_min (default = 5): The shortest time the key can be down.
-        timedown_max (default = 190): The longest time the key can be down.
+        timedown_min (default = 5): The shortest time the key can be
+        down.
+        timedown_max (default = 190): The longest time the key can be
+        down.
 
         before_min (default = 500): The shortest time to wait before
-                                    pressing the key down.
+        pressing the key down.
         before_max (default = 1000): The longest time to wait before
-                                     pressing the key down.
+        pressing the key down.
 
         after_min (default = 500): The shortest time to wait after
-                                    releasing the key.
+        releasing the key.
         after_max (default = 1000): The longest time to wait after
-                                     releasing the key.
+        releasing the key.
 
     Returns:
-        Always returns 0.
-    """
+        Always returns 0."""
+
     log.debug('Pressing key: ' + str(key))
     misc.sleep_rand(before_min, before_max)
     pag.keyDown(key)
@@ -264,6 +267,7 @@ def double_hotkey_press(key1, key2, timedown_min=5, timedown_max=190,
                         after_min=500, after_max=1000):
     """Performs a two-key hotkey shortcut, such as Ctrl-c for copying
     text."""
+
     log.debug('Pressing hotkeys: ' + str(key1) + ' + ' + str(key2))
     misc.sleep_rand(before_min, before_max)
     pag.keyDown(key1)
