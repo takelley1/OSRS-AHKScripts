@@ -15,6 +15,14 @@ from python.main import vision as vis
 log.basicConfig(format='%(asctime)s -- %(filename)s.%(funcName)s - %(message)s'
                 , level='DEBUG')
 
+# These are constants.
+# The width and height of the client in pixels does not change.
+CLIENT_WIDTH = 765
+CLIENT_HEIGHT = 503
+
+INV_WIDTH = 190   # Total width of the inventory screen, in pixels.
+INV_HEIGHT = 265  # Total height of the inventory screen, in pixels.
+
 
 def kill(procname):
     """Kills the provided process by name."""
@@ -26,7 +34,10 @@ def kill(procname):
 def test_cannonball_smelter():
     """Full simulation of the cannonball_smelter script using
     screenshots."""
-    interval = 0.3
+
+    global CLIENT_WIDTH
+    global CLIENT_HEIGHT
+    interval = 0.05
 
     # -------------------------------------------------------------------------
     # Present the first client image to the bot.
@@ -67,16 +78,11 @@ def test_cannonball_smelter():
     client_left -= 709
     client_top -= 186
 
-    # These are constants. The width and height of the client in pixels does
-    #   not change.
-    client_width = 765
-    client_height = 503
-
     # Now we can create an object with the client's X and Y coordinates.
     # This will allow us to search for needles within the client, rather than
     #   within the whole display, which is much faster.
-    client = vis.Vision(left=client_left, width=client_width,
-                        top=client_top, height=client_height)
+    client = vis.Vision(left=client_left, width=CLIENT_WIDTH,
+                        top=client_top, height=CLIENT_HEIGHT)
 
     # Click on the bank booth.
     bank_booth = client.click_image(needle='./main/needles/game-screen/'
@@ -146,12 +152,8 @@ def test_cannonball_smelter():
     inv_left = client_left + 555
     inv_top = client_top + 220
 
-    # These are constants.
-    inv_width = 190   # Total width of the inventory screen, in pixels.
-    inv_height = 265  # Total height of the inventory screen, in pixels.
-
     inv = vis.Vision(left=inv_left, top=inv_top,
-                     width=inv_width, height=inv_height)
+                     width=INV_WIDTH, height=INV_HEIGHT)
     steel_bars_in_inventory = inv.wait_for_image(needle='./main/needles/'
                                                         'items/steel-bar.png')
     if steel_bars_in_inventory == 1:
