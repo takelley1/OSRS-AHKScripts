@@ -39,42 +39,39 @@ def move_away(direction=rand.choice(['left', 'right'])):
     if direction == 'right':
         # TODO: Refactor this to input.move_to.
         pag.moveTo(
-            (rand.randint((python.main.vision.client_xmax / 2),
-                          python.main.vision.client_xmax)),
-            (rand.randint(0, python.main.vision.client_ymax)),
+            (rand.randint((python.main.vision.client_width / 2),
+                          python.main.vision.client_width)),
+            (rand.randint(0, python.main.vision.client_height)),
             move_duration(), move_path())
         misc.sleep_rand(0, 500)
 
     elif direction == 'left':
         pag.moveTo(
-            (rand.randint(0, (python.main.vision.client_xmax / 2))),
-            (rand.randint(0, python.main.vision.client_ymax)),
+            (rand.randint(0, (python.main.vision.client_width / 2))),
+            (rand.randint(0, python.main.vision.client_height)),
             move_duration(), move_path())
         misc.sleep_rand(0, 500)
 
     return 0
 
 
-def move_to_neutral(xmin=50, xmax=300, ymin=300, ymax=500):
+def move_to_neutral(x, y, xmin=50, xmax=300, ymin=300, ymax=500):
     """Moves the mouse to a 'neutral zone', away from any buttons or tooltop
     icons that could get in the way of the script. Units are in pixels.
 
     Arguments:
+        xmin (default = 50) : The minimum X-distance in pixels to move.
+        xmax (default = 300): The maximum X-distance in pixels to move.
 
-        xmin (default = 50) : The minimum X-distance.
-        xmax (default = 300): The maximum X-distance.
-
-        ymin (default = 300): The minimum Y-distance.
-        ymax (default = 500): The maximum X-distance.
+        ymin (default = 300): The minimum Y-distance in pixels to move.
+        ymax (default = 500): The maximum X-distance in pixels to move.
 
     Returns:
-
         Returns 0 upon completion of mouse movement."""
 
     log.debug('Moving mouse towards neutral area.')
 
-    move_to(x=python.main.vision.client_xmin, y=python.main.vision.client_ymin,
-            xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
+    move_to(x=x, y=y, xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
     return 0
 
 
@@ -84,7 +81,6 @@ def click(button='left', before_min=0, before_max=500, after_min=0,
     randomized period of time.
 
     Arguments:
-
         button (default = 'left'): Which mouse button to click.
             Left
             Right
@@ -108,13 +104,12 @@ def click(button='left', before_min=0, before_max=500, after_min=0,
                                        down the mouse button.
 
     Returns:
-
         Returns 0 after clicking mouse."""
 
     misc.sleep_rand(before_min, before_max)
 
     duration = misc.rand_seconds(rmin=duration_min, rmax=duration_max)
-    log.debug('Clicking ' + button + ' mouse button for ' + str(duration) +
+    log.debug('Holding down ' + button + ' mouse button for ' + str(duration) +
               ' seconds.')
 
     pag.click(button=button, duration=duration)
@@ -128,7 +123,6 @@ def move_duration(duration_min=50, duration_max=1500):
     seconds.
 
     Arguments:
-
         duration_min (default = 50): Minimum number of miliseconds the mouse
                                      pointer will take to move to its
                                      destination.
@@ -138,7 +132,6 @@ def move_duration(duration_min=50, duration_max=1500):
                                        destination.
 
     Returns:
-
         Returns a float between duration_min and duration_max / 1000."""
 
     move_duration_var = (misc.rand_seconds(duration_min, duration_max))
@@ -239,7 +232,6 @@ def keypress(key, timedown_min=5, timedown_max=190, before_min=500,
     values are in miliseconds.
 
     Arguments:
-
         key: The key on the keyboard to press, according to PyAutoGUI.
 
         timedown_min (default = 5): The shortest time the key can be down.
@@ -256,7 +248,6 @@ def keypress(key, timedown_min=5, timedown_max=190, before_min=500,
                                      releasing the key.
 
     Returns:
-
         Always returns 0.
     """
     log.debug('Pressing key: ' + str(key))
