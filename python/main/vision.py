@@ -108,14 +108,14 @@ class Vision:
             target_image = Vision.mlocate(self, conf=conf, needle=needle,
                                           loctype=loctype)
 
-            if target_image != 0:
-                log.debug('Found ' + str(needle) + ' after trying '
-                          + str(tries) + ' times.')
-                return target_image
-            else:
+            if target_image == 1:
                 log.warning('Cannot find ' + str(needle) + ', tried '
                             + str(tries) + ' times.')
                 misc.sleep_rand(loop_sleep_min, loop_sleep_max)
+            else:
+                log.debug('Found ' + str(needle) + ' after trying '
+                          + str(tries) + ' times.')
+                return target_image
 
         log.error('Timed out looking for ' + str(needle) + '!')
         return 1
