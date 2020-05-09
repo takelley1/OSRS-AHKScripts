@@ -1,63 +1,28 @@
 import logging as log
 import pyautogui as pag
-import random as rand
 import sys
 from python.main import misc
 from python.main import input
 sys.setrecursionlimit(9999)
 
 
-def orient():
-    global client_xmin
-    global client_ymin
-    anchor = Vision(needle='./main/needles/menu/prayers.png').wait_for_image()
-    if anchor is None:
-        log.fatal('Cannot find anchor image ' + str(anchor) + ' on client!')
-        return 1
-    else:
-        log.debug('Found anchor' + str(anchor))
-        (client_xmin, client_ymin) = anchor
-        # Move the origin up and to the left slightly to get it to the exact top
-        # left corner of the eve client window.
-        #   This is necessary because the image
-        # searching algorithm returns coordinates to the center of the image
-        #   rather than its top right corner.
-        return 0
-
-    # Search for the 'anchor image'.
-    # This will provide the basis for the client's the coordinate system.
-
-    # Read config file and get client resolution.
-    #with open('./config.yaml') as f:
-    #config = yaml.safe_load(f)
-
-    #client_xmax = config['client_width']
-    #client_ymax = config['client_height']
-
-client_xmin = 0
-client_ymin = 0
-client_xmax = 1920
-client_ymax = 1080
-
-
 class Vision:
 
-    def __init__(self, needle, haystack=0, grayscale=False, conf=0.95):
-        self.needle = needle
+    def __init__(self, left, top, width, height, haystack=0, grayscale=False):
         self.haystack = haystack
         self.grayscale = grayscale
-        self.conf = conf
+        self.left = left
+        self.top = top
+        self.width = width
+        self.height = height
 
-    def mlocate(self, loctype='regular',
-                xmin=client_xmin, ymin=client_ymin,
-                xmax=client_xmax, ymax=client_ymax):
+    def mlocate(self, needle, loctype='regular', conf=0.95):
         """Searches the haystack image for the needle image, returning a tuple
         containing the needle's XY coordinates within the haystack. If a
         haystack image is not provided, this function searches the entire client
         window.
 
         Arguments:
-
             self.needle: The image to search for. Must be a filepath string.
 
             self.haystack (default = 0): The image to search within for the
@@ -84,81 +49,80 @@ class Vision:
                                               up searching by about 30%."""
 
         if self.haystack != 0:
-            target_image = pag.locate(self.needle, self.haystack,
-                                      confidence=self.conf,
+            target_image = pag.locate(needle, self.haystack,
+                                      confidence=conf,
                                       grayscale=self.grayscale)
             if target_image is not None:
-                log.debug('Found needle: ' + (str(self.needle)) +
+                log.debug('Found needle: ' + (str(needle)) +
                           ' in haystack: ' + str(self.haystack) + ', ' +
                           str(target_image))
                 return target_image
             else:
-                log.info('Cannot find needle: ' + str(self.needle) +
+                log.info('Cannot find needle: ' + str(needle) +
                          ' in haystack: ' + str(self.haystack) + ', ' +
-                         str(target_image) + ', conf=' + str(self.conf))
+                         str(target_image) + ', conf=' + str(conf))
                 return 1
 
         if self.haystack == 0 and loctype == 'regular':
-            target_image = pag.locateOnScreen(self.needle,
-                                              confidence=self.conf,
-                                              region=(xmin, ymin, xmax, ymax),
+            target_image = pag.locateOnScreen(needle,
+                                              confidence=conf,
+                                              region=(self.left, self.top,
+                                                      self.width, self.height),
                                               grayscale=self.grayscale)
             if target_image is not None:
-                log.debug('Found regular image ' + str(self.needle) + ', ' +
+                log.debug('Found regular image ' + str(needle) + ', ' +
                           str(target_image))
                 return target_image
             elif target_image is None:
-                log.info('Cannot find regular image ' + str(self.needle) +
-                         ' conf=' + str(self.conf))
+                log.info('Cannot find regular image ' + str(needle) +
+                         ' conf=' + str(conf))
                 return 1
 
         if self.haystack == 0 and loctype == 'center':
-            target_image = pag.locateCenterOnScreen(self.needle,
-                                                    confidence=self.conf,
-                                                    region=(xmin, ymin,
-                                                            xmax, ymax),
+            target_image = pag.locateCenterOnScreen(needle,
+                                                    confidence=conf,
+                                                    region=(self.left,
+                                                            self.top,
+                                                            self.width,
+                                                            self.height),
                                                     grayscale=self.grayscale)
             if target_image is not None:
-                log.debug('Found center of ' + str(self.needle) + ', ' +
+                log.debug('Found center of ' + str(needle) + ', ' +
                           str(target_image))
                 return target_image
             elif target_image is None:
-                log.info('Cannot find center of ' + str(self.needle) +
-                         ', conf=' + str(self.conf))
+                log.info('Cannot find center of ' + str(needle) +
+                         ', conf=' + str(conf))
                 return 1
 
         else:
             raise RuntimeError('Incorrect mlocate function parameters!')
 
-    def wait_for_image(self, loctype='regular', loop_num=10,
-                       loop_sleep_min=10, loop_sleep_max=1000,
-                       xmin=client_xmin, ymin=client_ymin,
-                       xmax=client_xmax, ymax=client_ymax):
+    def wait_for_image(self, needle, loctype='regular', conf=0.95, loop_num=10,
+                       loop_sleep_min=10, loop_sleep_max=1000):
         """Repeatedly searches the haystack for the needle."""
 
-        log.debug('Searching for ' + str(self.needle))
+        # log.debug('Looking for ' + str(needle))
 
         for tries in range(1, loop_num):
-            target_image = Vision.mlocate(self, loctype=loctype,
-                                          xmin=xmin, ymin=ymin,
-                                          xmax=xmax, ymax=ymax)
+            target_image = Vision.mlocate(self, conf=conf, needle=needle,
+                                          loctype=loctype)
 
             if target_image != 0:
-                log.debug('Found ' + str(self.needle) + ' after trying '
+                log.debug('Found ' + str(needle) + ' after trying '
                           + str(tries) + ' times.')
                 return target_image
             else:
-                log.warning('Cannot find ' + str(self.needle) + ', tried '
+                log.warning('Cannot find ' + str(needle) + ', tried '
                             + str(tries) + ' times.')
                 misc.sleep_rand(loop_sleep_min, loop_sleep_max)
 
-        log.error('Timed out looking for ' + str(self.needle) + '!')
+        log.error('Timed out looking for ' + str(needle) + '!')
         return 1
 
-    def click_image(self, button='left', loop_num=25,
-                    loop_sleep_min=10, loop_sleep_max=1000,
-                    xmin=client_xmin, ymin=client_ymin,
-                    xmax=client_xmax, ymax=client_ymax):
+    def click_image(self, needle, button='left', conf=0.95,
+                    loop_num=25, loop_sleep_min=10, loop_sleep_max=1000):
+
         """Moves the mouse to the provided needle image and clicks on it. If a
         haystack is provided, searches for the provided needle image within the
         haystack. If a haystack or set of coordinates is not provided, searches
@@ -172,14 +136,14 @@ class Vision:
             self.haystack: The image in which to search for the needle.
             from."""
 
-        log.debug('Looking for ' + str(self.needle) + ' to click on.')
+        log.debug('Looking for ' + str(needle) + ' to click on.')
 
         target_image = self.wait_for_image(loop_num=loop_num,
                                            loop_sleep_min=loop_sleep_min,
                                            loop_sleep_max=loop_sleep_max,
                                            loctype='regular',
-                                           xmin=xmin, ymin=ymin,
-                                           xmax=xmax, ymax=ymax)
+                                           needle=needle,
+                                           conf=conf)
         if target_image == 1:
             return 1
         else:
@@ -187,8 +151,6 @@ class Vision:
             # Randomize the location the pointer will move to using the
             #   dimensions of needle image.
             input.move_to(x, y, xmin=0, xmax=w, ymin=0, ymax=h)
-            log.debug('Clicking on ' + str(self.needle) + '.')
+            log.debug('Clicking on ' + str(needle) + '.')
             input.click(button=button)
             return 0
-
-
