@@ -33,7 +33,8 @@ def click_coord(left, top, width, height, button='left'):
     click(button=button)
 
 
-def move_to(x, y, xmax, ymax, xmin=0, ymin=0):
+def move_to(x, y, xmax, ymax, xmin=0, ymin=0,
+            duration_min=50, duration_max=1500):
     """
     Moves the mouse pointer to the specified coordinates. Coordinates
     are relative to the display's dimensions. Units are in pixels.
@@ -55,7 +56,7 @@ def move_to(x, y, xmax, ymax, xmin=0, ymin=0):
 
     pag.moveTo((x + xrand),
                (y + yrand),
-               move_duration(),
+               move_duration(move_duration_min=duration_min, move_duration_max=duration_max),
                move_path())
     return 0
 
@@ -120,8 +121,10 @@ def move_to_neutral(x, y, xmin=50, xmax=300, ymin=300, ymax=500):
     return 0
 
 
-def click(button='left', before_min=0, before_max=500, after_min=0,
-          after_max=500, duration_min=0, duration_max=100):
+def click(button='left',
+          sleep_before_min=0, sleep_before_max=500,
+          sleep_after_min=0, sleep_after_max=500,
+          click_duration_min=0, click_duration_max=100):
     """
     Clicks the left or right mouse button, waiting before and after
     for a randomized period of time.
@@ -130,62 +133,67 @@ def click(button='left', before_min=0, before_max=500, after_min=0,
         button (default = 'left'): Which mouse button to click (left or
         right)
 
-        before_min (default = 0)  : Minimum number of miliseconds to
+        sleep_before_min (default = 0)  : Minimum number of miliseconds to
         wait before clicking.
 
-        before_max (default = 500): Maximum number of miliseconds to
+        sleep_before_max (default = 500): Maximum number of miliseconds to
         wait before clicking.
 
-        after_min (default = 0)   : Minimum number of miliseconds to
+        sleep_after_min (default = 0)   : Minimum number of miliseconds to
         wait after clicking.
 
-        after_max (default = 500) : Maximum number of miliseconds to
+        sleep_after_max (default = 500) : Maximum number of miliseconds to
         wait after clicking.
 
-        duration_min (default = 0) : Minimum number of miliseconds to
+        click_duration_min (default = 0) : Minimum number of miliseconds to
         hold down the mouse button.
 
-        duration_max (default = 100) : Maximum number of miliseconds to
+        click_duration_max (default = 100) : Maximum number of miliseconds to
         hold down the mouse button.
 
     Returns:
         Always returns 0.
     """
 
-    misc.sleep_rand(before_min, before_max)
+    misc.sleep_rand(sleep_before_min, sleep_before_max)
 
-    duration = misc.rand_seconds(rmin=duration_min, rmax=duration_max)
+    duration = misc.rand_seconds(rmin=click_duration_min,
+                                 rmax=click_duration_max)
+
     log.debug('Holding down ' + button + ' mouse button for ' + str(duration) +
               ' seconds.')
 
     pag.click(button=button, duration=duration)
-    misc.sleep_rand(after_min, after_max)
+    misc.sleep_rand(sleep_after_min, sleep_after_max)
     return 0
 
 
-def move_duration(duration_min=50, duration_max=1500):
+def move_duration(move_duration_min=50, move_duration_max=1500):
     """
     Randomizes the amount of time the mouse cursor takes to move to a
     new location. Input arguments are in miliseconds but return value is
     in seconds.
 
     Arguments:
-        duration_min (default = 50): Minimum number of miliseconds the
+        move_duration_min (default = 50): Minimum number of miliseconds the
         mouse pointer will take to move to its destination.
 
-        duration_max (default = 1500): Maximum number of miliseconds the
+        move_duration_max (default = 1500): Maximum number of miliseconds the
         mouse pointer will take to move to its destination.
 
     Returns:
         Returns a float.
     """
 
-    move_duration_var = (misc.rand_seconds(duration_min, duration_max))
+    move_duration_var = (misc.rand_seconds(move_duration_min,
+                                           move_duration_max))
     return move_duration_var
 
 
-def keypress(key, timedown_min=1, timedown_max=180, before_min=50,
-             before_max=1000, after_min=50, after_max=1000):
+def keypress(key,
+             timedown_min=1, timedown_max=180,
+             sleep_before_min=50, sleep_before_max=1000,
+             sleep_after_min=50, sleep_after_max=1000):
     """
     Holds down the specified key for a random period of time. All
     values are in miliseconds.
@@ -198,14 +206,14 @@ def keypress(key, timedown_min=1, timedown_max=180, before_min=50,
         timedown_max (default = 180): The longest time the key can be
         down.
 
-        before_min (default = 50): The shortest time to wait before
+        sleep_before_min (default = 50): The shortest time to wait before
         pressing the key down.
-        before_max (default = 1000): The longest time to wait before
+        sleep_before_max (default = 1000): The longest time to wait before
         pressing the key down.
 
-        after_min (default = 50): The shortest time to wait after
+        sleep_after_min (default = 50): The shortest time to wait after
         releasing the key.
-        after_max (default = 1000): The longest time to wait after
+        sleep_after_max (default = 1000): The longest time to wait after
         releasing the key.
 
     Returns:
@@ -213,11 +221,11 @@ def keypress(key, timedown_min=1, timedown_max=180, before_min=50,
     """
 
     log.debug('Pressing key: ' + str(key) + '.')
-    misc.sleep_rand(before_min, before_max)
+    misc.sleep_rand(sleep_before_min, sleep_before_max)
     pag.keyDown(key)
     misc.sleep_rand(timedown_min, timedown_max)
     pag.keyUp(key)
-    misc.sleep_rand(after_min, after_max)
+    misc.sleep_rand(sleep_after_min, sleep_after_max)
     return 0
 
 
