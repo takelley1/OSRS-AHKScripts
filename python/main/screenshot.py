@@ -1,10 +1,12 @@
 import os
+import time
 import pyautogui as pag
 
 from python.main import vision as vis
 
 
 def main():
+    #time.sleep(5)
     """
     Takes and automatically crops a screenshot to capture the OSRS
     client window. Useful for running on demand manually.
@@ -13,7 +15,7 @@ def main():
     os.chdir('/home/austin/OSRS-AHKScripts/python/tests')
     target_image = vis.Vision(left=0, top=0, width=1920, height=1080)
     target_image = target_image.mlocate(
-        needle='../main/needles/menu/prayers.png', loctype='center')
+        needle='../main/needles/main-menu/prayers.png', loctype='center')
 
     (x, y) = target_image
     x -= 709
