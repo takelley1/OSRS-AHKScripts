@@ -14,12 +14,12 @@ class TestWaitForImage(TestCase):
     os.system('pkill feh')
 
     def test_wait_for_image_prayers(self):
-        # Tests if the script can see the prayers icon in the main menu for
+        # Tests if the script can see the prayers icon in the main main-menu for
         # establishing the script's coordinate system.
         os.system('feh -dB black ./tests/haystacks/'
                   'smithing-edgeville-cannonballs/edgeville-bank-booth.png &')
         time.sleep(.3)
-        test_return = vision.Vision(needle='./main/needles/menu/prayers.png')\
+        test_return = vision.Vision(needle='./main/needles/main-menu/prayers.png')\
             .wait_for_image()
         self.assertNotEqual(test_return, 1)
         os.system('pkill -f "tests/haystacks/'

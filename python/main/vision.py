@@ -9,6 +9,7 @@ from python.main import input
 sys.setrecursionlimit(9999)
 
 # These are constants.
+# See ./tests/haystacks/client_anatomy.png for more info.
 # Width and height of the entire game client.
 CLIENT_WIDTH = 765
 CLIENT_HEIGHT = 503

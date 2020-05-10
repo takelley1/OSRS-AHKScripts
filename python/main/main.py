@@ -32,7 +32,7 @@ def cannonball_smelter():
     if right_click_steel == 1:
         sys.exit(1)
 
-    #   Select withdrawl option in right-click menu.
+    #   Select withdrawl option in right-click main-menu.
     withdrawl_steel = vis.Vision(needle='./windrawl_all').click_image()
     if withdrawl_steel == 1:
         sys.exit(1)
