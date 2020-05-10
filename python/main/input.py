@@ -10,6 +10,29 @@ from python.main import misc
 sys.setrecursionlimit(9999)
 
 
+def click_coord(left, top, width, height, button='left'):
+    """
+    Clicks within the provided coordinates. If width and height are both
+    0, then this function will click in the exact same location every
+    time.
+
+    Arguments:
+        left: The left edge (x) of the coordinate space to click within.
+
+        top: The top edge (y) of the coordinate space to click within.
+
+        width: The x width of the coordinate space to randomize the
+        click within.
+
+        height: The y height of the coordinate space to randomize the
+        click within.
+
+        button (default = left): The mouse button to click with.
+        """
+    move_to(left, top, xmin=0, xmax=width, ymin=0, ymax=height)
+    click(button=button)
+
+
 def move_to(x, y, xmax, ymax, xmin=0, ymin=0):
     """
     Moves the mouse pointer to the specified coordinates. Coordinates
@@ -29,7 +52,11 @@ def move_to(x, y, xmax, ymax, xmin=0, ymin=0):
 
     xrand = rand.randint(xmin, xmax)
     yrand = rand.randint(ymin, ymax)
-    pag.moveTo((x + xrand), (y + yrand), move_duration(), move_path())
+
+    pag.moveTo((x + xrand),
+               (y + yrand),
+               move_duration(),
+               move_path())
     return 0
 
 
@@ -157,8 +184,8 @@ def move_duration(duration_min=50, duration_max=1500):
     return move_duration_var
 
 
-def keypress(key, timedown_min=5, timedown_max=190, before_min=500,
-             before_max=1000, after_min=500, after_max=1000):
+def keypress(key, timedown_min=1, timedown_max=180, before_min=50,
+             before_max=1000, after_min=50, after_max=1000):
     """
     Holds down the specified key for a random period of time. All
     values are in miliseconds.
@@ -166,17 +193,17 @@ def keypress(key, timedown_min=5, timedown_max=190, before_min=500,
     Arguments:
         key: The key on the keyboard to press, according to PyAutoGUI.
 
-        timedown_min (default = 5): The shortest time the key can be
+        timedown_min (default = 1): The shortest time the key can be
         down.
-        timedown_max (default = 190): The longest time the key can be
+        timedown_max (default = 180): The longest time the key can be
         down.
 
-        before_min (default = 500): The shortest time to wait before
+        before_min (default = 50): The shortest time to wait before
         pressing the key down.
         before_max (default = 1000): The longest time to wait before
         pressing the key down.
 
-        after_min (default = 500): The shortest time to wait after
+        after_min (default = 50): The shortest time to wait after
         releasing the key.
         after_max (default = 1000): The longest time to wait after
         releasing the key.
@@ -185,7 +212,7 @@ def keypress(key, timedown_min=5, timedown_max=190, before_min=500,
         Always returns 0.
     """
 
-    log.debug('Pressing key: ' + str(key))
+    log.debug('Pressing key: ' + str(key) + '.')
     misc.sleep_rand(before_min, before_max)
     pag.keyDown(key)
     misc.sleep_rand(timedown_min, timedown_max)
@@ -244,7 +271,7 @@ def move_path():
         movement.
     """
 
-    # TODO: implement bezier-curve mouse behavior
+    # to do: implement bezier-curve mouse behavior
     # https://stackoverflow.com/questions/44467329/pyautogui-mouse-movement-with-bezier-curve
     rand_path = rand.randint(1, 22)
     if rand_path == 1:
