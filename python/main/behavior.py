@@ -1,8 +1,12 @@
+import random as rand
+
 from python.main import input
+from python.main import misc
 from python.main import vision
 
 # TODO
 
+"""
 def chat(context)
   if context == 'smelting'
     type 'option 1'
@@ -23,8 +27,19 @@ def check_experience(skill)
 
 def open_menu_rand()
 
-def open_menu(menu)
-  if menu == 'prayers'
+"""
+
+
+def wait_rand(chance, wait_min, wait_max):
+    """Random chance to do nothing for the specified period of time."""
+    wait_roll = rand.randint(1, chance)
+    if wait_roll == chance:
+        misc.sleep_rand(wait_min, wait_max)
+
+
+"""
+def open_menu(main-menu)
+  if main-menu == 'prayers'
     menu_open = vsion.click_image(needle='./prayers')
     if menu_open == 0:
       menu_open = vision.wait_for_image(needle='prayer_x')
@@ -34,12 +49,13 @@ def open_menu(menu)
           return 1
     else:
       return 1
-  elif menu == 'inventory'
-  elif menu == 'magic'
-  elif menu == 'equipment'
-  elif menu == 'logout'
+  elif main-menu == 'inventory'
+  elif main-menu == 'magic'
+  elif main-menu == 'equipment'
+  elif main-menu == 'logout'
 
 def logout()
   open_menu(logout)
 
 def switch_worlds()
+"""
