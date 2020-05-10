@@ -27,61 +27,68 @@ def kill(procname):
 
 def miner():
 
-    # TODO: make more generic, accept variables as needles
-    (client, inv) = vis.orient()
+    # TODO: make more generic, accept needles as variables instead of hardcoded
+    #  strings
+    (client, inv, game_screen, chat_menu) = vis.orient()
 
     while True:
-        # if first rock is full, begin mining it.
-        rock1_full = client.click_image(needle='./main/needles/south_full.png',
-                                        conf=0.85,
-                                        move_duration_min=10,
-                                        move_duration_max=500,
-                                        click_sleep_before_min=0,
-                                        click_sleep_before_max=100,
-                                        click_sleep_after_min=0,
-                                        click_sleep_after_max=100,
-                                        loop_sleep_min=100, loop_sleep_max=100,
-                                        loop_num=2)
+        # If first rock is full, begin mining it.
+        rock1_full = game_screen.click_image(needle='./main/needles/'
+                                             'south_full.png',
+                                             conf=0.85,
+                                             move_duration_min=10,
+                                             move_duration_max=500,
+                                             click_sleep_before_min=0,
+                                             click_sleep_before_max=100,
+                                             click_sleep_after_min=0,
+                                             click_sleep_after_max=100,
+                                             loop_sleep_min=100,
+                                             loop_sleep_max=100,
+                                             loop_num=2)
         if rock1_full != 1:
 
             # Before checking to see if the first rock is empty, check
             #   if the player's inventory is full.
-            inv_full = client.wait_for_image(needle='./main/needles/chat-menu/'
-                                                    'mining-inventory-full.png'
-                                             , loop_num=1)
+            inv_full = chat_menu.wait_for_image(needle='./main/needles/'
+                                                'chat-menu/'
+                                                'mining-inventory-full.png',
+                                                loop_num=1)
 
             # If the player's inventory is full, drop all copper ore.
             if inv_full != 1:
                 inv.drop_all_item(item='./main/needles/items/copper-ore.png')
 
             # Wait first rock is empty.
-            client.wait_for_image(needle='./main/needles/south_empty.png',
-                                  conf=0.85,
-                                  loop_sleep_min=100, loop_sleep_max=100,
-                                  loop_num=50)
+            game_screen.wait_for_image(needle='./main/needles/south_empty.png',
+                                       conf=0.85,
+                                       loop_sleep_min=100, loop_sleep_max=100,
+                                       loop_num=50)
 
         # If/when first rock is empty, check second rock.
-        rock2_full = client.click_image(needle='./main/needles/east_full.png',
-                                        conf=0.85,
-                                        move_duration_min=10,
-                                        move_duration_max=500,
-                                        click_sleep_before_min=0,
-                                        click_sleep_before_max=100,
-                                        click_sleep_after_min=0,
-                                        click_sleep_after_max=100,
-                                        loop_sleep_min=100, loop_sleep_max=100,
-                                        loop_num=2)
+        rock2_full = game_screen.click_image(needle='./main/needles/'
+                                             'east_full.png',
+                                             conf=0.85,
+                                             move_duration_min=10,
+                                             move_duration_max=500,
+                                             click_sleep_before_min=0,
+                                             click_sleep_before_max=100,
+                                             click_sleep_after_min=0,
+                                             click_sleep_after_max=100,
+                                             loop_sleep_min=100,
+                                             loop_sleep_max=100,
+                                             loop_num=2)
         if rock2_full != 1:
-            inv_full = client.wait_for_image(needle='./main/needles/chat-menu/'
-                                                    'mining-inventory-'
-                                                    'full.png', loop_num=1)
+            inv_full = chat_menu.wait_for_image(needle='./main/needles/'
+                                                'chat-menu/mining-inventory-'
+                                                'full.png',
+                                                loop_num=1)
             if inv_full != 1:
                 inv.drop_all_item(item='./main/needles/items/copper-ore.png')
 
-            client.wait_for_image(needle='./main/needles/east_empty.png',
-                                  conf=0.85,
-                                  loop_sleep_min=100, loop_sleep_max=100,
-                                  loop_num=40)
+            game_screen.wait_for_image(needle='./main/needles/east_empty.png',
+                                       conf=0.85,
+                                       loop_sleep_min=100, loop_sleep_max=100,
+                                       loop_num=40)
 
 
 def test_cannonball_smelter():
@@ -89,7 +96,6 @@ def test_cannonball_smelter():
     screenshots."""
 
     interval = 0.05
-    (client, inv) = vis.orient()
 
     # -------------------------------------------------------------------------
     # Present the first client image to the bot.
@@ -101,10 +107,12 @@ def test_cannonball_smelter():
     time.sleep(interval)
     # -------------------------------------------------------------------------
 
+    (client, inv, game_screen, chat_menu) = vis.orient()
+
     # Click on the bank booth.
-    bank_booth = client.click_image(needle='./main/needles/game-screen/'
-                                           'edgeville-bank-booth-03.png',
-                                    conf=0.995)
+    bank_booth = game_screen.click_image(needle='./main/needles/game-screen/'
+                                         'edgeville-bank-booth-03.png',
+                                         conf=0.995)
     if bank_booth == 1:
         raise RuntimeError('Could not find bank booth!')
 
@@ -120,8 +128,8 @@ def test_cannonball_smelter():
     # -------------------------------------------------------------------------
 
     # Wait for the bank window to appear.
-    bank_window = client.wait_for_image('./main/needles/buttons/'
-                                        'bank-window-close.png')
+    bank_window = game_screen.wait_for_image('./main/needles/buttons/'
+                                             'bank-window-close.png')
     if bank_window == 1:
         raise RuntimeError('Timed out waiting for bank window to open!')
 
@@ -129,9 +137,9 @@ def test_cannonball_smelter():
     # Confidence must be high so bot can distinguish "full" items and
     #   "depleted" item slots within the bank.
     # Can't use the right mouse button during simulations.
-    right_click_steel = client.click_image(button='left', conf=0.9995,
-                                           needle='./main/needles/'
-                                                  'items/steel-bar.png')
+    right_click_steel = game_screen.click_image(button='left', conf=0.9995,
+                                                needle='./main/needles/'
+                                                'items/steel-bar.png')
     if right_click_steel == 1:
         raise RuntimeError('Could not right click steel bars!')
 
@@ -145,9 +153,9 @@ def test_cannonball_smelter():
     # -------------------------------------------------------------------------
 
     # Select the withdraw option in right-click main-menu.
-    withdraw_steel_bars = client.click_image(needle='./main/needles/buttons/'
-                                                    'right-click-'
-                                                    'withdraw-all.png')
+    withdraw_steel_bars = game_screen.click_image(needle='./main/needles/'
+                                                  'buttons/right-click-'
+                                                  'withdraw-all.png')
     if withdraw_steel_bars == 1:
         raise RuntimeError('Could not click "Withdraw All" for steel bars!')
 
@@ -179,8 +187,9 @@ def test_cannonball_smelter():
                            #'in inventory!')
 
     # Close the bank window
-    bank_window_close = client.click_image(needle='./main/needles/'
-                                           'buttons/bank-window-close.png')
+    bank_window_close = game_screen.click_image(needle='./main/needles/'
+                                                'buttons/bank-window-'
+                                                'close.png')
     # -------------------------------------------------------------------------
     kill('feh')
     time.sleep(interval)
@@ -190,8 +199,8 @@ def test_cannonball_smelter():
     time.sleep(interval)
     # -------------------------------------------------------------------------
 
-    furnace = client.click_image(needle='./main/needles/game-screen/'
-                                        'edgeville-furnace-from-bank.png')
+    furnace = game_screen.click_image(needle='./main/needles/game-screen/'
+                                      'edgeville-furnace-from-bank.png')
 
     # -------------------------------------------------------------------------
     kill('feh')
@@ -203,8 +212,8 @@ def test_cannonball_smelter():
     # -------------------------------------------------------------------------
 
     # Press spacebar to begin smelting the cannonballs.
-    begin_smelting = client.wait_for_image(needle='./main/needles/chat-menu/'
-                                                  'smelting.png')
+    begin_smelting = chat_menu.wait_for_image(needle='./main/needles/chat-menu/'
+                                              'smelting.png')
     if begin_smelting == 1:
         raise RuntimeError('Could not find smelting.png chat menu!')
 
@@ -221,18 +230,18 @@ def test_cannonball_smelter():
 
     # Smelting has completed when the bottom half of the inventory is empty.
     # Continually check for this, waiting at least 10 minutes.
-    done_smelting = client.wait_for_image(loop_num=600,
-                                          loop_sleep_min=1000,
-                                          loop_sleep_max=5000,
-                                          conf=0.98,
-                                          needle='./main/needles/main-menu/'
-                                                 'inventory-empty-'
-                                                 'lower-half.png')
+    done_smelting = inv.wait_for_image(loop_num=600,
+                                       loop_sleep_min=1000,
+                                       loop_sleep_max=5000,
+                                       conf=0.98,
+                                       needle='./main/needles/main-menu/'
+                                       'inventory-empty-'
+                                       'lower-half.png')
 
     # Even if wait_for_image times out, return to the bank.
     if done_smelting == 1 or done_smelting != 1:
-        bank = client.click_image(needle='./main/needles/game-screen'
-                                         '/edgeville-bank-from-furnace-01.png')
+        bank = game_screen.click_image(needle='./main/needles/game-screen'
+                                       '/edgeville-bank-from-furnace-01.png')
 
         # ---------------------------------------------------------------------
         kill('feh')
@@ -253,4 +262,5 @@ def test_cannonball_smelter():
 kill('feh')
 # -----------------------------------------------------------------------------
 
-miner()
+test_cannonball_smelter()
+
