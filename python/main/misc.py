@@ -17,7 +17,8 @@ def rand_seconds(rmin=0, rmax=100):
     Returns:
         Returns a float."""
 
-    randval = float(rand.randint(rmin, rmax)) / 1000
+    randval = rand.randint(rmin, rmax)
+    randval = float(randval / 1000)
     # log.debug('Got random value of ' + str(randval) + '.')
     return randval
 
@@ -35,5 +36,5 @@ def sleep_rand(rmin=0, rmax=100):
 
     sleeptime = rand_seconds(rmin, rmax)
     # log.debug('Sleeping for ' + str(sleeptime) + ' seconds.')
-    time.sleep(float(sleeptime))
+    time.sleep(sleeptime)
     return 0
