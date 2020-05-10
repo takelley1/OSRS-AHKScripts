@@ -17,10 +17,12 @@ CLIENT_HEIGHT = 503
 INV_WIDTH = 190
 INV_HEIGHT = 265
 
-# TODO: game screen coords
 # Width and height of just the game screen in the game client.
-GAME_SCREEN_WIDTH = 0
-GAME_SCREEN_HEIGHT = 0
+GAME_SCREEN_WIDTH = 508
+GAME_SCREEN_HEIGHT = 324
+
+CHAT_MENU_WIDTH = 506
+CHAT_MENU_HEIGHT = 129
 
 
 # TODO: change orient to something other than the prayer icon
@@ -66,7 +68,19 @@ def orient():
     inv = Vision(left=inv_left, top=inv_top,
                  width=INV_WIDTH, height=INV_HEIGHT)
 
-    return client, inv
+    # Same thing for the gameplay screen.
+    game_screen_left = client_left + 4
+    game_screen_top = client_top + 4
+    game_screen = Vision(left=game_screen_left, top=game_screen_top,
+                         width=GAME_SCREEN_WIDTH, height=GAME_SCREEN_HEIGHT)
+
+    # And the chat menu.
+    chat_menu_left = client_left + 7
+    chat_menu_top = client_top + 345
+    chat_menu = Vision(left=chat_menu_left, top=chat_menu_top,
+                       width=CHAT_MENU_WIDTH, height=CHAT_MENU_HEIGHT)
+
+    return client, inv, game_screen, chat_menu
 
 
 class Vision:
@@ -296,7 +310,12 @@ class Vision:
             return 0
 
     def drop_all_item(self, needle):
+        """
+        Drops all instances of the given inventory item.
+        """
+
         item_to_drop = self.wait_for_image(needle=needle)
+
         while item_to_drop != 1:
             pag.keyDown('shift')
             item_to_drop = self.click_image(loop_num=2,
