@@ -1,14 +1,35 @@
 import logging as log
 from PIL import ImageOps
-import random as rand
 import sys
-import time
 import tkinter
 from tkinter import ttk
-import traceback
 import yaml
 import python.main.vision as vis
+from python.main.skilling import miner_double_drop
+
 sys.setrecursionlimit(9999)
+
+
+def mining_lumbridge():
+    """
+    Script for mining copper in the Lumbridge mine in Lumbridge swamp.
+
+    See "./main/needles/game-screen/lumbridge-mine/location.png" for the
+    starting location.
+
+    See "./main/needles/game-screen/lumbridge-mine/client-settings" for
+    the correct zoom and brightness settings.
+    """
+
+    mining_lumbridge_var = miner_double_drop(
+        rock1_full='./main/needles/game-screen/lumbridge-mine/south-full.png',
+        rock1_empty='./main/needles/game-screen/lumbridge-mine/south-empty.png',
+        rock2_full='./main/needles/game-screen/lumbridge-mine/east-full.png',
+        rock2_empty='./main/needles/game-screen/lumbridge-mine/east-empty.png',
+        ore='./main/needles/items/copper-ore.png')
+
+    if mining_lumbridge_var == 0:
+        mining_lumbridge()
 
 
 def cannonball_smelter():
@@ -239,7 +260,7 @@ with open('./config.yaml') as f:
 
 
 def start(event):
-    """Starts the main miner() script."""
+    """Starts the main miner_double_drop() script."""
     #global drone_num, module_num, detect_jam
 
     #global detect_pcs, pc_indy, pc_barge, pc_frig_dest, \
@@ -297,14 +318,14 @@ def start(event):
     #detect_jam = (int(detect_jam_gui.get()))
     #log.debug('detect ecm jamming is ' + (str(detect_jam)))
 
-    cannonball_smelter()
+    mining_lumbridge()
     return
 
 
-#def start_navigator(event):
-    #"""Starts the navigator() script."""
-    #navigator()
-    #return
+def start_cannonball_smelter(event):
+    """Starts the navigator() script."""
+    cannonball_smelter()
+    return
 
 
 #def start_collector(event):
@@ -313,15 +334,15 @@ def start(event):
     #return
 
 
-startbutton = tkinter.Button(text="Start")
-startbutton.grid(column=0, row=1, columnspan=2)
-startbutton.bind("<ButtonRelease-1>", start)
-startbutton.config(width='10', height='1', padx=5, pady=0)
+start_button = tkinter.Button(text="Start Lumbridge miner")
+start_button.grid(column=0, row=1, columnspan=2)
+start_button.bind("<ButtonRelease-1>", start)
+start_button.config(width='20', height='1', padx=5, pady=0)
 
-#navigatorbutton = tkinter.Button(text="start navigator")
-#navigatorbutton.grid(column=0, row=17, columnspan=1)
-#navigatorbutton.bind("<ButtonRelease-1>", start_navigator)
-#navigatorbutton.config(width='12', height='1', padx=10, pady=0)
+cannonball_smelter_button = tkinter.Button(text="Start Cannonball Smelter")
+cannonball_smelter_button.grid(column=0, row=2, columnspan=2)
+cannonball_smelter_button.bind("<ButtonRelease-1>", start_cannonball_smelter)
+cannonball_smelter_button.config(width='20', height='1', padx=10, pady=0)
 
 #collectorbutton = tkinter.Button(text="start collector")
 #collectorbutton.grid(column=1, row=17, columnspan=1)
@@ -341,25 +362,5 @@ endrunbutton.grid(column=1, row=2, columnspan=1, sticky='W')
 endrunbutton.config(width='13', height='1')
 '''
 
-gui.title('Cannonball Smelter v0.1')
+gui.title('PyScape v0.01')
 gui.mainloop()
-'''
-# unit tests
-while mining.inv_full_popup() == 0:
-    if mining.asteroid_depleted_popup() == 1:
-        if mining.detect_asteroids() == 0:
-            # nav.blacklist_local_bookmark()
-            miner()
-        elif mining.detect_asteroids() == 1:
-            mining.target_asteroid()
-            mining.activate_miner()
-            mining.inv_full_popup()
-            continue
-    if threading.Thread(target=mining.detect_pcs()).start() == 1:
-        mining.recall_drones_loop()
-        miner()
-    if threading.Thread(target=mining.detect_pcs()).start() == 1:
-        mining.recall_drones_loop()
-        miner()
-    time.sleep(2)
-'''
