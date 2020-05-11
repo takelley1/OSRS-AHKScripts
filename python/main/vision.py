@@ -45,11 +45,10 @@ def orient():
     anchor = Vision(left=0, top=0,
                     width=display_width,
                     height=display_height) \
-        .wait_for_image(needle='./main/needles/main-menu/prayers.png')
+        .wait_for_image(needle='./main/needles/main-menu/prayers.png',
+                        loctype='center')
 
-    # The wait_for_image function returns a tuple with a few vars we
-    #   don't need.
-    (client_left, client_top, unused_var1, unused_var2) = anchor
+    (client_left, client_top) = anchor
 
     # The left corner of the game client is 709 pixels to the left of
     #   the prayers icon
