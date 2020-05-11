@@ -15,18 +15,17 @@ CLIENT_WIDTH = 765
 CLIENT_HEIGHT = 503
 
 # Width and height of the inventory screen, in pixels.
-INV_WIDTH = 190
-INV_HEIGHT = 265
+INV_WIDTH = 186
+INV_HEIGHT = 262
 
 # Width and height of just the game screen in the game client.
-GAME_SCREEN_WIDTH = 508
-GAME_SCREEN_HEIGHT = 324
+GAME_SCREEN_WIDTH = 512
+GAME_SCREEN_HEIGHT = 334
 
 CHAT_MENU_WIDTH = 506
 CHAT_MENU_HEIGHT = 129
 
 
-# TODO: change orient to something other than the prayer icon
 def orient():
     """
     Creates objects containing useful game coordinates for other
@@ -45,15 +44,15 @@ def orient():
     anchor = Vision(left=0, top=0,
                     width=display_width,
                     height=display_height) \
-        .wait_for_image(needle='./main/needles/main-menu/prayers.png',
+        .wait_for_image(needle='./main/needles/orient-logged-out.png',
                         loctype='center')
 
     (client_left, client_top) = anchor
 
     # The left corner of the game client is 709 pixels to the left of
     #   the prayers icon
-    client_left -= 709
-    client_top -= 186
+    client_left -= 748
+    client_top -= 21
 
     # Now we can create an object with the game client's X and Y
     #   coordinates. This will allow other functions to search for
@@ -63,8 +62,8 @@ def orient():
                     top=client_top, height=CLIENT_HEIGHT)
 
     # Create another object for the player's inventory.
-    inv_left = client_left + 555
-    inv_top = client_top + 220
+    inv_left = client_left + 548
+    inv_top = client_top + 205
     inv = Vision(left=inv_left, top=inv_top,
                  width=INV_WIDTH, height=INV_HEIGHT)
 
@@ -309,12 +308,12 @@ class Vision:
                         sleep_after_max=click_sleep_after_max)
             return 0
 
-    def drop_all_item(self, needle):
+    def drop_all_item(self, item):
         """
         Drops all instances of the given inventory item.
         """
 
-        item_to_drop = self.wait_for_image(needle=needle)
+        item_to_drop = self.wait_for_image(needle=item)
 
         while item_to_drop != 1:
             pag.keyDown('shift')
@@ -323,7 +322,7 @@ class Vision:
                                             click_sleep_before_max=100,
                                             move_duration_min=10,
                                             move_duration_max=500,
-                                            needle=needle)
+                                            needle=item)
             pag.keyUp('shift')
             misc.sleep_rand(100, 1000)
         return 0
