@@ -3,9 +3,7 @@ import subprocess as sub
 import time
 
 import psutil
-import pyautogui as pag
 
-from python.main import behavior as behav
 from python.main import input
 from python.main import vision as vis
 
@@ -23,72 +21,6 @@ def kill(procname):
     for proc in psutil.process_iter():
         if proc.name() == procname:
             proc.kill()
-
-
-def miner():
-
-    # TODO: make more generic, accept needles as variables instead of hardcoded
-    #  strings
-    (client, inv, game_screen, chat_menu) = vis.orient()
-
-    while True:
-        # If first rock is full, begin mining it.
-        rock1_full = game_screen.click_image(needle='./main/needles/'
-                                             'south_full.png',
-                                             conf=0.85,
-                                             move_duration_min=10,
-                                             move_duration_max=500,
-                                             click_sleep_before_min=0,
-                                             click_sleep_before_max=100,
-                                             click_sleep_after_min=0,
-                                             click_sleep_after_max=100,
-                                             loop_sleep_min=100,
-                                             loop_sleep_max=100,
-                                             loop_num=2)
-        if rock1_full != 1:
-
-            # Before checking to see if the first rock is empty, check
-            #   if the player's inventory is full.
-            inv_full = chat_menu.wait_for_image(needle='./main/needles/'
-                                                'chat-menu/'
-                                                'mining-inventory-full.png',
-                                                loop_num=1)
-
-            # If the player's inventory is full, drop all copper ore.
-            if inv_full != 1:
-                inv.drop_all_item(item='./main/needles/items/copper-ore.png')
-
-            # Wait first rock is empty.
-            game_screen.wait_for_image(needle='./main/needles/south_empty.png',
-                                       conf=0.85,
-                                       loop_sleep_min=100, loop_sleep_max=100,
-                                       loop_num=50)
-
-        # If/when first rock is empty, check second rock.
-        rock2_full = game_screen.click_image(needle='./main/needles/'
-                                             'east_full.png',
-                                             conf=0.85,
-                                             move_duration_min=10,
-                                             move_duration_max=500,
-                                             click_sleep_before_min=0,
-                                             click_sleep_before_max=100,
-                                             click_sleep_after_min=0,
-                                             click_sleep_after_max=100,
-                                             loop_sleep_min=100,
-                                             loop_sleep_max=100,
-                                             loop_num=2)
-        if rock2_full != 1:
-            inv_full = chat_menu.wait_for_image(needle='./main/needles/'
-                                                'chat-menu/mining-inventory-'
-                                                'full.png',
-                                                loop_num=1)
-            if inv_full != 1:
-                inv.drop_all_item(item='./main/needles/items/copper-ore.png')
-
-            game_screen.wait_for_image(needle='./main/needles/east_empty.png',
-                                       conf=0.85,
-                                       loop_sleep_min=100, loop_sleep_max=100,
-                                       loop_num=40)
 
 
 def test_cannonball_smelter():
@@ -251,16 +183,13 @@ def test_cannonball_smelter():
                           "edgeville-furnace-04.png"])
         time.sleep(interval)
         # ---------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    #kill('feh')
+    # -------------------------------------------------------------------------
 
         # Deposit cannonballs once bank window appears
 
 # Small chance to do nothing before returning to bank.
-# behav.wait_rand(chance=10, wait_min=10000, wait_max=60000)
 
-
-# -----------------------------------------------------------------------------
-kill('feh')
-# -----------------------------------------------------------------------------
-
-test_cannonball_smelter()
+#test_cannonball_smelter()
 
