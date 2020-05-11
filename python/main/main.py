@@ -1,13 +1,18 @@
-import logging as log
-from PIL import ImageOps
 import sys
+import logging as log
+
+from PIL import ImageOps
 import tkinter
 from tkinter import ttk
 import yaml
+
 import python.main.vision as vis
 from python.main.skilling import miner_double_drop
 
 sys.setrecursionlimit(9999)
+
+log.basicConfig(format='%(asctime)s -- %(filename)s.%(funcName)s - %(message)s'
+                , level='DEBUG')
 
 
 def mining_lumbridge():
@@ -21,15 +26,17 @@ def mining_lumbridge():
     the correct zoom and brightness settings.
     """
 
-    mining_lumbridge_var = miner_double_drop(
-        rock1_full='./main/needles/game-screen/lumbridge-mine/south-full.png',
-        rock1_empty='./main/needles/game-screen/lumbridge-mine/south-empty.png',
-        rock2_full='./main/needles/game-screen/lumbridge-mine/east-full.png',
-        rock2_empty='./main/needles/game-screen/lumbridge-mine/east-empty.png',
-        ore='./main/needles/items/copper-ore.png')
-
-    if mining_lumbridge_var == 0:
-        mining_lumbridge()
+    while True:
+        miner_double_drop(
+            rock1_full='./main/needles/game-screen/lumbridge-mine/'
+                       'south-full.png',
+            rock1_empty='./main/needles/game-screen/lumbridge-mine/'
+                        'south-empty.png',
+            rock2_full='./main/needles/game-screen/lumbridge-mine/'
+                       'east-full.png',
+            rock2_empty='./main/needles/game-screen/lumbridge-mine/'
+                        'east-empty.png',
+            ore='./main/needles/items/copper-ore.png')
 
 
 def cannonball_smelter():
