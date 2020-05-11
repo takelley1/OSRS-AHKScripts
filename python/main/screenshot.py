@@ -13,15 +13,25 @@ def main():
     """
 
     os.chdir('/home/austin/OSRS-AHKScripts/python/tests')
-    target_image = vis.Vision(left=0, top=0, width=1920, height=1080)
-    target_image = target_image.mlocate(
-        needle='../main/needles/main-menu/prayers.png', loctype='center')
+    orient = vis.Vision(left=0, top=0, width=1920, height=1080)
 
-    (x, y) = target_image
-    x -= 709
-    y -= 186
+    # First check to see if the client is logged in.
+    orient_logged_in = orient.mlocate(
+        needle='../main/needles/orient.png', loctype='center')
+    if orient_logged_in != 1:
+        (x, y) = orient_logged_in
+        x -= 748
+        y -= 21
+        pag.screenshot('screenshot.tmp.png', region=(x, y, 765, 503))
 
-    pag.screenshot('screenshot.tmp.png', region=(x, y, 765, 503))
+    elif orient_logged_in == 1:
+        # If the client is not logged in, try a different anchor.
+        orient_logged_out = orient.mlocate(
+            needle='../main/needles/orient-logged-out.png', loctype='center')
+        (x, y) = orient_logged_out
+        x -= 183
+        y -= 59
+        pag.screenshot('screenshot.tmp.png', region=(x, y, 765, 503))
 
     os.system('pngcrush -s '
               'screenshot.tmp.png haystack_$(date +%Y-%m-%d_%H:%M:%S.png)'
