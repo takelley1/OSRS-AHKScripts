@@ -1,7 +1,7 @@
 .idea
 todo.md
 .pytest_cache/
-python/main/__pycache__/
-python/tests/haystacks/
+ocvbot/main/__pycache__/
+ocvbot/tests/haystacks/
 Project.xml
 venv_cpython/
