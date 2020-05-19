@@ -12,9 +12,6 @@ from ocvbot import vision as vis
 # Images are presented in sequence to simulate the game client.
 # Intended for Linux with the feh image viewer.
 
-log.basicConfig(format='%(asctime)s -- %(filename)s.%(funcName)s - %(message)s'
-                , level='DEBUG')
-
 
 def kill(procname):
     """Kills the provided process by name."""
@@ -39,10 +36,8 @@ def test_cannonball_smelter():
     time.sleep(interval)
     # -------------------------------------------------------------------------
 
-    (client, inv, game_screen, chat_menu) = vis.find_anchor()
-
     # Click on the bank booth.
-    bank_booth = game_screen.click_image(needle='./ocvbot/needles/game-screen/'
+    bank_booth = vgame_screen.click_image(needle='./ocvbot/needles/game-screen/'
                                          'edgeville-bank-booth-03.png',
                                          conf=0.995)
     if bank_booth == 1:

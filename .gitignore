@@ -5,3 +5,6 @@ ocvbot/main/__pycache__/
 ocvbot/tests/haystacks/
 Project.xml
 venv_cpython/
+*/password
+*/username
+*/.screenshot*

@@ -3,8 +3,8 @@ import random as rand
 
 import pyautogui as pag
 
-from ocvbot import inv, inv_bottom
-from ocvbot import misc
+from ocvbot import vdisplay, vinv, vinv_bottom
+from ocvbot import input, misc
 
 # TODO
 
@@ -48,26 +48,26 @@ def drop_item_rapid(item):
     log.info('Dropping item.')
     log.debug('Dropping' + str(item) + '.')
 
-    inv_full = inv.wait_for_image(loop_num=1, needle=item)
+    inv_full = vinv.wait_for_image(loop_num=1, needle=item)
     while inv_full != 1:
 
         pag.keyDown('shift')
-        inv_bottom.click_image(loop_num=1,
-                               click_sleep_before_min=0,
-                               click_sleep_before_max=50,
-                               click_sleep_after_min=0,
-                               click_sleep_after_max=50,
-                               move_duration_min=5,
-                               move_duration_max=200,
-                               needle=item)
-        inv_full = inv.click_image(loop_num=1,
-                                   click_sleep_before_min=0,
-                                   click_sleep_before_max=50,
-                                   click_sleep_after_min=0,
-                                   click_sleep_after_max=50,
-                                   move_duration_min=5,
-                                   move_duration_max=200,
-                                   needle=item)
+        vinv_bottom.click_image(loop_num=1,
+                                click_sleep_before_min=0,
+                                click_sleep_before_max=50,
+                                click_sleep_after_min=0,
+                                click_sleep_after_max=50,
+                                move_duration_min=5,
+                                move_duration_max=200,
+                                needle=item)
+        inv_full = vinv.click_image(loop_num=1,
+                                    click_sleep_before_min=0,
+                                    click_sleep_before_max=50,
+                                    click_sleep_after_min=0,
+                                    click_sleep_after_max=50,
+                                    move_duration_min=5,
+                                    move_duration_max=200,
+                                    needle=item)
         pag.keyUp('shift')
         if inv_full == 1:
             return 0

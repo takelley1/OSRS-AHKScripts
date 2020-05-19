@@ -56,7 +56,8 @@ def move_to(x, y, xmax, ymax, xmin=0, ymin=0,
 
     pag.moveTo((x + xrand),
                (y + yrand),
-               move_duration(move_duration_min=duration_min, move_duration_max=duration_max),
+               move_duration(move_duration_min=duration_min,
+                             move_duration_max=duration_max),
                move_path())
     return 0
 

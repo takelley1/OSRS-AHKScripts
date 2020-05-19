@@ -1,7 +1,15 @@
-
-from ocvbot import vision as vis
+import logging as log
+import os
 
 import pyautogui as pag
+
+from ocvbot import vision as vis
+from ocvbot import behavior as behav
+
+"""
+Creates objects containing useful game coordinates for other
+functions to serach through.
+"""
 
 # These are constants.
 # See ./tests/haystacks/client_anatomy.png for more info.
@@ -28,10 +36,8 @@ CHAT_MENU_RECENT_HEIGHT = 14
 DISPLAY_WIDTH = pag.size().width
 DISPLAY_HEIGHT = pag.size().height
 
-"""
-Creates objects containing useful game coordinates for other
-functions to serach through.
-"""
+log.basicConfig(format='%(asctime)s -- %(filename)s.%(funcName)s - %(message)s'
+                , level='DEBUG')
 
 # TODO: Find a better way to do this.
 # Clean up left over screenshots from failed runs.
@@ -48,41 +54,41 @@ client_top -= 21
 #   coordinates. This will allow other functions to search for
 #   needles within the "client" object's coordinates, rather than
 #   within the entire display's coordinates, which is much faster.
-client = vis.Vision(left=client_left, width=CLIENT_WIDTH,
-                    top=client_top, height=CLIENT_HEIGHT)
+vclient = vis.Vision(left=client_left, width=CLIENT_WIDTH,
+                     top=client_top, height=CLIENT_HEIGHT)
 
 # Create another object for the player's inventory.
 inv_left = client_left + 548
 inv_top = client_top + 205
-inv = vis.Vision(left=inv_left, top=inv_top,
-                 width=INV_WIDTH, height=INV_HEIGHT)
+vinv = vis.Vision(left=inv_left, top=inv_top,
+                  width=INV_WIDTH, height=INV_HEIGHT)
 # And another object for the bottom half of the player's inventory
 inv_bottom_left = inv_left
 inv_bottom_top = inv_top + (round(INV_HEIGHT / 2))
-inv_bottom = vis.Vision(left=inv_bottom_left, top=inv_bottom_top,
-                        width=INV_WIDTH, height=(round(INV_HEIGHT / 2)))
+vinv_bottom = vis.Vision(left=inv_bottom_left, top=inv_bottom_top,
+                         width=INV_WIDTH, height=(round(INV_HEIGHT / 2)))
 
 # Same thing for the gameplay screen.
 game_screen_left = client_left + 4
 game_screen_top = client_top + 4
-game_screen = vis.Vision(left=game_screen_left, top=game_screen_top,
-                         width=GAME_SCREEN_WIDTH, height=GAME_SCREEN_HEIGHT)
+vgame_screen = vis.Vision(left=game_screen_left, top=game_screen_top,
+                          width=GAME_SCREEN_WIDTH, height=GAME_SCREEN_HEIGHT)
 
 # And the chat menu.
 chat_menu_left = client_left + 7
 chat_menu_top = client_top + 345
-chat_menu = vis.Vision(left=chat_menu_left, top=chat_menu_top,
-                       width=CHAT_MENU_WIDTH, height=CHAT_MENU_HEIGHT)
+vchat_menu = vis.Vision(left=chat_menu_left, top=chat_menu_top,
+                        width=CHAT_MENU_WIDTH, height=CHAT_MENU_HEIGHT)
 
 # Another object for checking the most recent chat message.
 chat_menu_recent_left = chat_menu_left + 2
 chat_menu_recent_top = chat_menu_top + 100
-chat_menu_recent = vis.Vision(left=chat_menu_recent_left,
-                              top=chat_menu_recent_top,
-                              width=CHAT_MENU_RECENT_WIDTH,
-                              height=CHAT_MENU_RECENT_HEIGHT)
+vchat_menu_recent = vis.Vision(left=chat_menu_recent_left,
+                               top=chat_menu_recent_top,
+                               width=CHAT_MENU_RECENT_WIDTH,
+                               height=CHAT_MENU_RECENT_HEIGHT)
 
 # Another object for searching the entire display.
-display = vis.Vision(left=0, width=DISPLAY_WIDTH,
-                     top=0, height=DISPLAY_HEIGHT)
+vdisplay = vis.Vision(left=0, width=DISPLAY_WIDTH,
+                      top=0, height=DISPLAY_HEIGHT)
 

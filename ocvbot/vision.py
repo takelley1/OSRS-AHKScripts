@@ -10,9 +10,10 @@ sys.setrecursionlimit(9999)
 
 
 def find_anchor(display_width, display_height):
-    # Look for the prayers icon on the display. If it's found, use its
-    #   location within the game client to determine the coordinates of
-    #   the game client relative to the display's coordinates.
+    """
+    Look for an icon to orient the client. If it's found, use its
+    location within the game client to determine the coordinates of
+    the game client relative to the display's coordinates.
 
     anchor = Vision(left=0, top=0,
                     width=display_width,

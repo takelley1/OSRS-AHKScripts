@@ -1,8 +1,7 @@
 import logging as log
-#import sys
 
 from ocvbot import behavior as behav
-from ocvbot import chat_menu, chat_menu_recent, game_screen
+from ocvbot import vchat_menu, vchat_menu_recent, vgame_screen
 
 
 def miner_double_drop(rock1, rock2, ore):
@@ -33,22 +32,22 @@ def miner_double_drop(rock1, rock2, ore):
             log.info('Searching for ore ' + str(attempts) + '...')
 
             # If first rock is full, begin mining it.
-            rock_full = game_screen.click_image(needle=rock,
-                                                conf=0.9,
-                                                move_duration_min=10,
-                                                move_duration_max=500,
-                                                click_sleep_before_min=0,
-                                                click_sleep_before_max=100,
-                                                click_sleep_after_min=0,
-                                                click_sleep_after_max=100,
-                                                loop_sleep_max=100,
-                                                loop_num=1)
+            rock_full = vgame_screen.click_image(needle=rock,
+                                                 conf=0.9,
+                                                 move_duration_min=10,
+                                                 move_duration_max=500,
+                                                 click_sleep_before_min=0,
+                                                 click_sleep_before_max=100,
+                                                 click_sleep_after_min=0,
+                                                 click_sleep_after_max=100,
+                                                 loop_sleep_max=100,
+                                                 loop_num=1)
             if rock_full != 1:
                 log.info('Waiting for mining to start.')
 
                 # Once the rock has been clicked on, wait for mining to start
                 #   by monitoring chat.
-                mining_started = chat_menu_recent. \
+                mining_started = vchat_menu_recent. \
                     wait_for_image('./ocvbot/needles/chat-menu/mining-started.png',
                                    conf=0.9,
                                    loop_sleep_min=100,
@@ -60,7 +59,7 @@ def miner_double_drop(rock1, rock2, ore):
                 if mining_started == 1:
                     log.debug('Timed out waiting for mining to start.')
 
-                    inv_full = chat_menu. \
+                    inv_full = vchat_menu. \
                         wait_for_image(needle='./ocvbot/needles/chat-menu/'
                                               'mining-inventory-full.png',
                                        loop_num=1)
@@ -76,14 +75,14 @@ def miner_double_drop(rock1, rock2, ore):
 
                 # Wait until the rock is empty by waiting until the "rock"
                 #   needle can no longer be found
-                rock_status = game_screen.wait_for_image(needle=rock,
-                                                         conf=0.75,
-                                                         loop_num=1)
+                rock_status = vgame_screen.wait_for_image(needle=rock,
+                                                          conf=0.75,
+                                                          loop_num=1)
                 tries = 0
                 while rock_status != 1 and tries <= 20:
-                    rock_status = game_screen.wait_for_image(needle=rock,
-                                                             conf=0.75,
-                                                             loop_num=1)
+                    rock_status = vgame_screen.wait_for_image(needle=rock,
+                                                              conf=0.75,
+                                                              loop_num=1)
                     tries += 1
 
                 if rock_status == 1:

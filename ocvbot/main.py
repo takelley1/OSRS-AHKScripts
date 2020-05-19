@@ -12,9 +12,6 @@ from ocvbot import vision as vis
 
 sys.setrecursionlimit(9999)
 
-log.basicConfig(format='%(asctime)s -- %(filename)s.%(funcName)s - %(message)s'
-                , level='INFO')
-
 
 def mining_lumbridge():
     """
