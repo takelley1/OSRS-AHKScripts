@@ -1,8 +1,8 @@
 import os
-import time
+#import time
 import pyautogui as pag
 
-from ocvbot.ocvbot import vision as vis
+from ocvbot import vision as vis
 
 
 def main():

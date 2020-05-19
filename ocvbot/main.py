@@ -6,8 +6,8 @@ import logging as log
 #from tkinter import ttk
 #import yaml
 
-import vision as vis
-from ocvbot.ocvbot.skilling import miner_double_drop
+from ocvbot import vision as vis
+from ocvbot.skilling import miner_double_drop
 
 sys.setrecursionlimit(9999)
 
@@ -29,10 +29,11 @@ def mining_lumbridge():
     while True:
         miner_double_drop(
             rock1='./ocvbot/needles/game-screen/lumbridge-mine/'
-                   'south-full.png',
+                  'south-full.png',
             rock2='./ocvbot/needles/game-screen/lumbridge-mine/'
-                   'east-full.png',
+                  'east-full.png',
             ore='./ocvbot/needles/items/copper-ore.png')
+
 
 def mining_varrock_east():
     """

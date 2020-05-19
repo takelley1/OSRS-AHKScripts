@@ -3,12 +3,12 @@ import random as rand
 
 import pyautogui as pag
 
-from ocvbot.ocvbot import inv
-from ocvbot.ocvbot import inv_bottom
+from ocvbot import inv
+from ocvbot import inv_bottom
 
-from ocvbot.ocvbot import input
-from ocvbot.ocvbot import misc
-from ocvbot.ocvbot import vision as vis
+#from ocvbot import input
+from ocvbot import misc
+#from ocvbot import vision as vis
 
 # TODO
 
@@ -57,13 +57,13 @@ def drop_item_rapid(item):
 
         pag.keyDown('shift')
         inv_bottom.click_image(loop_num=1,
-                                          click_sleep_before_min=0,
-                                          click_sleep_before_max=50,
-                                          click_sleep_after_min=0,
-                                          click_sleep_after_max=50,
-                                          move_duration_min=5,
-                                          move_duration_max=200,
-                                          needle=item)
+                               click_sleep_before_min=0,
+                               click_sleep_before_max=50,
+                               click_sleep_after_min=0,
+                               click_sleep_after_max=50,
+                               move_duration_min=5,
+                               move_duration_max=200,
+                               needle=item)
         inv_full = inv.click_image(loop_num=1,
                                    click_sleep_before_min=0,
                                    click_sleep_before_max=50,

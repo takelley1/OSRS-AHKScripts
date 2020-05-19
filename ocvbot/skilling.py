@@ -1,8 +1,8 @@
 import logging as log
-import sys
+#import sys
 
-from ocvbot.ocvbot import behavior as behav
-from ocvbot.ocvbot import vision as vis
+from ocvbot import behavior as behav
+from ocvbot import vision as vis
 
 
 def miner_double_drop(rock1, rock2, ore):

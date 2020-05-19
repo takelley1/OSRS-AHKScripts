@@ -4,8 +4,8 @@ import time
 
 import psutil
 
-from ocvbot.ocvbot import input
-from ocvbot.ocvbot import vision as vis
+from ocvbot import input
+from ocvbot import vision as vis
 
 # This file is a full regression test of the bot that intends to test every
 #   "ocvbot" behavior in sequence, as if the actual bot is being run.
