@@ -43,7 +43,13 @@ log.basicConfig(format='%(asctime)s -- %(filename)s.%(funcName)s - %(message)s'
 # Clean up left over screenshots from failed runs.
 #sub.Popen(["rm", "./.screenshot2*"])
 
-(client_left, client_top) = vis.find_anchor(DISPLAY_WIDTH, DISPLAY_HEIGHT)
+os.chdir('ocvbot')
+
+(return_status, client_left, client_top) = vis.find_anchor(DISPLAY_WIDTH,
+                                                           DISPLAY_HEIGHT)
+# Login if the client is logged out.
+if return_status == 'logged_out':
+    behav.login()
 
 # The left corner of the game client is 709 pixels to the left of
 #   the prayers icon
