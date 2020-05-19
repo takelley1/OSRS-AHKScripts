@@ -15,21 +15,29 @@ def find_anchor(display_width, display_height):
     location within the game client to determine the coordinates of
     the game client relative to the display's coordinates.
 
-    anchor = Vision(left=0, top=0,
-                    width=display_width,
-                    height=display_height) \
-        .wait_for_image(needle='./ocvbot/needles/orient.png',
+    This function is also used to determine if the client is logged out.
+    """
+
+    anchor_logged_in = Vision(left=0, top=0,
+                              width=display_width,
+                              height=display_height) \
+        .wait_for_image(needle='needles/orient.png',
                         loctype='center', loop_num=2)
-    if anchor != 1:
-        return anchor
+    if anchor_logged_in != 1:
+        return 'logged_in', anchor_logged_in
 
-    if anchor == 1:
-        # If the client is not logged in, try a different anchor.
-        #anchor='../ocvbot/needles/find_anchor-logged-out.png', loctype='center')
+    if anchor_logged_in == 1:
 
-        if anchor != 1:
-            return anchor
-        elif anchor == 1:
+        # If the client is not logged in, check if it's logged out.
+        anchor_logged_out = Vision(left=0, top=0,
+                                   width=display_width,
+                                   height=display_height) \
+        .wait_for_image(needle='needles/orient-logged-out.png',
+                        loctype='center', loop_num=2)
+        if anchor_logged_out != 1:
+            return 'logged_out', anchor_logged_out
+
+        elif anchor_logged_out == 1:
             log.critical('Could not find anchor!')
             raise RuntimeError('Could not find anchor!')
 
