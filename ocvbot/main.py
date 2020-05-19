@@ -6,8 +6,9 @@ import logging as log
 #from tkinter import ttk
 #import yaml
 
+from ocvbot import DISPLAY_WIDTH, DISPLAY_HEIGHT
+from ocvbot import skilling
 from ocvbot import vision as vis
-from ocvbot.skilling import miner_double_drop
 
 sys.setrecursionlimit(9999)
 
@@ -27,7 +28,7 @@ def mining_lumbridge():
     """
 
     while True:
-        miner_double_drop(
+        skilling.miner_double_drop(
             rock1='./ocvbot/needles/game-screen/lumbridge-mine/'
                   'south-full.png',
             rock2='./ocvbot/needles/game-screen/lumbridge-mine/'
@@ -48,7 +49,7 @@ def mining_varrock_east():
     log.info('Began mining_varrock_east()')
 
     while True:
-        miner = miner_double_drop(
+        miner = skilling.miner_double_drop(
             rock1='./ocvbot/needles/game-screen/varrock-east-mine/'
                   'north-full2.png',
             rock2='./ocvbot/needles/game-screen/varrock-east-mine/'
@@ -56,7 +57,7 @@ def mining_varrock_east():
             ore='./ocvbot/needles/items/iron-ore.png')
         if miner == 0:
             log.info('Reorienting client')
-            vis.find_anchor()
+            vis.find_anchor(DISPLAY_WIDTH, DISPLAY_HEIGHT)
 
 def cannonball_smelter():
 

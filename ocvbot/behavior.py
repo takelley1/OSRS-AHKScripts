@@ -3,12 +3,8 @@ import random as rand
 
 import pyautogui as pag
 
-from ocvbot import inv
-from ocvbot import inv_bottom
-
-#from ocvbot import input
+from ocvbot import inv, inv_bottom
 from ocvbot import misc
-#from ocvbot import vision as vis
 
 # TODO
 

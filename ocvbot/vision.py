@@ -3,15 +3,13 @@ import sys
 
 import pyautogui as pag
 
-from ocvbot import display_width
-from ocvbot import display_height
 from ocvbot import input
 from ocvbot import misc
 
 sys.setrecursionlimit(9999)
 
 
-def find_anchor():
+def find_anchor(display_width, display_height):
     # Look for the prayers icon on the display. If it's found, use its
     #   location within the game client to determine the coordinates of
     #   the game client relative to the display's coordinates.
@@ -19,7 +17,7 @@ def find_anchor():
     anchor = Vision(left=0, top=0,
                     width=display_width,
                     height=display_height) \
-        .wait_for_image(needle='./ocvbot/needles/find_anchor.png',
+        .wait_for_image(needle='./ocvbot/needles/orient.png',
                         loctype='center', loop_num=2)
     if anchor != 1:
         return anchor

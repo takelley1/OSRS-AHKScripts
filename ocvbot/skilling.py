@@ -2,7 +2,7 @@ import logging as log
 #import sys
 
 from ocvbot import behavior as behav
-from ocvbot import vision as vis
+from ocvbot import chat_menu, chat_menu_recent, game_screen
 
 
 def miner_double_drop(rock1, rock2, ore):
@@ -22,8 +22,6 @@ def miner_double_drop(rock1, rock2, ore):
     Reutrns:
         Returns 0 after emptying inventory.
     """
-
-    (client, inv, inv_bottom, game_screen, chat_menu, chat_menu_recent, display) = vis.find_anchor()
 
     for attempts in range(1, 50):
 

@@ -20,13 +20,13 @@ GAME_SCREEN_HEIGHT = 334
 CHAT_MENU_WIDTH = 506
 CHAT_MENU_HEIGHT = 129
 
-# Dimensions of the most recent "line" in the chat menu.
+# Dimensions of the most recent "line" in the chat history.
 CHAT_MENU_RECENT_WIDTH = 489
 CHAT_MENU_RECENT_HEIGHT = 14
 
 # Get the display size in pixels.
-display_width = pag.size().width
-display_height = pag.size().height
+DISPLAY_WIDTH = pag.size().width
+DISPLAY_HEIGHT = pag.size().height
 
 """
 Creates objects containing useful game coordinates for other
@@ -37,7 +37,7 @@ functions to serach through.
 # Clean up left over screenshots from failed runs.
 #sub.Popen(["rm", "./.screenshot2*"])
 
-(client_left, client_top) = vis.find_anchor()
+(client_left, client_top) = vis.find_anchor(DISPLAY_WIDTH, DISPLAY_HEIGHT)
 
 # The left corner of the game client is 709 pixels to the left of
 #   the prayers icon
@@ -83,6 +83,6 @@ chat_menu_recent = vis.Vision(left=chat_menu_recent_left,
                               height=CHAT_MENU_RECENT_HEIGHT)
 
 # Another object for searching the entire display.
-display = vis.Vision(left=0, width=display_width,
-                     top=0, height=display_height)
+display = vis.Vision(left=0, width=DISPLAY_WIDTH,
+                     top=0, height=DISPLAY_HEIGHT)
 

@@ -4,8 +4,8 @@ import sys
 
 import pyautogui as pag
 
-import ocvbot.ocvbot.vision
-from ocvbot.ocvbot import misc
+from ocvbot import CLIENT_WIDTH, CLIENT_HEIGHT
+from ocvbot import misc
 
 sys.setrecursionlimit(9999)
 
@@ -82,16 +82,16 @@ def move_away(direction=rand.choice(['left', 'right'])):
     if direction == 'right':
         # TODO: Refactor this to input.move_to.
         pag.moveTo(
-            (rand.randint((ocvbot.main.vision.client_width / 2),
-                          ocvbot.main.vision.client_width)),
-            (rand.randint(0, ocvbot.main.vision.client_height)),
+            (rand.randint((CLIENT_WIDTH / 2),
+                          CLIENT_WIDTH)),
+            (rand.randint(0, CLIENT_HEIGHT)),
             move_duration(), move_path())
         misc.sleep_rand(0, 500)
 
     elif direction == 'left':
         pag.moveTo(
-            (rand.randint(0, (ocvbot.main.vision.client_width / 2))),
-            (rand.randint(0, ocvbot.main.vision.client_height)),
+            (rand.randint(0, (CLIENT_WIDTH / 2))),
+            (rand.randint(0, CLIENT_HEIGHT)),
             move_duration(), move_path())
         misc.sleep_rand(0, 500)
 
