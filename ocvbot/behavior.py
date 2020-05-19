@@ -32,6 +32,27 @@ def open_menu_rand()
 """
 
 
+def login():
+    """
+    Automatically logs the client in using credentials specified in a file.
+    """
+
+    logged_out = vdisplay.click_image(needle='./needles/orient-logged-out.png')
+    if logged_out == 1:
+        raise RuntimeError("Cannot find client!")
+    else:
+        misc.sleep_rand(200, 3000)
+        input.keypress('enter')
+        misc.sleep_rand(200, 3000)
+        pag.typewrite(open('username', 'r').read())
+        misc.sleep_rand(200, 3000)
+        input.keypress('tab')
+        pag.typewrite(open('password', 'r').read())
+        misc.sleep_rand(200, 3000)
+        input.keypress('enter')
+    return 0
+
+
 def wait_rand(chance, wait_min, wait_max):
     """Random chance to do nothing for the specified period of time."""
     wait_roll = rand.randint(1, chance)
