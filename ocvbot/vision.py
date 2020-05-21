@@ -42,10 +42,13 @@ def find_anchor(display_width, display_height):
             raise RuntimeError('Could not find anchor!')
 
 
+# TODO: Remove self.haystack functionality as smaller coordinate spaces
+#  are used instead. Also, referring to both images and coordinate spaces
+#  as "haystacks" is confusing.
 class Vision:
     """
-    The primary object used for locating images on the display. All
-    coordinates are relative to the display's dimensoins. Coordinate
+    The primary object method for locating images on the display. All
+    coordinates are relative to the display's dimensions. Coordinate
     units are in pixels.
 
     Parameters:
@@ -79,7 +82,8 @@ class Vision:
         self.height = height
 
     def mlocate(self, needle, loctype='regular', conf=0.95):
-        """Searches the haystack image for the needle image, returning a
+        """
+        Searches the haystack image for the needle image, returning a
         tuple containing the needle's XY coordinates within the
         haystack. If a haystack image is not provided, this function
         searches the entire client window.
