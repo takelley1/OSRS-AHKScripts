@@ -1,6 +1,6 @@
 ## OldSchoolRunescape AutoHotkey Scripts
 
-**Active development has ceased on this repo, though it may resume in the future when I have more free time. PRs are welcome.** 
+**This bot is currently being rewritten in Python. See the develop branch for current status.** 
 
 This repo contains scripts for cannonball smelting, magic splashing, mining, spinning flax, running the Blast Furnace, and runecrafting. Not all scripts are fully functional.
 
