@@ -1,5 +1,4 @@
 - Add a "terminology.md" file to the docs/ dir to describe terms like "needle" and "haystack."
-- Add .gitignore file to gitignore
 - Remove self.haystack from mlocate and redefine "coordinate space" as "haystack."
 - Integrate Sphinx for docs
 - Create unit tests for basic low-level functions, such as those in input.py.
