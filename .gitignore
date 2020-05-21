@@ -1,10 +1,20 @@
+# PyCharm files
 .idea
-todo.md
-.pytest_cache/
 ocvbot/main/__pycache__/
-ocvbot/tests/haystacks/
 Project.xml
+
+# PyTest files
+.pytest_cache/
+
+# Python files
 venv_cpython/
+
+# Sensitive files
 */password
 */username
+
+# Temporary files
 */.screenshot*
+
+# Test files
+ocvbot/tests/haystacks/
