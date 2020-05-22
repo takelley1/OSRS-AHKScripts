@@ -1,13 +1,10 @@
 import logging as log
 import random as rand
-import sys
 
 import pyautogui as pag
 
 from ocvbot import CLIENT_WIDTH, CLIENT_HEIGHT
 from ocvbot import misc
-
-sys.setrecursionlimit(9999)
 
 
 def click_coord(left, top, width, height, button='left'):
@@ -16,21 +13,23 @@ def click_coord(left, top, width, height, button='left'):
     0, then this function will click in the exact same location every
     time.
 
-    Arguments:
-        left: The left edge (x) of the coordinate space to click within.
+    Args:
+        left (int): The left edge (x) of the coordinate space to click
+                    within.
+        top (int): The top edge (y) of the coordinate space to click
+                   within.
+        width (int): The x width of the coordinate space to randomize
+                     the click within.
+        height (int): The y height of the coordinate space to randomize
+                      the click within.
+        button (str): The mouse button to click with, default is left.
 
-        top: The top edge (y) of the coordinate space to click within.
-
-        width: The x width of the coordinate space to randomize the
-        click within.
-
-        height: The y height of the coordinate space to randomize the
-        click within.
-
-        button (default = left): The mouse button to click with.
-        """
+    Returns:
+        Always returns 0.
+    """
     move_to(left, top, xmin=0, xmax=width, ymin=0, ymax=height)
     click(button=button)
+    return 0
 
 
 def move_to(x, y, xmax, ymax, xmin=0, ymin=0,
@@ -39,13 +38,21 @@ def move_to(x, y, xmax, ymax, xmin=0, ymin=0,
     Moves the mouse pointer to the specified coordinates. Coordinates
     are relative to the display's dimensions. Units are in pixels.
 
-    Arguments:
-        x: The X coordinate to move the mouse to.
-        y: The Y coordinate to move the mouse to.
-        xmax: The maximum random pixel offset from x.
-        ymax: The maximum random pixel offset from y.
-        xmin (default = 0) The minimum random pixel offset from x.
-        ymin (default = 0) The minimum random pixel offset from y.
+    Args:
+        x (int): The X coordinate to move the mouse to.
+        y (int): The Y coordinate to move the mouse to.
+        xmax (int): The maximum random pixel offset from x.
+        ymax (int): The maximum random pixel offset from y.
+        xmin  (int): The minimum random pixel offset from x, default is
+                     0.
+        ymin (int): The minimum random pixel offset from y, default is
+                     0.
+        duration_min (int): The minumum number of miliseconds to take to
+                            move the mouse cursor to its destination,
+                            default is 50.
+        duration_max (int): The maximum number of miliseconds to take to
+                            move the mouse cursor to its destination,
+                            default is 1500.
 
     Returns:
         Always returns 0.
@@ -68,9 +75,10 @@ def move_away(direction=rand.choice(['left', 'right'])):
     of the client window, away from wherever it clicked, to prevent
     tooltips from interfering with the script.
 
-    Arguments:
-        direction (default = [random]): Which side of the screen to move
-        the mouse (left or right).
+    Args:
+        direction: Which side of the screen to move the mouse, by
+                   default this function randomly selects between left
+                   and right.
 
     Returns:
         Always returns 0.
@@ -105,12 +113,11 @@ def move_to_neutral(x, y, xmin=50, xmax=300, ymin=300, ymax=500):
     tooltop icons that could get in the way of the script. Units are in
     pixels.
 
-    Arguments:
-        xmin (default = 50) : The minimum X-distance to move.
-        xmax (default = 300): The maximum X-distance to move.
-
-        ymin (default = 300): The minimum Y-distance to move.
-        ymax (default = 500): The maximum X-distance to move.
+    Args:
+        xmin (int): The minimum X-distance to move, default is 50.
+        xmax (int): The maximum X-distance to move, default is 300.
+        ymin (int): The minimum Y-distance to move, default is 300.
+        ymax (int): The maximum X-distance to move, default is 500.
 
     Returns:
         Always returns 0.
@@ -130,28 +137,22 @@ def click(button='left',
     Clicks the left or right mouse button, waiting before and after
     for a randomized period of time.
 
-    Arguments:
-        button (default = 'left'): Which mouse button to click (left or
-        right)
-
-        sleep_before_min (default = 0)  : Minimum number of miliseconds to
-        wait before clicking.
-
-        sleep_before_max (default = 500): Maximum number of miliseconds to
-        wait before clicking.
-
-        sleep_after_min (default = 0)   : Minimum number of miliseconds to
-        wait after clicking.
-
-        sleep_after_max (default = 500) : Maximum number of miliseconds to
-        wait after clicking.
-
-        click_duration_min (default = 0) : Minimum number of miliseconds to
-        hold down the mouse button.
-
-        click_duration_max (default = 100) : Maximum number of miliseconds to
-        hold down the mouse button.
-
+    Args:
+        button (str): Which mouse button to click, default is left.
+        sleep_before_min (int): Minimum number of miliseconds to
+                                wait before clicking, default is 0.
+        sleep_before_max (int): Maximum number of miliseconds to
+                                wait before clicking, default is 500.
+        sleep_after_min (int): Minimum number of miliseconds to
+                               wait after clicking, default is 0.
+        sleep_after_max (int): Maximum number of miliseconds to
+                               wait after clicking, default is 500.
+        click_duration_min (int): Minimum number of miliseconds to
+                                  hold down the mouse button, default
+                                  is 0.
+        click_duration_max (int): Maximum number of miliseconds to
+                                  hold down the mouse button, default is
+                                  100.
     Returns:
         Always returns 0.
     """
@@ -175,13 +176,13 @@ def move_duration(move_duration_min=50, move_duration_max=1500):
     new location. Input arguments are in miliseconds but return value is
     in seconds.
 
-    Arguments:
-        move_duration_min (default = 50): Minimum number of miliseconds the
-        mouse pointer will take to move to its destination.
-
-        move_duration_max (default = 1500): Maximum number of miliseconds the
-        mouse pointer will take to move to its destination.
-
+    Args:
+        move_duration_min (int): Minimum number of miliseconds the mouse
+                                 pointer will take to move to its
+                                 destination, default is 50.
+        move_duration_max (int): Maximum number of miliseconds the mouse
+                                 pointer will take to move to its
+                                 destination, default is 1500.
     Returns:
         Returns a float.
     """
@@ -199,24 +200,21 @@ def keypress(key,
     Holds down the specified key for a random period of time. All
     values are in miliseconds.
 
-    Arguments:
-        key: The key on the keyboard to press, according to PyAutoGUI.
-
-        timedown_min (default = 1): The shortest time the key can be
-        down.
-        timedown_max (default = 180): The longest time the key can be
-        down.
-
-        sleep_before_min (default = 50): The shortest time to wait before
-        pressing the key down.
-        sleep_before_max (default = 1000): The longest time to wait before
-        pressing the key down.
-
-        sleep_after_min (default = 50): The shortest time to wait after
-        releasing the key.
-        sleep_after_max (default = 1000): The longest time to wait after
-        releasing the key.
-
+    Args:
+        key (str): The key on the keyboard to press, according to
+                   PyAutoGUI.
+        timedown_min (int): The shortest time the key can be
+                            down, default is 1.
+        timedown_max (int): The longest time the key can be
+                            down, default is 180.
+        sleep_before_min (int): The shortest time to wait before
+                                pressing the key down, default is 50.
+        sleep_before_max (int): The longest time to wait before
+                                pressing the key down, default is 1000.
+        sleep_after_min (int): The shortest time to wait after
+                               releasing the key, default is 50.
+        sleep_after_max (int): The longest time to wait after
+                               releasing the key, default is 1000.
     Returns:
         Always returns 0.
     """
@@ -237,20 +235,16 @@ def double_hotkey_press(key1, key2, timedown_min=5, timedown_max=190,
     Performs a two-key hotkey shortcut, such as Ctrl-c for copying
     text.
 
-    Arguments:
-        key1: The first hotkey used in the two-hotkey shortcut.
-        Sometimes also called the modifier key.
-
-        key2: The second hotkey used in the two-hotkey shortcut.
-
-        timedown_min (default = 5): See keypress()'s docstring.
-        timedown_max (default = 190): See keypress()'s docstring.
-
-        before_min (default = 500): See keypress()'s docstring.
-        before_max (default = 1000): See keypress()'s docstring.
-
-        after_min (default = 500): See keypress()'s docstring.
-        after_max (default = 1000): See keypress()'s docstring.
+    Args:
+        key1 (str): The first hotkey used in the two-hotkey shortcut,
+                    sometimes also called the modifier key.
+        key2 (str): The second hotkey used in the two-hotkey shortcut.
+        timedown_min (int): See keypress()'s docstring, default is 5.
+        timedown_max (int): See keypress()'s docstring, default is 190.
+        before_min (int): See keypress()'s docstring, default is 500.
+        before_max (int): See keypress()'s docstring, default is 1000.
+        after_min (int): See keypress()'s docstring, default is 500.
+        after_max (int): See keypress()'s docstring, default is 1000.
 
     Returns:
         Always returns 0.
