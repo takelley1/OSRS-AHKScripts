@@ -10,8 +10,6 @@ from ocvbot import DISPLAY_WIDTH, DISPLAY_HEIGHT
 from ocvbot import skilling
 from ocvbot import vision as vis
 
-sys.setrecursionlimit(9999)
-
 
 def mining_lumbridge():
     """
@@ -54,7 +52,7 @@ def mining_varrock_east():
             ore='./ocvbot/needles/items/iron-ore.png')
         if miner == 0:
             log.info('Reorienting client')
-            vis.find_anchor(DISPLAY_WIDTH, DISPLAY_HEIGHT)
+            vis.orient(DISPLAY_WIDTH, DISPLAY_HEIGHT)
 
 def cannonball_smelter():
 
@@ -388,4 +386,6 @@ endrunbutton.config(width='13', height='1')
 
 #gui.title('PyScape v0.01')
 #gui.mainloop()
+
+vis.init_vision()
 mining_varrock_east()

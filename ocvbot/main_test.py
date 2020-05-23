@@ -14,15 +14,19 @@ from ocvbot import vision as vis
 
 
 def kill(procname):
-    """Kills the provided process by name."""
+    """
+    Kills the provided process by name.
+    """
     for proc in psutil.process_iter():
         if proc.name() == procname:
             proc.kill()
 
 
 def test_cannonball_smelter():
-    """Full simulation of the cannonball_smelter script using
-    screenshots."""
+    """
+    Full simulation of the cannonball_smelter script using
+    screenshots.
+    """
 
     interval = 0.05
 

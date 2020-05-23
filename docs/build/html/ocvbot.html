@@ -1,0 +1,664 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ocvbot package &#8212; ocvbot 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="ocvbot" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="ocvbot-package">
+<h1>ocvbot package<a class="headerlink" href="#ocvbot-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-ocvbot.behavior">
+<span id="ocvbot-behavior-module"></span><h2>ocvbot.behavior module<a class="headerlink" href="#module-ocvbot.behavior" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="ocvbot.behavior.drop_item_rapid">
+<code class="sig-prename descclassname">ocvbot.behavior.</code><code class="sig-name descname">drop_item_rapid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.behavior.drop_item_rapid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drops all instances of the provided item from the inventory. Assumes
+the inventory is already open.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> (<em>file</em>) – Filepath to an image of the item to drop, as it
+appears in the player’s inventory.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ocvbot.behavior.login">
+<code class="sig-prename descclassname">ocvbot.behavior.</code><code class="sig-name descname">login</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">username_file</span><span class="o">=</span><span class="default_value">'username'</span></em>, <em class="sig-param"><span class="n">password_file</span><span class="o">=</span><span class="default_value">'password'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.behavior.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs in in using credentials specified in two files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username_file</strong> (<em>file</em>) – The filepath of the file containing the
+user’s username. Filepath is relative to
+the directory this file is in, default is
+a file simply called “username”.</p></li>
+<li><p><strong>password_file</strong> (<em>file</em>) – The filepath of the file containing the
+user’s password. Filepath is relative to
+the directory this file is in, default is
+a file simply called “password”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Raises a runtime error if the login screen cannot be found.</strong> – </p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Always returns 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ocvbot.behavior.wait_rand">
+<code class="sig-prename descclassname">ocvbot.behavior.</code><code class="sig-name descname">wait_rand</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chance</span></em>, <em class="sig-param"><span class="n">wait_min</span><span class="o">=</span><span class="default_value">10000</span></em>, <em class="sig-param"><span class="n">wait_max</span><span class="o">=</span><span class="default_value">60000</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.behavior.wait_rand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Roll for a chance to do nothing for the specified period of time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chance</strong> (<em>int</em>) – The number that must be rolled for the wait to be
+called. For example, if change is 25, then there
+is a 1 in 25 chance for the roll to pass.</p></li>
+<li><p><strong>wait_min</strong> (<em>int</em>) – The minimum number of miliseconds to wait if the
+roll passes, default is 10000.</p></li>
+<li><p><strong>wait_max</strong> (<em>int</em>) – The maximum number of miliseconds to wait if the
+roll passes, default is 60000.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Always returns 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ocvbot.input">
+<span id="ocvbot-input-module"></span><h2>ocvbot.input module<a class="headerlink" href="#module-ocvbot.input" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="ocvbot.input.click">
+<code class="sig-prename descclassname">ocvbot.input.</code><code class="sig-name descname">click</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">button</span><span class="o">=</span><span class="default_value">'left'</span></em>, <em class="sig-param"><span class="n">sleep_before_min</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sleep_before_max</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">sleep_after_min</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sleep_after_max</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">click_duration_min</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">click_duration_max</span><span class="o">=</span><span class="default_value">100</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.input.click" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clicks the left or right mouse button, waiting before and after
+for a randomized period of time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>button</strong> (<em>str</em>) – Which mouse button to click, default is left.</p></li>
+<li><p><strong>sleep_before_min</strong> (<em>int</em>) – Minimum number of miliseconds to
+wait before clicking, default is 0.</p></li>
+<li><p><strong>sleep_before_max</strong> (<em>int</em>) – Maximum number of miliseconds to
+wait before clicking, default is 500.</p></li>
+<li><p><strong>sleep_after_min</strong> (<em>int</em>) – Minimum number of miliseconds to
+wait after clicking, default is 0.</p></li>
+<li><p><strong>sleep_after_max</strong> (<em>int</em>) – Maximum number of miliseconds to
+wait after clicking, default is 500.</p></li>
+<li><p><strong>click_duration_min</strong> (<em>int</em>) – Minimum number of miliseconds to
+hold down the mouse button, default
+is 0.</p></li>
+<li><p><strong>click_duration_max</strong> (<em>int</em>) – Maximum number of miliseconds to
+hold down the mouse button, default is
+100.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Always returns 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ocvbot.input.click_coord">
+<code class="sig-prename descclassname">ocvbot.input.</code><code class="sig-name descname">click_coord</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">left</span></em>, <em class="sig-param"><span class="n">top</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">button</span><span class="o">=</span><span class="default_value">'left'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.input.click_coord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clicks within the provided coordinates. If width and height are both
+0, then this function will click in the exact same location every
+time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>left</strong> (<em>int</em>) – The left edge (x) of the coordinate space to click
+within.</p></li>
+<li><p><strong>top</strong> (<em>int</em>) – The top edge (y) of the coordinate space to click
+within.</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – The x width of the coordinate space to randomize
+the click within.</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – The y height of the coordinate space to randomize
+the click within.</p></li>
+<li><p><strong>button</strong> (<em>str</em>) – The mouse button to click with, default is left.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Always returns 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ocvbot.input.double_hotkey_press">
+<code class="sig-prename descclassname">ocvbot.input.</code><code class="sig-name descname">double_hotkey_press</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key1</span></em>, <em class="sig-param"><span class="n">key2</span></em>, <em class="sig-param"><span class="n">timedown_min</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">timedown_max</span><span class="o">=</span><span class="default_value">190</span></em>, <em class="sig-param"><span class="n">before_min</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">before_max</span><span class="o">=</span><span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">after_min</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">after_max</span><span class="o">=</span><span class="default_value">1000</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.input.double_hotkey_press" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a two-key hotkey shortcut, such as Ctrl-c for copying
+text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key1</strong> (<em>str</em>) – The first hotkey used in the two-hotkey shortcut,
+sometimes also called the modifier key.</p></li>
+<li><p><strong>key2</strong> (<em>str</em>) – The second hotkey used in the two-hotkey shortcut.</p></li>
+<li><p><strong>timedown_min</strong> (<em>int</em>) – See keypress()’s docstring, default is 5.</p></li>
+<li><p><strong>timedown_max</strong> (<em>int</em>) – See keypress()’s docstring, default is 190.</p></li>
+<li><p><strong>before_min</strong> (<em>int</em>) – See keypress()’s docstring, default is 500.</p></li>
+<li><p><strong>before_max</strong> (<em>int</em>) – See keypress()’s docstring, default is 1000.</p></li>
+<li><p><strong>after_min</strong> (<em>int</em>) – See keypress()’s docstring, default is 500.</p></li>
+<li><p><strong>after_max</strong> (<em>int</em>) – See keypress()’s docstring, default is 1000.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Always returns 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ocvbot.input.keypress">
+<code class="sig-prename descclassname">ocvbot.input.</code><code class="sig-name descname">keypress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">timedown_min</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">timedown_max</span><span class="o">=</span><span class="default_value">180</span></em>, <em class="sig-param"><span class="n">sleep_before_min</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">sleep_before_max</span><span class="o">=</span><span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">sleep_after_min</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">sleep_after_max</span><span class="o">=</span><span class="default_value">1000</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.input.keypress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds down the specified key for a random period of time. All
+values are in miliseconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>str</em>) – The key on the keyboard to press, according to
+PyAutoGUI.</p></li>
+<li><p><strong>timedown_min</strong> (<em>int</em>) – The shortest time the key can be
+down, default is 1.</p></li>
+<li><p><strong>timedown_max</strong> (<em>int</em>) – The longest time the key can be
+down, default is 180.</p></li>
+<li><p><strong>sleep_before_min</strong> (<em>int</em>) – The shortest time to wait before
+pressing the key down, default is 50.</p></li>
+<li><p><strong>sleep_before_max</strong> (<em>int</em>) – The longest time to wait before
+pressing the key down, default is 1000.</p></li>
+<li><p><strong>sleep_after_min</strong> (<em>int</em>) – The shortest time to wait after
+releasing the key, default is 50.</p></li>
+<li><p><strong>sleep_after_max</strong> (<em>int</em>) – The longest time to wait after
+releasing the key, default is 1000.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Always returns 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ocvbot.input.move_away">
+<code class="sig-prename descclassname">ocvbot.input.</code><code class="sig-name descname">move_away</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">direction</span><span class="o">=</span><span class="default_value">'left'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.input.move_away" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves the mouse to a random spot on right half or the left half
+of the client window, away from wherever it clicked, to prevent
+tooltips from interfering with the script.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>direction</strong> – Which side of the screen to move the mouse, by
+default this function randomly selects between left
+and right.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Always returns 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ocvbot.input.move_duration">
+<code class="sig-prename descclassname">ocvbot.input.</code><code class="sig-name descname">move_duration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">move_duration_min</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">move_duration_max</span><span class="o">=</span><span class="default_value">1500</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.input.move_duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomizes the amount of time the mouse cursor takes to move to a
+new location. Input arguments are in miliseconds but return value is
+in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>move_duration_min</strong> (<em>int</em>) – Minimum number of miliseconds the mouse
+pointer will take to move to its
+destination, default is 50.</p></li>
+<li><p><strong>move_duration_max</strong> (<em>int</em>) – Maximum number of miliseconds the mouse
+pointer will take to move to its
+destination, default is 1500.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a float.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ocvbot.input.move_path">
+<code class="sig-prename descclassname">ocvbot.input.</code><code class="sig-name descname">move_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.input.move_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomizes the movement behavior of the mouse cursor as it moves
+to a new location. One of 22 different movement patters is chosen at
+random.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Returns a random PyAutoGUI function for different mouse
+movement.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ocvbot.input.move_to">
+<code class="sig-prename descclassname">ocvbot.input.</code><code class="sig-name descname">move_to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">xmax</span></em>, <em class="sig-param"><span class="n">ymax</span></em>, <em class="sig-param"><span class="n">xmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">ymin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">duration_min</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">duration_max</span><span class="o">=</span><span class="default_value">1500</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.input.move_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves the mouse pointer to the specified coordinates. Coordinates
+are relative to the display’s dimensions. Units are in pixels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>int</em>) – The X coordinate to move the mouse to.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) – The Y coordinate to move the mouse to.</p></li>
+<li><p><strong>xmax</strong> (<em>int</em>) – The maximum random pixel offset from x.</p></li>
+<li><p><strong>ymax</strong> (<em>int</em>) – The maximum random pixel offset from y.</p></li>
+<li><p><strong>xmin</strong> (<em>int</em>) – The minimum random pixel offset from x, default is
+0.</p></li>
+<li><p><strong>ymin</strong> (<em>int</em>) – The minimum random pixel offset from y, default is
+0.</p></li>
+<li><p><strong>duration_min</strong> (<em>int</em>) – The minumum number of miliseconds to take to
+move the mouse cursor to its destination,
+default is 50.</p></li>
+<li><p><strong>duration_max</strong> (<em>int</em>) – The maximum number of miliseconds to take to
+move the mouse cursor to its destination,
+default is 1500.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Always returns 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ocvbot.input.move_to_neutral">
+<code class="sig-prename descclassname">ocvbot.input.</code><code class="sig-name descname">move_to_neutral</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">xmin</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">xmax</span><span class="o">=</span><span class="default_value">300</span></em>, <em class="sig-param"><span class="n">ymin</span><span class="o">=</span><span class="default_value">300</span></em>, <em class="sig-param"><span class="n">ymax</span><span class="o">=</span><span class="default_value">500</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.input.move_to_neutral" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves the mouse to a ‘neutral zone’, away from any buttons or
+tooltop icons that could get in the way of the script. Units are in
+pixels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xmin</strong> (<em>int</em>) – The minimum X-distance to move, default is 50.</p></li>
+<li><p><strong>xmax</strong> (<em>int</em>) – The maximum X-distance to move, default is 300.</p></li>
+<li><p><strong>ymin</strong> (<em>int</em>) – The minimum Y-distance to move, default is 300.</p></li>
+<li><p><strong>ymax</strong> (<em>int</em>) – The maximum X-distance to move, default is 500.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Always returns 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="ocvbot-main-module">
+<h2>ocvbot.main module<a class="headerlink" href="#ocvbot-main-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-ocvbot.main_test">
+<span id="ocvbot-main-test-module"></span><h2>ocvbot.main_test module<a class="headerlink" href="#module-ocvbot.main_test" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="ocvbot.main_test.kill">
+<code class="sig-prename descclassname">ocvbot.main_test.</code><code class="sig-name descname">kill</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">procname</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.main_test.kill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kills the provided process by name.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ocvbot.main_test.test_cannonball_smelter">
+<code class="sig-prename descclassname">ocvbot.main_test.</code><code class="sig-name descname">test_cannonball_smelter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.main_test.test_cannonball_smelter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Full simulation of the cannonball_smelter script using
+screenshots.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ocvbot.misc">
+<span id="ocvbot-misc-module"></span><h2>ocvbot.misc module<a class="headerlink" href="#module-ocvbot.misc" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="ocvbot.misc.rand_seconds">
+<code class="sig-prename descclassname">ocvbot.misc.</code><code class="sig-name descname">rand_seconds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">rmax</span><span class="o">=</span><span class="default_value">100</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.misc.rand_seconds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a random integer between two values. Input arguments are in
+miliseconds but output is in seconds. For example, if this function
+generates a random value of 391, it will return a value of 0.391.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rmin</strong> (<em>int</em>) – The minimum number of miliseconds, default is 0.</p></li>
+<li><p><strong>rmax</strong> (<em>int</em>) – The maximum number of miliseconds, default
+is 100.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a float.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ocvbot.misc.sleep_rand">
+<code class="sig-prename descclassname">ocvbot.misc.</code><code class="sig-name descname">sleep_rand</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">rmax</span><span class="o">=</span><span class="default_value">100</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.misc.sleep_rand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does nothing for a random period of time. Input arguments are in
+miliseconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rmin</strong> (<em>int</em>) – The minimum number of miliseconds to wait, default
+is 0.</p></li>
+<li><p><strong>rmax</strong> (<em>int</em>) – The maximum number of miliseconds to wait, default
+is 100.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Always returns 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ocvbot.skilling">
+<span id="ocvbot-skilling-module"></span><h2>ocvbot.skilling module<a class="headerlink" href="#module-ocvbot.skilling" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="ocvbot.skilling.miner_double_drop">
+<code class="sig-prename descclassname">ocvbot.skilling.</code><code class="sig-name descname">miner_double_drop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rock1</span></em>, <em class="sig-param"><span class="n">rock2</span></em>, <em class="sig-param"><span class="n">ore</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.skilling.miner_double_drop" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 2-rock drop mining script. The player alternates mining between
+two different rocks containing the same ore. Ore is dropped when
+inventory is full.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rock1</strong> (<em>file</em>) – Filepath to a needle showing the first rock is
+full.</p></li>
+<li><p><strong>rock2</strong> (<em>file</em>) – Filepath to a needle showing the second rock is
+full.</p></li>
+<li><p><strong>ore</strong> (<em>file</em>) – Filepath to a needle of the item icon of the ore
+being mined.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Reutrns:</dt><dd><p>Always returns 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ocvbot.vision">
+<span id="ocvbot-vision-module"></span><h2>ocvbot.vision module<a class="headerlink" href="#module-ocvbot.vision" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="ocvbot.vision.Vision">
+<em class="property">class </em><code class="sig-prename descclassname">ocvbot.vision.</code><code class="sig-name descname">Vision</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">left</span></em>, <em class="sig-param"><span class="n">top</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">grayscale</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.vision.Vision" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The primary object method for locating images on the display. All
+coordinates are relative to the display’s dimensions. Coordinate
+units are in pixels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grayscale</strong> (<em>bool</em>) – Converts the haystack to grayscale before
+searching within it. Speeds up searching by
+about 30%, default is false.</p></li>
+<li><p><strong>left</strong> (<em>int</em>) – The left edge (x) of the coordinate space to search
+within for the needle.</p></li>
+<li><p><strong>top</strong> (<em>int</em>) – The top edge (y) of the coordinate space to search
+within for the needle.</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – The total x width of the coordinate space to search
+within for the needle (going right from left).</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – The total y height of the coordinate space to
+search within for the needle (going down from
+top).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="ocvbot.vision.Vision.click_image">
+<code class="sig-name descname">click_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">needle</span></em>, <em class="sig-param"><span class="n">button</span><span class="o">=</span><span class="default_value">'left'</span></em>, <em class="sig-param"><span class="n">conf</span><span class="o">=</span><span class="default_value">0.95</span></em>, <em class="sig-param"><span class="n">loop_num</span><span class="o">=</span><span class="default_value">25</span></em>, <em class="sig-param"><span class="n">loop_sleep_min</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">loop_sleep_max</span><span class="o">=</span><span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">click_sleep_before_min</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">click_sleep_before_max</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">click_sleep_after_min</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">click_sleep_after_max</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">move_duration_min</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">move_duration_max</span><span class="o">=</span><span class="default_value">1500</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.vision.Vision.click_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves the mouse to the provided needle image and clicks on
+it. If a haystack is provided, searches for the provided needle
+image within the haystack’s coordinates. If a haystack is not
+provided, searches within the entire display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>button</strong> (<em>str</em>) – The mouse button to use when clicking on the,
+default is left.</p></li>
+<li><p><strong>needle</strong> (<em>file</em>) – See mlocate()’s docstring.</p></li>
+<li><p><strong>conf</strong> (<em>float</em>) – See mlocate()’s docstring, default is 0.95.</p></li>
+<li><p><strong>loop_num</strong> (<em>int</em>) – See wait_for_image()’s docstring, default is
+10.</p></li>
+<li><p><strong>loop_sleep_min</strong> (<em>int</em>) – See wait_for_image()’s docstring,
+default is 10.</p></li>
+<li><p><strong>loop_sleep_max</strong> (<em>int</em>) – See wait_for_image()’s docstring,
+default is 1000.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>See mlocate()’s docstring.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ocvbot.vision.Vision.drop_all_item">
+<code class="sig-name descname">drop_all_item</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.vision.Vision.drop_all_item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drops all instances of the given inventory item.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ocvbot.vision.Vision.mlocate">
+<code class="sig-name descname">mlocate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">needle</span></em>, <em class="sig-param"><span class="n">loctype</span><span class="o">=</span><span class="default_value">'regular'</span></em>, <em class="sig-param"><span class="n">conf</span><span class="o">=</span><span class="default_value">0.95</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.vision.Vision.mlocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches the haystack image for the needle image, returning a
+tuple containing the needle’s XY coordinates within the
+haystack. If a haystack image is not provided, this function
+searches the entire client window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>needle</strong> – The image to search within the haystack or
+left/top/width/height coordinate space for.
+Must be a filepath.</p></li>
+<li><p><strong>loctype</strong> (<em>str</em>) – <dl class="simple">
+<dt>The method and/or haystack used to search for</dt><dd><p>images. If a haystack is provided, this
+parameter is ignored, default is regular.</p>
+</dd>
+<dt>regular = Searches the client window. If the needle is</dt><dd><p>found, returns the needle’s left, top, width,
+and height.</p>
+</dd>
+<dt>center = Searches the client window. If the needle is</dt><dd><p>found, returns the XY coordinates of its
+center, relative to the coordinate plane of the
+haystack image.</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>conf</strong> (<em>float</em>) – The confidence value required to match the
+image successfully, expressed as a
+decimal &lt;= 1. This is used by Pyautogui,
+default is 0.95.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If the needle is found, and loctype is regular, returns the
+needle’s left/top/width/height parameters as a tuple. If the
+needle is found and loctype is center, returns coordinates
+of the needle’s center as a tuple. If the needle is not
+found, returns 1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ocvbot.vision.Vision.wait_for_image">
+<code class="sig-name descname">wait_for_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">needle</span></em>, <em class="sig-param"><span class="n">loctype</span><span class="o">=</span><span class="default_value">'regular'</span></em>, <em class="sig-param"><span class="n">conf</span><span class="o">=</span><span class="default_value">0.95</span></em>, <em class="sig-param"><span class="n">loop_num</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">loop_sleep_min</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">loop_sleep_max</span><span class="o">=</span><span class="default_value">1000</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.vision.Vision.wait_for_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Repeatedly searches within the haystack or coordinate space
+for the needle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>needle</strong> – See mlocate()’s docstring.</p></li>
+<li><p><strong>loctype</strong> (<em>str</em>) – see mlocate()’s docstring, default is
+regular.</p></li>
+<li><p><strong>conf</strong> (<em>float</em>) – See mlocate()’s docstring, default is 0.95</p></li>
+<li><p><strong>loop_num</strong> (<em>int</em>) – The number of times to search for
+the needle before giving up, default is 10.</p></li>
+<li><p><strong>loop_sleep_min</strong> (<em>int</em>) – The minimum number of miliseconds to
+wait after each search attempt,
+default is 10.</p></li>
+<li><p><strong>loop_sleep_max</strong> (<em>int</em>) – The maximum number of miliseconds to
+wait after wach search attempt,
+default is 1000.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>See mlocate()’s docstring.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="ocvbot.vision.init_vision">
+<code class="sig-prename descclassname">ocvbot.vision.</code><code class="sig-name descname">init_vision</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.vision.init_vision" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the core objects for the Vision class.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ocvbot.vision.orient">
+<code class="sig-prename descclassname">ocvbot.vision.</code><code class="sig-name descname">orient</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">display_width</span></em>, <em class="sig-param"><span class="n">display_height</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ocvbot.vision.orient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Look for an icon to orient the client. If it’s found, use its
+location within the game client to determine the coordinates of
+the game client relative to the display’s coordinates.</p>
+<p>This function is also used to determine if the client is logged out.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>display_width</strong> (<em>int</em>) – The total width of the display in pixels.</p></li>
+<li><p><strong>display_height</strong> (<em>int</em>) – The total height of the display in pixels.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Raises a runtime error if the client cannot be found</strong><strong>, or </strong><strong>if the</strong> – </p></li>
+<li><p><strong>function can't determine if the client is logged in</strong><strong> or </strong><strong>logged</strong> – </p></li>
+<li><p><strong>out.</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>If client is logged in, returns a string containing the text
+“logged_in” and a tuple containing the center XY coordinates of
+the orient needle.</p>
+<p>If client is logged out, returns a string containing the text
+“logged_out” and a tuple containing the center XY coordinates
+of the orient-logged-out needle.</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ocvbot">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ocvbot" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ocvbot</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">ocvbot</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ocvbot package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">ocvbot</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">ocvbot</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Austin Kelley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/ocvbot.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

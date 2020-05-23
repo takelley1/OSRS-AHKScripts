@@ -1,6 +1,7 @@
 import pyautogui as pag
 
-from ocvbot import vdisplay, input, misc
+from ocvbot import input, misc
+from ocvbot.vision import vdisplay
 
 
 def main():
