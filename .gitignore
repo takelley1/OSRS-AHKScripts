@@ -13,6 +13,9 @@ venv_cpython/
 */password
 */username
 
+# Sphinx files
+.doctrees
+
 # Temporary files
 */.screenshot*
 
