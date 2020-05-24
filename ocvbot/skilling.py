@@ -6,8 +6,8 @@ from ocvbot import behavior as behav, input
 def miner_double_drop(rock1, rock2, ore):
     """
     A 2-rock drop mining script. The player alternates mining between
-    two different rocks containing the same ore. All ore and gems are
-    dropped when inventory is full.
+    two different rocks containing the same ore. All ore, gems, and
+    geodes are dropped when inventory is full.
 
     Args:
         rock1 (file): Filepath to a needle showing the first rock is
@@ -85,6 +85,8 @@ def miner_double_drop(rock1, rock2, ore):
                                              'uncut-ruby.png')
                         behav.drop_item(item='./needles/items/'
                                              'uncut-emerald.png')
+                        behav.drop_item(item='./needles/items/'
+                                             'clue-geode.png')
                         return 0
                     elif inv_full == 1:
                         return 0
