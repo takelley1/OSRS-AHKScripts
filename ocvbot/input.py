@@ -27,6 +27,7 @@ def click_coord(left, top, width, height, button='left'):
     Returns:
         Always returns 0.
     """
+
     move_to(left, top, xmin=0, xmax=width, ymin=0, ymax=height)
     click(button=button)
     return 0
