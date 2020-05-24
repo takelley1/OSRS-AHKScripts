@@ -29,6 +29,26 @@ def check_experience(skill)
 
 def open_menu_rand()
 
+def open_menu(ocvbot-menu)
+if ocvbot-menu == 'prayers'
+    menu_open = vsion.click_image(needle='./prayers')
+    if menu_open == 0:
+        menu_open = vision.wait_for_image(needle='prayer_x')
+        if menu_open == 0:
+            return 0
+        else:
+            return 1
+else:
+    return 1
+elif ocvbot-menu == 'inventory'
+elif ocvbot-menu == 'magic'
+elif ocvbot-menu == 'equipment'
+elif ocvbot-menu == 'logout'
+
+def logout()
+    open_menu(logout)
+
+def switch_worlds()
 """
 
 
@@ -197,26 +217,3 @@ def drop_item(item):
         return 1
     else:
         return 0
-
-"""
-def open_menu(ocvbot-menu)
-  if ocvbot-menu == 'prayers'
-    menu_open = vsion.click_image(needle='./prayers')
-    if menu_open == 0:
-      menu_open = vision.wait_for_image(needle='prayer_x')
-        if menu_open == 0:
-          return 0
-        else:
-          return 1
-    else:
-      return 1
-  elif ocvbot-menu == 'inventory'
-  elif ocvbot-menu == 'magic'
-  elif ocvbot-menu == 'equipment'
-  elif ocvbot-menu == 'logout'
-
-def logout()
-  open_menu(logout)
-
-def switch_worlds()
-"""
