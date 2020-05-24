@@ -23,6 +23,9 @@ vgame_screen = ''
 vchat_menu = ''
 vchat_menu_recent = ''
 
+vclient_left = ''
+vclient_top = ''
+
 
 def init_vision():
     """
@@ -31,7 +34,8 @@ def init_vision():
 
     (return_status, anchor) = orient(display_width=DISPLAY_WIDTH,
                                      display_height=DISPLAY_HEIGHT)
-    (client_left, client_top) = anchor
+    global vclient_left, vclient_top
+    (vclient_left, vclient_top) = anchor
 
     client_left -= 748
     client_top -= 21
@@ -41,60 +45,60 @@ def init_vision():
     #   needles within the "client" object's coordinates, rather than
     #   within the entire display's coordinates, which is much faster.
     global vclient
-    vclient = Vision(left=client_left, width=CLIENT_WIDTH,
-                     top=client_top, height=CLIENT_HEIGHT)
+    vclient = Vision(left=vclient_left, width=CLIENT_WIDTH,
+                     top=vclient_top, height=CLIENT_HEIGHT)
 
     # The player's inventory.
     global vinv
-    inv_left = client_left + 548
-    inv_top = client_top + 205
-    vinv = Vision(left=inv_left, top=inv_top,
+    vinv_left = vclient_left + 548
+    vinv_top = vclient_top + 205
+    vinv = Vision(left=vinv_left, top=vinv_top,
                   width=INV_WIDTH, height=INV_HEIGHT)
 
     # Bottom half of the player's inventory.
     global vinv_bottom
-    inv_bottom_left = inv_left
-    inv_bottom_top = inv_top + (round(INV_HEIGHT / 2))
-    vinv_bottom = Vision(left=inv_bottom_left, top=inv_bottom_top,
+    vinv_bottom_left = vinv_left
+    vinv_bottom_top = vinv_top + (round(INV_HEIGHT / 2))
+    vinv_bottom = Vision(left=vinv_bottom_left, top=vinv_bottom_top,
                          width=INV_WIDTH, height=(round(INV_HEIGHT / 2)))
 
     # Right half of the player's inventory.
     global vinv_right_half
-    inv_right_half_left = inv_left + (round(INV_WIDTH / 2))
-    inv_right_half_top = inv_top
-    vinv_right_half = Vision(left=inv_right_half_left, top=inv_right_half_top,
+    vinv_right_half_left = vinv_left + (round(INV_WIDTH / 2))
+    vinv_right_half_top = vinv_top
+    vinv_right_half = Vision(left=vinv_right_half_left, top=vinv_right_half_top,
                              width=(round(INV_WIDTH / 2)), height=INV_HEIGHT)
 
     # Left half of the player's inventory.
     global vinv_left_half
-    inv_left_half_left = inv_left
-    inv_left_half_top = inv_top
-    vinv_left_half = Vision(left=inv_left_half_left,
-                            top=inv_left_half_top,
+    vinv_left_half_left = vinv_left
+    vinv_left_half_top = vinv_top
+    vinv_left_half = Vision(left=vinv_left_half_left,
+                            top=vinv_left_half_top,
                             # Add 5 since rounding is slightly off.
                             width=((round(INV_WIDTH / 2)) + 5),
                             height=INV_HEIGHT)
 
     # Gameplay screen.
     global vgame_screen
-    game_screen_left = client_left + 4
-    game_screen_top = client_top + 4
-    vgame_screen = Vision(left=game_screen_left, top=game_screen_top,
+    vgame_screen_left = vclient_left + 4
+    vgame_screen_top = vclient_top + 4
+    vgame_screen = Vision(left=vgame_screen_left, top=vgame_screen_top,
                           width=GAME_SCREEN_WIDTH, height=GAME_SCREEN_HEIGHT)
 
     # Chat menu.
     global vchat_menu
-    chat_menu_left = client_left + 7
-    chat_menu_top = client_top + 345
-    vchat_menu = Vision(left=chat_menu_left, top=chat_menu_top,
+    vchat_menu_left = vclient_left + 7
+    vchat_menu_top = vclient_top + 345
+    vchat_menu = Vision(left=vchat_menu_left, top=vchat_menu_top,
                         width=CHAT_MENU_WIDTH, height=CHAT_MENU_HEIGHT)
 
     # The most recent chat message.
     global vchat_menu_recent
-    chat_menu_recent_left = chat_menu_left + 2
-    chat_menu_recent_top = chat_menu_top + 100
-    vchat_menu_recent = Vision(left=chat_menu_recent_left,
-                               top=chat_menu_recent_top,
+    vchat_menu_recent_left = vchat_menu_left + 2
+    vchat_menu_recent_top = vchat_menu_top + 100
+    vchat_menu_recent = Vision(left=vchat_menu_recent_left,
+                               top=vchat_menu_recent_top,
                                width=CHAT_MENU_RECENT_WIDTH,
                                height=CHAT_MENU_RECENT_HEIGHT)
 
@@ -136,7 +140,7 @@ def orient(display_width, display_height):
                        width=display_width,
                        height=display_height) \
         .wait_for_image(needle='needles/minimap/orient.png',
-                        loctype='center', loop_num=2)
+                        loctype='center', loop_num=2, conf=0.8)
     if logged_in != 1:
         return 'logged_in', logged_in
 
