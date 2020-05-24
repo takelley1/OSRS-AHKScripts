@@ -41,6 +41,12 @@ def miner_double_drop(rock1, rock2, ore,
     #   values.
     from ocvbot.vision import vchat_menu, vchat_menu_recent, vgame_screen
 
+    log.info('drop_sapphire= ' + str(drop_sapphire) +
+             ' drop_emerald= ' + str(drop_emerald) +
+             ' drop_ruby= ' + str(drop_ruby) +
+             ' drop_diamond= ' + str(drop_diamond) +
+             ' drop_clue_geode= ' + str(drop_clue_geode))
+
     for attempts in range(1, 100):
 
         for rock_needle in (rock1, rock2):

@@ -1,0 +1,6 @@
+# miner_double_drop() function
+drop_sapphire: True
+drop_emerald: True
+drop_ruby: True
+drop_diamond: False
+drop_clue_geode: True

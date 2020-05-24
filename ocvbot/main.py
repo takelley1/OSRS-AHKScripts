@@ -1,14 +1,17 @@
 import sys
 import logging as log
+import yaml
 
 #from PIL import ImageOps
 #import tkinter
 #from tkinter import ttk
 #import yaml
 
-from ocvbot import DISPLAY_WIDTH, DISPLAY_HEIGHT
-from ocvbot import skilling
-from ocvbot import vision as vis
+from ocvbot import DISPLAY_WIDTH, DISPLAY_HEIGHT,\
+    skilling, vision as vis
+
+with open('./config.yaml') as config:
+    config_file = yaml.safe_load(config)
 
 
 def mining_lumbridge():
@@ -22,13 +25,13 @@ def mining_lumbridge():
     the correct zoom and brightness settings.
     """
 
-    while True:
-        skilling.miner_double_drop(
-            rock1='./needles/game-screen/lumbridge-mine/'
-                  'south-full.png',
-            rock2='./needles/game-screen/lumbridge-mine/'
-                  'east-full.png',
-            ore='./needles/items/copper-ore.png')
+    #while True:
+        #skilling.miner_double_drop(
+            #rock1='./needles/game-screen/lumbridge-mine/'
+                  #'south-full.png',
+            #rock2='./needles/game-screen/lumbridge-mine/'
+                  #'east-full.png',
+            #ore='./needles/items/copper-ore.png')
 
 
 def mining_varrock_east():
@@ -54,7 +57,11 @@ def mining_varrock_east():
                    './needles/game-screen/varrock-east-mine/'
                    'west-empty.png'),
             ore='./needles/items/iron-ore.png',
-            drop_diamond=False)
+            drop_sapphire=config_file['drop_sapphire'],
+            drop_emerald=config_file['drop_emerald'],
+            drop_ruby=config_file['drop_ruby'],
+            drop_diamond=config_file['drop_diamond'],
+            drop_clue_geode=config_file['drop_clue_geode'])
         if miner == 0:
             log.info('Reorienting client')
             vis.orient(DISPLAY_WIDTH, DISPLAY_HEIGHT)
