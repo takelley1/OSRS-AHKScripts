@@ -103,11 +103,45 @@ def wait_rand(chance, wait_min=10000, wait_max=60000):
     Returns:
         Always returns 0.
     """
+
     wait_roll = rand.randint(1, chance)
     if wait_roll == chance:
         log.info('Random wait called.')
         sleeptime = misc.rand_seconds(wait_min, wait_max)
-        log.info('Sleeping for ' + str(sleeptime) + 'seconds.')
+        log.info('Sleeping for ' + str(round(sleeptime)) + ' seconds.')
+        time.sleep(sleeptime)
+    return 0
+
+
+def logout_rand(chance, wait_min=5, wait_max=120):
+    """
+    Random chance to logout of the client and wait. Units are in minutes.
+
+    Args:
+        chance (int): See wait_rand()'s docstring.
+        wait_min (int): The minimum number of minutes to wait if the
+                        roll passes, default is 5.
+        wait_max (int): The maximum number of minutes to wait if the
+                        roll passes, default is 120.
+
+    Returns:
+        Always returns 0.
+    """
+
+    # Convert to miliseconds.
+    wait_min *= 60000
+    wait_max *= 60000
+
+    logout_roll = rand.randint(1, chance)
+    if logout_roll == chance:
+        log.info('Random logout called.')
+        # TODO: add logout()
+        #logout()
+
+        sleeptime = misc.rand_seconds(wait_min, wait_max)
+        # Convert to minutes for logging
+        sleeptime_minutes = sleeptime / 60000
+        log.info('Sleeping for ' + str(sleeptime_minutes) + 'minutes.')
         time.sleep(sleeptime)
     return 0
 
@@ -121,6 +155,7 @@ def drop_item(item):
        item (file): Filepath to an image of the item to drop, as it
                     appears in the player's inventory.
     """
+
     from ocvbot.vision import vinv, vinv_bottom
 
     log.info('Dropping item.')
