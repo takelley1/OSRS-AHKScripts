@@ -1,7 +1,6 @@
 import logging as log
 
 from ocvbot import behavior as behav
-from ocvbot.vision import vchat_menu, vchat_menu_recent, vgame_screen
 
 
 def miner_double_drop(rock1, rock2, ore):
@@ -21,6 +20,10 @@ def miner_double_drop(rock1, rock2, ore):
     Reutrns:
         Always returns 0.
     """
+    # Vision objects have to be imported within functions because the
+    #   init_vision() function has to run before the objects get valid
+    #   values.
+    from ocvbot.vision import vchat_menu, vchat_menu_recent, vgame_screen
 
     for attempts in range(1, 50):
 
@@ -48,7 +51,7 @@ def miner_double_drop(rock1, rock2, ore):
                 # Once the rock has been clicked on, wait for mining to start
                 #   by monitoring chat.
                 mining_started = vchat_menu_recent. \
-                    wait_for_image('./ocvbot/needles/chat-menu/'
+                    wait_for_image('./needles/chat-menu/'
                                    'mining-started.png',
                                    conf=0.9,
                                    loop_sleep_min=100,
@@ -61,14 +64,14 @@ def miner_double_drop(rock1, rock2, ore):
                     log.debug('Timed out waiting for mining to start.')
 
                     inv_full = vchat_menu. \
-                        wait_for_image(needle='./ocvbot/needles/chat-menu/'
+                        wait_for_image(needle='./needles/chat-menu/'
                                               'mining-inventory-full.png',
                                        loop_num=1)
                     # If the inventory is full, empty the ore and
                     #   return.
                     if inv_full != 1:
                         log.info('Inventory is full.')
-                        behav.drop_item_rapid(item=ore)
+                        behav.drop_item(item=ore)
                         return 0
                     elif inv_full == 1:
                         return 0
