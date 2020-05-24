@@ -10,12 +10,17 @@ def miner_double_drop(rock1, rock2, ore):
     geodes are dropped when inventory is full.
 
     Args:
-        rock1 (file): Filepath to a needle showing the first rock is
-                      full.
-        rock2 (file): Filepath to a needle showing the second rock is
-                      full.
+        rock1 (tuple): Tuple containing two filepaths: The first file
+                       must be a needle showing the first rock is
+                       full. The second file must be a needle showing
+                       the first rock is empty.
+        rock2 (tuple): Tuple containing two filepaths: The first file
+                       must be a needle showing the second rock is
+                       full. The second file must be a needle showing
+                       the second rock is empty.
         ore (file): Filepath to a needle of the item icon of the ore
-                    being mined.
+                    being mined, as it appears in the player's
+                    inventory.
 
     Reutrns:
         Always returns 0.
