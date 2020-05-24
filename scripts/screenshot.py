@@ -12,12 +12,11 @@ def main():
     client window. Useful for running on demand manually.
     """
 
-    os.chdir('tests')
     orient = vis.Vision(left=0, top=0, width=1920, height=1080)
 
     # First check to see if the client is logged in.
     orient_logged_in = orient.mlocate(
-        needle='../ocvbot/needles/orient.png', loctype='center')
+        needle='./needles/minimap/orient.png', loctype='center')
     if orient_logged_in != 1:
         (x, y) = orient_logged_in
         x -= 748
@@ -27,7 +26,7 @@ def main():
     elif orient_logged_in == 1:
         # If the client is not logged in, try a different anchor.
         orient_logged_out = orient.mlocate(
-            needle='../ocvbot/needles/login-menu/orient-logged-out.png',
+            needle='./needles/login-menu/orient-logged-out.png',
             loctype='center')
         (x, y) = orient_logged_out
         x -= 183
