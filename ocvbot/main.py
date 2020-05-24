@@ -45,14 +45,19 @@ def mining_varrock_east():
 
     while True:
         miner = skilling.miner_double_drop(
-            rock1='./needles/game-screen/varrock-east-mine/'
-                  'north-full2.png',
-            rock2='./needles/game-screen/varrock-east-mine/'
-                  'west-full.png',
+            rock1=('./needles/game-screen/varrock-east-mine/'
+                   'north-full2.png',
+                   './needles/game-screen/varrock-east-mine/'
+                   'north-empty.png'),
+            rock2=('./needles/game-screen/varrock-east-mine/'
+                   'west-full.png',
+                   './needles/game-screen/varrock-east-mine/'
+                   'west-empty.png'),
             ore='./needles/items/iron-ore.png')
         if miner == 0:
             log.info('Reorienting client')
             vis.orient(DISPLAY_WIDTH, DISPLAY_HEIGHT)
+
 
 def cannonball_smelter():
 

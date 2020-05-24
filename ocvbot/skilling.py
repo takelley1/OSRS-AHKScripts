@@ -28,7 +28,10 @@ def miner_double_drop(rock1, rock2, ore):
 
     for attempts in range(1, 50):
 
-        for rock in (rock1, rock2):
+        for rock_needle in (rock1, rock2):
+            # Unpack the "rock" tuple to obtain "full" and "empty"
+            #   versions of each rock image.
+            (rfull_needle, rempty_needle) = rock_needle
 
             # Small chance to do nothing for a short while.
             behav.wait_rand(chance=200, wait_min=10000, wait_max=60000)
@@ -36,7 +39,7 @@ def miner_double_drop(rock1, rock2, ore):
             log.info('Searching for ore ' + str(attempts) + '...')
 
             # If first rock is full, begin mining it.
-            rock_full = vgame_screen.click_image(needle=rock,
+            rock_full = vgame_screen.click_image(needle=rfull_needle,
                                                  conf=0.85,
                                                  move_durmin=10,
                                                  move_durmax=500,
@@ -90,19 +93,13 @@ def miner_double_drop(rock1, rock2, ore):
 
                 # Wait until the rock is empty by waiting until the
                 #   "rock" needle can no longer be found.
-                rock_status = vgame_screen.wait_for_image(needle=rock,
-                                                          conf=0.7,
-                                                          loop_num=1)
-                tries = 0
-                while rock_status != 1 and tries <= 20:
-                    rock_status = vgame_screen.wait_for_image(needle=rock,
-                                                              conf=0.7,
-                                                              loop_num=1)
-                    tries += 1
+                rock_status = vgame_screen.wait_for_image(needle=rempty_needle,
+                                                          conf=0.85,
+                                                          loop_num=30)
 
-                if rock_status == 1:
+                if rock_status != 1:
                     log.info('Rock is empty.')
-                    log.debug(str(rock) + ' empty.')
-                elif tries > 20:
+                    log.debug(str(rock_needle) + ' empty.')
+                elif rock_status == 1:
                     log.info('Timed out waiting for mining to finish.')
     return 0
