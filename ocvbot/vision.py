@@ -13,9 +13,12 @@ from ocvbot import CLIENT_WIDTH, CLIENT_HEIGHT,\
 
 vclient = ''
 vdisplay = ''
+
 vinv = ''
 vinv_bottom = ''
 vinv_right_half = ''
+vinv_left_half = ''
+
 vgame_screen = ''
 vchat_menu = ''
 vchat_menu_recent = ''
@@ -41,42 +44,52 @@ def init_vision():
     vclient = Vision(left=client_left, width=CLIENT_WIDTH,
                      top=client_top, height=CLIENT_HEIGHT)
 
-    # Create an object for the player's inventory.
+    # The player's inventory.
     global vinv
     inv_left = client_left + 548
     inv_top = client_top + 205
     vinv = Vision(left=inv_left, top=inv_top,
                   width=INV_WIDTH, height=INV_HEIGHT)
 
-    # And another object for the bottom half of the player's inventory.
+    # Bottom half of the player's inventory.
     global vinv_bottom
     inv_bottom_left = inv_left
     inv_bottom_top = inv_top + (round(INV_HEIGHT / 2))
     vinv_bottom = Vision(left=inv_bottom_left, top=inv_bottom_top,
                          width=INV_WIDTH, height=(round(INV_HEIGHT / 2)))
 
-    # And another object for the right half of the player's inventory.
+    # Right half of the player's inventory.
     global vinv_right_half
     inv_right_half_left = inv_left + (round(INV_WIDTH / 2))
     inv_right_half_top = inv_top
     vinv_right_half = Vision(left=inv_right_half_left, top=inv_right_half_top,
                              width=(round(INV_WIDTH / 2)), height=INV_HEIGHT)
 
-    # Same thing for the gameplay screen.
+    # Left half of the player's inventory.
+    global vinv_left_half
+    inv_left_half_left = inv_left
+    inv_left_half_top = inv_top
+    vinv_left_half = Vision(left=inv_left_half_left,
+                            top=inv_left_half_top,
+                            # Add 5 since rounding is slightly off.
+                            width=((round(INV_WIDTH / 2)) + 5),
+                            height=INV_HEIGHT)
+
+    # Gameplay screen.
     global vgame_screen
     game_screen_left = client_left + 4
     game_screen_top = client_top + 4
     vgame_screen = Vision(left=game_screen_left, top=game_screen_top,
                           width=GAME_SCREEN_WIDTH, height=GAME_SCREEN_HEIGHT)
 
-    # And the chat menu.
+    # Chat menu.
     global vchat_menu
     chat_menu_left = client_left + 7
     chat_menu_top = client_top + 345
     vchat_menu = Vision(left=chat_menu_left, top=chat_menu_top,
                         width=CHAT_MENU_WIDTH, height=CHAT_MENU_HEIGHT)
 
-    # Another object for checking the most recent chat message.
+    # The most recent chat message.
     global vchat_menu_recent
     chat_menu_recent_left = chat_menu_left + 2
     chat_menu_recent_top = chat_menu_top + 100
@@ -85,7 +98,7 @@ def init_vision():
                                width=CHAT_MENU_RECENT_WIDTH,
                                height=CHAT_MENU_RECENT_HEIGHT)
 
-    # Another object for searching the entire display.
+    # The entire display.
     global vdisplay
     vdisplay = Vision(left=0, width=DISPLAY_WIDTH,
                       top=0, height=DISPLAY_HEIGHT)
