@@ -135,10 +135,16 @@ def move_to_neutral(x, y,
     pixels.
 
     Args:
-        xmin (int): The minimum X-distance to move, default is 50.
-        xmax (int): The maximum X-distance to move, default is 300.
-        ymin (int): The minimum Y-distance to move, default is 300.
-        ymax (int): The maximum X-distance to move, default is 500.
+        x (int): The x coordinate to move to.
+        y (int): The y coordinate to move to.
+        xmin (int): The minimum X-distance away from x to move, default
+                    is 50.
+        xmax (int): The maximum X-distance away from x to move, default
+                    is 300.
+        ymin (int): The minimum Y-distance away from y to move, default
+                    is 300.
+        ymax (int): The maximum X-distance away from y to move, default
+                    is 500.
 
     Returns:
         Always returns 0.
