@@ -37,7 +37,7 @@ DISPLAY_WIDTH = pag.size().width
 DISPLAY_HEIGHT = pag.size().height
 
 log.basicConfig(format='%(asctime)s -- %(filename)s.%(funcName)s - %(message)s'
-                , level='DEBUG')
+                , level='INFO')
 
 # TODO: Find a better way to do this.
 # Clean up left over screenshots from failed runs.
