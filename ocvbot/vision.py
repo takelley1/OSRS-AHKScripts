@@ -5,36 +5,89 @@ import pyautogui as pag
 from ocvbot import input
 from ocvbot import misc
 from ocvbot import CLIENT_WIDTH, CLIENT_HEIGHT,\
-                   INV_WIDTH, INV_HEIGHT, \
                    GAME_SCREEN_WIDTH, GAME_SCREEN_HEIGHT, \
+                   INV_WIDTH, INV_HEIGHT, \
+                   INV_HALF_WIDTH, INV_HALF_HEIGHT, \
                    CHAT_MENU_WIDTH, CHAT_MENU_HEIGHT, \
                    CHAT_MENU_RECENT_WIDTH, CHAT_MENU_RECENT_HEIGHT, \
                    DISPLAY_WIDTH, DISPLAY_HEIGHT
 
-vclient = ''
+
 vdisplay = ''
 
-vinv = ''
-vinv_bottom = ''
-vinv_right_half = ''
-vinv_left_half = ''
-
-vgame_screen = ''
-vchat_menu = ''
-vchat_menu_recent = ''
-
+vclient = ''
 vclient_left = ''
 vclient_top = ''
+
+vinv = ''
+vinv_left = ''
+vinv_top = ''
+
+vinv_bottom = ''
+vinv_bottom_left = ''
+vinv_bottom_top = ''
+
+vinv_right_half = ''
+vinv_right_half_left = ''
+vinv_right_half_top = ''
+
+vinv_left_half = ''
+vinv_left_half_left = ''
+vinv_left_half_top = ''
+
+vgame_screen = ''
+vgame_screen_left = ''
+vgame_screen_top = ''
+
+vchat_menu = ''
+vchat_menu_left = ''
+vchat_menu_top = ''
+
+vchat_menu_recent = ''
+vchat_menu_recent_left = ''
+vchat_menu_recent_top = ''
 
 
 def init_vision():
     """
     Initializes the core objects for the Vision class.
     """
+    global vdisplay
+
+    global vclient
+    global vclient_left
+    global vclient_top
+
+    global vinv
+    global vinv_left
+    global vinv_top
+
+    global vinv_bottom
+    global vinv_bottom_left
+    global vinv_bottom_top
+
+    global vinv_right_half
+    global vinv_right_half_left
+    global vinv_right_half_top
+
+    global vinv_left_half
+    global vinv_left_half_left
+    global vinv_left_half_top
+
+    global vgame_screen
+    global vgame_screen_left
+    global vgame_screen_top
+
+    global vchat_menu
+    global vchat_menu_left
+    global vchat_menu_top
+
+    global vchat_menu_recent
+    global vchat_menu_recent_left
+    global vchat_menu_recent_top
 
     (return_status, anchor) = orient(display_width=DISPLAY_WIDTH,
                                      display_height=DISPLAY_HEIGHT)
-    global vclient_left, vclient_top
     (vclient_left, vclient_top) = anchor
 
     vclient_left -= 735
@@ -44,66 +97,58 @@ def init_vision():
     #   coordinates. This will allow other functions to search for
     #   needles within the "client" object's coordinates, rather than
     #   within the entire display's coordinates, which is much faster.
-    global vclient
     vclient = Vision(left=vclient_left, width=CLIENT_WIDTH,
                      top=vclient_top, height=CLIENT_HEIGHT)
 
     # The player's inventory.
-    global vinv
     vinv_left = vclient_left + 548
     vinv_top = vclient_top + 205
     vinv = Vision(left=vinv_left, top=vinv_top,
                   width=INV_WIDTH, height=INV_HEIGHT)
 
     # Bottom half of the player's inventory.
-    global vinv_bottom
     vinv_bottom_left = vinv_left
-    vinv_bottom_top = vinv_top + (round(INV_HEIGHT / 2))
+    vinv_bottom_top = vinv_top + INV_HALF_HEIGHT
     vinv_bottom = Vision(left=vinv_bottom_left, top=vinv_bottom_top,
-                         width=INV_WIDTH, height=(round(INV_HEIGHT / 2)))
+                         width=INV_WIDTH, height=INV_HALF_HEIGHT)
 
     # Right half of the player's inventory.
-    global vinv_right_half
-    vinv_right_half_left = vinv_left + (round(INV_WIDTH / 2))
+    vinv_right_half_left = (vinv_left + INV_HALF_WIDTH) - 5
     vinv_right_half_top = vinv_top
-    vinv_right_half = Vision(left=vinv_right_half_left, top=vinv_right_half_top,
-                             width=(round(INV_WIDTH / 2)), height=INV_HEIGHT)
+    vinv_right_half = Vision(left=vinv_right_half_left,
+                             top=vinv_right_half_top,
+                             width=INV_HALF_WIDTH,
+                             height=INV_HEIGHT)
 
     # Left half of the player's inventory.
-    global vinv_left_half
     vinv_left_half_left = vinv_left
     vinv_left_half_top = vinv_top
     vinv_left_half = Vision(left=vinv_left_half_left,
                             top=vinv_left_half_top,
-                            # Add 5 since rounding is slightly off.
-                            width=((round(INV_WIDTH / 2)) + 5),
+                            width=INV_HALF_WIDTH,
                             height=INV_HEIGHT)
 
     # Gameplay screen.
-    global vgame_screen
     vgame_screen_left = vclient_left + 4
     vgame_screen_top = vclient_top + 4
     vgame_screen = Vision(left=vgame_screen_left, top=vgame_screen_top,
                           width=GAME_SCREEN_WIDTH, height=GAME_SCREEN_HEIGHT)
 
     # Chat menu.
-    global vchat_menu
     vchat_menu_left = vclient_left + 7
     vchat_menu_top = vclient_top + 345
     vchat_menu = Vision(left=vchat_menu_left, top=vchat_menu_top,
                         width=CHAT_MENU_WIDTH, height=CHAT_MENU_HEIGHT)
 
     # The most recent chat message.
-    global vchat_menu_recent
-    vchat_menu_recent_left = vchat_menu_left + 2
-    vchat_menu_recent_top = vchat_menu_top + 100
+    vchat_menu_recent_left = vchat_menu_left - 3
+    vchat_menu_recent_top = vchat_menu_top + 98
     vchat_menu_recent = Vision(left=vchat_menu_recent_left,
                                top=vchat_menu_recent_top,
                                width=CHAT_MENU_RECENT_WIDTH,
                                height=CHAT_MENU_RECENT_HEIGHT)
 
     # The entire display.
-    global vdisplay
     vdisplay = Vision(left=0, width=DISPLAY_WIDTH,
                       top=0, height=DISPLAY_HEIGHT)
     return 0
