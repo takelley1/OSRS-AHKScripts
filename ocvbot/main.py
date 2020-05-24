@@ -15,10 +15,10 @@ def mining_lumbridge():
     """
     Script for mining copper in the Lumbridge mine in Lumbridge swamp.
 
-    See "./ocvbot/needles/game-screen/lumbridge-mine/location.png" for the
+    See "./needles/game-screen/lumbridge-mine/location.png" for the
     starting location.
 
-    See "./ocvbot/needles/game-screen/lumbridge-mine/client-settings" for
+    See "./needles/game-screen/lumbridge-mine/client-settings" for
     the correct zoom and brightness settings.
     """
 
@@ -35,10 +35,10 @@ def mining_varrock_east():
     """
     Script for mining iron in the eastern Varrock mine.
 
-    See "./ocvbot/needles/game-screen/varrock-east-mine/location.png" for the
+    See "./needles/game-screen/varrock-east-mine/location.png" for the
     starting location.
 
-    See "./ocvbot/needles/game-screen/varrock-east-mine/client-settings" for
+    See "./needles/game-screen/varrock-east-mine/client-settings" for
     the correct zoom and brightness settings.
     """
     log.info('Began mining_varrock_east()')
