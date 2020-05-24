@@ -37,8 +37,8 @@ def init_vision():
     global vclient_left, vclient_top
     (vclient_left, vclient_top) = anchor
 
-    client_left -= 748
-    client_top -= 21
+    vclient_left -= 735
+    vclient_top -= 21
 
     # Now we can create an object with the game client's X and Y
     #   coordinates. This will allow other functions to search for
