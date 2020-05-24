@@ -147,6 +147,25 @@ def wait_rand(chance, wait_min=10000, wait_max=60000):
     return 0
 
 
+def logout():
+    """
+    If the client is logged in, logs out.
+    """
+    from ocvbot.vision import vclient
+    # First, make sure the client is logged in.
+    logged_in = vclient.wait_for_image(needle='./needles/minimap/'
+                                               'orient.png',
+                                       loop_num=50,
+                                       loop_sleep_min=1000,
+                                       loop_sleep_max=3000)
+    if logged_in != 1:
+        logout_menu = vclient.click_image(needle='./needles/game-menu/'
+                                                 'logout.png')
+        if logout_menu != 1:
+            logout_button
+    return
+
+
 def logout_rand(chance, wait_min=5, wait_max=120):
     """
     Random chance to logout of the client and wait. Units are in minutes.
