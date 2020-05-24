@@ -180,7 +180,7 @@ def drop_item(item):
 
     inv_full = vinv.wait_for_image(loop_num=1, needle=item)
     if inv_full != 1:
-        log.info('Dropping' + str(item) + '.')
+        log.info('Dropping ' + str(item) + '.')
     while inv_full != 1:
 
         pag.keyDown('shift')
@@ -188,20 +188,20 @@ def drop_item(item):
         #   right half of the player's inventory. This helps reduce the
         #   chances the bot will click on the same icon twice.
         vinv_right_half.click_image(loop_num=1,
-                                    click_sleep_before_min=10,
-                                    click_sleep_before_max=50,
-                                    click_sleep_after_min=50,
-                                    click_sleep_after_max=300,
-                                    move_duration_min=50,
-                                    move_duration_max=800,
+                                    click_sleep_befmin=10,
+                                    click_sleep_befmax=50,
+                                    click_sleep_afmin=50,
+                                    click_sleep_afmax=300,
+                                    move_durmin=50,
+                                    move_durmax=800,
                                     needle=item)
         vinv_left_half.click_image(loop_num=1,
-                                   click_sleep_before_min=10,
-                                   click_sleep_before_max=50,
-                                   click_sleep_after_min=50,
-                                   click_sleep_after_max=300,
-                                   move_duration_min=50,
-                                   move_duration_max=800,
+                                   click_sleep_befmin=10,
+                                   click_sleep_befmax=50,
+                                   click_sleep_afmin=50,
+                                   click_sleep_afmax=300,
+                                   move_durmin=50,
+                                   move_durmax=800,
                                    needle=item)
 
         # Search the entire inventory to make sure the item is/isn't
@@ -213,7 +213,7 @@ def drop_item(item):
             return 0
 
     if inv_full == 1:
-        log.info('Could not find' + str(item) + '.')
+        log.info('Could not find ' + str(item) + '.')
         return 1
     else:
         return 0
