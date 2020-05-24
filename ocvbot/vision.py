@@ -15,6 +15,7 @@ vclient = ''
 vdisplay = ''
 vinv = ''
 vinv_bottom = ''
+vinv_right_half = ''
 vgame_screen = ''
 vchat_menu = ''
 vchat_menu_recent = ''
@@ -40,19 +41,26 @@ def init_vision():
     vclient = Vision(left=client_left, width=CLIENT_WIDTH,
                      top=client_top, height=CLIENT_HEIGHT)
 
-    # Create another object for the player's inventory.
+    # Create an object for the player's inventory.
     global vinv
     inv_left = client_left + 548
     inv_top = client_top + 205
     vinv = Vision(left=inv_left, top=inv_top,
                   width=INV_WIDTH, height=INV_HEIGHT)
 
-    # And another object for the bottom half of the player's inventory
+    # And another object for the bottom half of the player's inventory.
     global vinv_bottom
     inv_bottom_left = inv_left
     inv_bottom_top = inv_top + (round(INV_HEIGHT / 2))
     vinv_bottom = Vision(left=inv_bottom_left, top=inv_bottom_top,
                          width=INV_WIDTH, height=(round(INV_HEIGHT / 2)))
+
+    # And another object for the right half of the player's inventory.
+    global vinv_right_half
+    inv_right_half_left = inv_left + (round(INV_WIDTH / 2))
+    inv_right_half_top = inv_top
+    vinv_right_half = Vision(left=inv_right_half_left, top=inv_right_half_top,
+                             width=(round(INV_WIDTH / 2)), height=INV_HEIGHT)
 
     # Same thing for the gameplay screen.
     global vgame_screen
