@@ -74,7 +74,8 @@ def login(username_file='username.txt', password_file='password.txt'):
     """
 
     from ocvbot.vision import vdisplay
-    logged_out = vdisplay.click_image(needle='./needles/orient-logged-out.png')
+    logged_out = vdisplay.click_image(needle='./needles/login-menu/'
+                                             'orient-logged-out.png')
     if logged_out == 1:
         raise RuntimeError("Cannot find client!")
     else:
