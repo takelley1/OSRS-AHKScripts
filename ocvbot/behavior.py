@@ -69,7 +69,7 @@ def login(username_file='username', password_file='password'):
         input.keypress('enter')
         misc.sleep_rand(8000, 20000)
         postlogin = vdisplay.click_image(needle='./needles/'
-                                                'orient-postlogin.png',
+                                         'login-menu/orient-postlogin.png',
                                          conf=0.8,
                                          loop_num=10,
                                          loop_sleep_max=5000)

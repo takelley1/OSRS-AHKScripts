@@ -114,7 +114,7 @@ def orient(display_width, display_height):
     logged_in = Vision(left=0, top=0,
                        width=display_width,
                        height=display_height) \
-        .wait_for_image(needle='needles/orient.png',
+        .wait_for_image(needle='needles/minimap/orient.png',
                         loctype='center', loop_num=2)
     if logged_in != 1:
         return 'logged_in', logged_in
@@ -125,7 +125,7 @@ def orient(display_width, display_height):
         logged_out = Vision(left=0, top=0,
                             width=display_width,
                             height=display_height) \
-            .wait_for_image(needle='needles/orient-logged-out.png',
+            .wait_for_image(needle='needles/login-menu/orient-logged-out.png',
                             loctype='center', loop_num=2)
         if logged_out != 1:
             return 'logged_out', logged_out

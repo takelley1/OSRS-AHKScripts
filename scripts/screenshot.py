@@ -27,7 +27,7 @@ def main():
     elif orient_logged_in == 1:
         # If the client is not logged in, try a different anchor.
         orient_logged_out = orient.mlocate(
-            needle='../ocvbot/needles/orient-logged-out.png',
+            needle='../ocvbot/needles/login-menu/orient-logged-out.png',
             loctype='center')
         (x, y) = orient_logged_out
         x -= 183

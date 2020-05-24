@@ -15,6 +15,8 @@ venv_cpython/
 
 # Sphinx files
 .doctrees
+docs/_build/rinoh/.doctrees
+docs/build/doctrees
 
 # Temporary files
 */.screenshot*
