@@ -1,9 +1,9 @@
 import logging as log
 import random as rand
+import time
 
 import pyautogui as pag
 
-from ocvbot.vision import vinv, vinv_bottom, vdisplay
 from ocvbot import input, misc
 
 # TODO
@@ -53,20 +53,30 @@ def login(username_file='username', password_file='password'):
         Always returns 0.
     """
 
+    from ocvbot.vision import vdisplay
     logged_out = vdisplay.click_image(needle='./needles/orient-logged-out.png')
     if logged_out == 1:
         raise RuntimeError("Cannot find client!")
     else:
-        misc.sleep_rand(200, 3000)
+        # Enter credentials.
+        misc.sleep_rand(500, 5000)
         input.keypress('enter')
-        misc.sleep_rand(200, 3000)
+        misc.sleep_rand(500, 5000)
         pag.typewrite(open(username_file, 'r').read())
-        misc.sleep_rand(200, 3000)
-        input.keypress('tab')
+        misc.sleep_rand(500, 5000)
         pag.typewrite(open(password_file, 'r').read())
-        misc.sleep_rand(200, 3000)
+        misc.sleep_rand(500, 5000)
         input.keypress('enter')
-    return 0
+        misc.sleep_rand(8000, 20000)
+        postlogin = vdisplay.click_image(needle='./needles/'
+                                                'orient-postlogin.png',
+                                         conf=0.8,
+                                         loop_num=10,
+                                         loop_sleep_max=5000)
+        if postlogin != 1:
+            return 0
+        else:
+            raise RuntimeError("Cannot log in!")
 
 
 def wait_rand(chance, wait_min=10000, wait_max=60000):
@@ -88,11 +98,13 @@ def wait_rand(chance, wait_min=10000, wait_max=60000):
     wait_roll = rand.randint(1, chance)
     if wait_roll == chance:
         log.info('Random wait called.')
-        misc.sleep_rand(wait_min, wait_max)
+        sleeptime = misc.rand_seconds(wait_min, wait_max)
+        log.info('Sleeping for ' + str(sleeptime) + 'seconds.')
+        time.sleep(sleeptime)
     return 0
 
 
-def drop_item_rapid(item):
+def drop_item(item):
     """
     Drops all instances of the provided item from the inventory. Assumes
     the inventory is already open.
@@ -101,6 +113,8 @@ def drop_item_rapid(item):
        item (file): Filepath to an image of the item to drop, as it
                     appears in the player's inventory.
     """
+    from ocvbot.vision import vinv, vinv_bottom
+
     log.info('Dropping item.')
     log.debug('Dropping' + str(item) + '.')
 
@@ -114,18 +128,18 @@ def drop_item_rapid(item):
         vinv_bottom.click_image(loop_num=1,
                                 click_sleep_before_min=0,
                                 click_sleep_before_max=50,
-                                click_sleep_after_min=0,
-                                click_sleep_after_max=50,
-                                move_duration_min=5,
-                                move_duration_max=200,
+                                click_sleep_after_min=100,
+                                click_sleep_after_max=300,
+                                move_duration_min=100,
+                                move_duration_max=1000,
                                 needle=item)
         inv_full = vinv.click_image(loop_num=1,
                                     click_sleep_before_min=0,
-                                    click_sleep_before_max=50,
+                                    click_sleep_before_max=100,
                                     click_sleep_after_min=0,
-                                    click_sleep_after_max=50,
-                                    move_duration_min=5,
-                                    move_duration_max=200,
+                                    click_sleep_after_max=100,
+                                    move_duration_min=100,
+                                    move_duration_max=1000,
                                     needle=item)
         pag.keyUp('shift')
         if inv_full == 1:
