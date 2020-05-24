@@ -20,6 +20,8 @@ CLIENT_HEIGHT = 503
 # Width and height of the inventory screen, in pixels.
 INV_WIDTH = 186
 INV_HEIGHT = 262
+INV_HALF_WIDTH = round((INV_WIDTH / 2) + 5)
+INV_HALF_HEIGHT = round(INV_HEIGHT / 2)
 
 # Width and height of just the game screen in the game client.
 GAME_SCREEN_WIDTH = 512
@@ -29,8 +31,8 @@ CHAT_MENU_WIDTH = 506
 CHAT_MENU_HEIGHT = 129
 
 # Dimensions of the most recent "line" in the chat history.
-CHAT_MENU_RECENT_WIDTH = 489
-CHAT_MENU_RECENT_HEIGHT = 14
+CHAT_MENU_RECENT_WIDTH = 490
+CHAT_MENU_RECENT_HEIGHT = 17
 
 # Get the display size in pixels.
 DISPLAY_WIDTH = pag.size().width
