@@ -304,7 +304,7 @@ class Vision:
             needle (file): See mlocate()'s docstring.
             conf (float): See mlocate()'s docstring, default is 0.95.
             loop_num (int): See wait_for_image()'s docstring, default is
-                            10.
+                            25.
             loop_sleep_min (int): See wait_for_image()'s docstring,
                                   default is 10.
             loop_sleep_max (int): See wait_for_image()'s docstring,
@@ -342,25 +342,3 @@ class Vision:
                         sleep_after_min=click_sleep_after_min,
                         sleep_after_max=click_sleep_after_max)
             return 0
-
-    def drop_all_item(self, item):
-        """
-        Drops all instances of the given inventory item.
-        """
-
-        # TODO: Use LocateAllOnScreen to make dropping items faster.
-        item_to_drop = self.wait_for_image(needle=item)
-        log.info('Dropping items.')
-        log.debug('Dropping' + str(item) + '.')
-
-        while item_to_drop != 1:
-            pag.keyDown('shift')
-            item_to_drop = self.click_image(loop_num=1,
-                                            click_sleep_before_min=0,
-                                            click_sleep_before_max=100,
-                                            move_duration_min=5,
-                                            move_duration_max=500,
-                                            needle=item)
-            pag.keyUp('shift')
-            misc.sleep_rand(100, 1000)
-        return 0
