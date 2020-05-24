@@ -43,7 +43,7 @@ def miner_double_drop(rock1, rock2, ore):
 
             log.info('Searching for ore ' + str(attempts) + '...')
 
-            # If first rock is full, begin mining it.
+            # If current rock is full, begin mining it.
             rock_full = vgame_screen.click_image(needle=rfull_needle,
                                                  conf=0.85,
                                                  move_durmin=10,
@@ -55,13 +55,13 @@ def miner_double_drop(rock1, rock2, ore):
                                                  loop_sleep_max=100,
                                                  loop_num=1)
             if rock_full != 1:
-                # Move the mouse away from the rock so it doesn't interfere
-                #   with matching the image.
+                # Move the mouse away from the rock so it doesn't
+                #   interfere with matching the needle.
                 input.moverel(xmin=15, xmax=100, ymin=15, ymax=100)
                 log.info('Waiting for mining to start.')
 
-                # Once the rock has been clicked on, wait for mining to start
-                #   by monitoring chat.
+                # Once the rock has been clicked on, wait for mining to
+                #   start by monitoring chat.
                 mining_started = vchat_menu_recent. \
                     wait_for_image('./needles/chat-menu/'
                                    'mining-started.png',
@@ -98,15 +98,15 @@ def miner_double_drop(rock1, rock2, ore):
 
                 log.info('Mining started.')
 
-                # Wait until the rock is empty by waiting until the
-                #   "rock" needle can no longer be found.
-                rock_status = vgame_screen.wait_for_image(needle=rempty_needle,
-                                                          conf=0.85,
-                                                          loop_num=30)
+                # Wait until the rock is empty by waiting for the
+                #   "empty" version of the rock_needle tuple.
+                rock_empty = vgame_screen.wait_for_image(needle=rempty_needle,
+                                                         conf=0.85,
+                                                         loop_num=30)
 
-                if rock_status != 1:
+                if rock_empty != 1:
                     log.info('Rock is empty.')
                     log.debug(str(rock_needle) + ' empty.')
-                elif rock_status == 1:
+                elif rock_empty == 1:
                     log.info('Timed out waiting for mining to finish.')
     return 0
