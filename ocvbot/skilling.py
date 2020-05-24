@@ -1,6 +1,6 @@
 import logging as log
 
-from ocvbot import behavior as behav
+from ocvbot import behavior as behav, input
 
 
 def miner_double_drop(rock1, rock2, ore):
@@ -31,22 +31,25 @@ def miner_double_drop(rock1, rock2, ore):
         for rock in (rock1, rock2):
 
             # Small chance to do nothing for a short while.
-            behav.wait_rand(chance=100, wait_min=10000, wait_max=60000)
+            behav.wait_rand(chance=200, wait_min=10000, wait_max=60000)
 
             log.info('Searching for ore ' + str(attempts) + '...')
 
             # If first rock is full, begin mining it.
             rock_full = vgame_screen.click_image(needle=rock,
-                                                 conf=0.9,
-                                                 move_duration_min=10,
-                                                 move_duration_max=500,
-                                                 click_sleep_before_min=0,
-                                                 click_sleep_before_max=100,
-                                                 click_sleep_after_min=0,
-                                                 click_sleep_after_max=100,
+                                                 conf=0.85,
+                                                 move_durmin=10,
+                                                 move_durmax=500,
+                                                 click_sleep_befmin=0,
+                                                 click_sleep_befmax=100,
+                                                 click_sleep_afmin=0,
+                                                 click_sleep_afmax=1,
                                                  loop_sleep_max=100,
                                                  loop_num=1)
             if rock_full != 1:
+                # Move the mouse away from the rock so it doesn't interfere
+                #   with matching the image.
+                input.moverel(xmin=15, xmax=100, ymin=15, ymax=100)
                 log.info('Waiting for mining to start.')
 
                 # Once the rock has been clicked on, wait for mining to start
@@ -74,9 +77,11 @@ def miner_double_drop(rock1, rock2, ore):
                         log.info('Inventory is full.')
                         behav.drop_item(item=ore)
                         behav.drop_item(item='./needles/items/'
+                                             'uncut-sapphire.png')
+                        behav.drop_item(item='./needles/items/'
                                              'uncut-ruby.png')
                         behav.drop_item(item='./needles/items/'
-                                             'uncut-sapphire.png')
+                                             'uncut-emerald.png')
                         return 0
                     elif inv_full == 1:
                         return 0
@@ -86,12 +91,12 @@ def miner_double_drop(rock1, rock2, ore):
                 # Wait until the rock is empty by waiting until the
                 #   "rock" needle can no longer be found.
                 rock_status = vgame_screen.wait_for_image(needle=rock,
-                                                          conf=0.75,
+                                                          conf=0.7,
                                                           loop_num=1)
                 tries = 0
                 while rock_status != 1 and tries <= 20:
                     rock_status = vgame_screen.wait_for_image(needle=rock,
-                                                              conf=0.75,
+                                                              conf=0.7,
                                                               loop_num=1)
                     tries += 1
 
