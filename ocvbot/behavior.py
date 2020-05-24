@@ -32,7 +32,7 @@ def open_menu_rand()
 """
 
 
-def login(username_file='username', password_file='password'):
+def login(username_file='username.txt', password_file='password.txt'):
     """
     Logs in in using credentials specified in two files.
 
@@ -156,7 +156,7 @@ def drop_item(item):
                     appears in the player's inventory.
     """
 
-    from ocvbot.vision import vinv, vinv_bottom
+    from ocvbot.vision import vinv, vinv_right_half
 
     log.info('Dropping item.')
     log.debug('Dropping' + str(item) + '.')
@@ -168,19 +168,19 @@ def drop_item(item):
         # Alternate between searching for the item in upper half and the
         #   lower half of the player's inventory. This helps reduce the
         #   chances the bot will click on the same icon twice.
-        vinv_bottom.click_image(loop_num=1,
-                                click_sleep_before_min=0,
-                                click_sleep_before_max=50,
-                                click_sleep_after_min=100,
-                                click_sleep_after_max=300,
-                                move_duration_min=100,
-                                move_duration_max=1000,
-                                needle=item)
+        vinv_right_half.click_image(loop_num=1,
+                                    click_sleep_before_min=10,
+                                    click_sleep_before_max=50,
+                                    click_sleep_after_min=100,
+                                    click_sleep_after_max=500,
+                                    move_duration_min=100,
+                                    move_duration_max=1000,
+                                    needle=item)
         inv_full = vinv.click_image(loop_num=1,
-                                    click_sleep_before_min=0,
+                                    click_sleep_before_min=10,
                                     click_sleep_before_max=100,
-                                    click_sleep_after_min=0,
-                                    click_sleep_after_max=100,
+                                    click_sleep_after_min=100,
+                                    click_sleep_after_max=500,
                                     move_duration_min=100,
                                     move_duration_max=1000,
                                     needle=item)
