@@ -109,7 +109,7 @@ def move_away(direction=rand.choice(['left', 'right'])):
     return 0
 
 
-def moverel(xmin, xmax, ymin, ymax, durmin, durmax):
+def moverel(xmin, xmax, ymin, ymax, durmin=50, durmax=1000):
     """
     Moves the mouse relative to its current position.
 
@@ -118,6 +118,11 @@ def moverel(xmin, xmax, ymin, ymax, durmin, durmax):
         xmax (int): The maximum X distance to move the mouse.
         ymin (int): The mininum Y distance to move the mouse.
         ymax (int): The maximum Y distance to move the mouse.
+        durmin (int): See move_duration()'s docstring.
+        durmax (int): See move_duration()'s docstring.
+
+    Returns:
+        Always returns 0.
     """
 
     x = rand.randint(xmin, xmax)
