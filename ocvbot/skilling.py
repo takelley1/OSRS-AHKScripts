@@ -6,8 +6,8 @@ from ocvbot import behavior as behav
 def miner_double_drop(rock1, rock2, ore):
     """
     A 2-rock drop mining script. The player alternates mining between
-    two different rocks containing the same ore. Ore is dropped when
-    inventory is full.
+    two different rocks containing the same ore. All ore and gems are
+    dropped when inventory is full.
 
     Args:
         rock1 (file): Filepath to a needle showing the first rock is
@@ -20,6 +20,7 @@ def miner_double_drop(rock1, rock2, ore):
     Reutrns:
         Always returns 0.
     """
+
     # Vision objects have to be imported within functions because the
     #   init_vision() function has to run before the objects get valid
     #   values.
@@ -72,6 +73,10 @@ def miner_double_drop(rock1, rock2, ore):
                     if inv_full != 1:
                         log.info('Inventory is full.')
                         behav.drop_item(item=ore)
+                        behav.drop_item(item='./needles/items/'
+                                             'uncut-ruby.png')
+                        behav.drop_item(item='./needles/items/'
+                                             'uncut-sapphire.png')
                         return 0
                     elif inv_full == 1:
                         return 0
