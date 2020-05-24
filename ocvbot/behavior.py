@@ -68,12 +68,20 @@ def login(username_file='username', password_file='password'):
         misc.sleep_rand(500, 5000)
         input.keypress('enter')
         misc.sleep_rand(8000, 20000)
+
+        # Click the 'click here to play' button in the postlogin menu.
         postlogin = vdisplay.click_image(needle='./needles/'
                                          'login-menu/orient-postlogin.png',
                                          conf=0.8,
                                          loop_num=10,
                                          loop_sleep_max=5000)
         if postlogin != 1:
+            # Make sure client camera is oriented correctly after
+            #   logging in.
+            misc.sleep_rand(8000, 20000)
+            pag.keyDown('Up')
+            misc.sleep_rand(3000, 8000)
+            pag.keyUp('Up')
             return 0
         else:
             raise RuntimeError("Cannot log in!")
