@@ -310,9 +310,9 @@ class Vision:
 
     def click_image(self, needle, button='left', conf=0.95,
                     loop_num=25, loop_sleep_min=10, loop_sleep_max=1000,
-                    click_sleep_before_min=0, click_sleep_before_max=500,
-                    click_sleep_after_min=0, click_sleep_after_max=500,
-                    move_duration_min=50, move_duration_max=1500):
+                    click_sleep_befmin=0, click_sleep_befmax=500,
+                    click_sleep_afmin=0, click_sleep_afmax=500,
+                    move_durmin=50, move_durmax=1500):
         """
         Moves the mouse to the provided needle image and clicks on
         it. If a haystack is provided, searches for the provided needle
@@ -320,9 +320,9 @@ class Vision:
         provided, searches within the entire display.
 
         Args:
+            needle (file): See mlocate()'s docstring.
             button (str): The mouse button to use when clicking on the,
                           default is left.
-            needle (file): See mlocate()'s docstring.
             conf (float): See mlocate()'s docstring, default is 0.95.
             loop_num (int): See wait_for_image()'s docstring, default is
                             25.
@@ -330,6 +330,24 @@ class Vision:
                                   default is 10.
             loop_sleep_max (int): See wait_for_image()'s docstring,
                                   default is 1000.
+            click_sleep_befmin (int): The minimum number of miliseconds
+                                      to wait before clicking the
+                                      needle, default is 0.
+            click_sleep_befmax (int): The maximum number of miliseconds
+                                      to wait before clicking the
+                                      needle, default is 500.
+            click_sleep_afmin (int): The minimum number of miliseconds
+                                     to wait after clicking the
+                                     needle, default is 0.
+            click_sleep_afmax (int): The maximum number of miliseconds
+                                     to wait after clicking the
+                                     needle, default is 0.
+            move_durmin (int): The minumum number of miliseconds to take
+                               to move the mouse cursor to the needle,
+                               default is 50.
+            move_durmax (int): The maximum number of miliseconds to take
+                               to move the mouse cursor to the needle,
+                               default is 1500.
 
         Returns:
             See mlocate()'s docstring.
@@ -352,14 +370,14 @@ class Vision:
             input.move_to(left, top,
                           xmin=0, xmax=width,
                           ymin=0, ymax=height,
-                          duration_min=move_duration_min,
-                          duration_max=move_duration_max)
+                          durmin=move_durmin,
+                          durmax=move_durmax)
 
             log.debug('Clicking on ' + str(needle) + '.')
 
             input.click(button=button,
-                        sleep_before_min=click_sleep_before_min,
-                        sleep_before_max=click_sleep_before_max,
-                        sleep_after_min=click_sleep_after_min,
-                        sleep_after_max=click_sleep_after_max)
+                        sleep_befmin=click_sleep_befmin,
+                        sleep_befmax=click_sleep_befmax,
+                        sleep_afmin=click_sleep_afmin,
+                        sleep_afmax=click_sleep_afmax)
             return 0
