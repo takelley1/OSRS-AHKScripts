@@ -200,6 +200,7 @@ def logout_rand(chance, wait_min=5, wait_max=120):
 
 
 def drop_item(item):
+    # TODO: select inventory if not already selected
     """
     Drops all instances of the provided item from the inventory. Assumes
     the inventory is already open.
