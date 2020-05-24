@@ -24,11 +24,11 @@ def mining_lumbridge():
 
     while True:
         skilling.miner_double_drop(
-            rock1='./ocvbot/needles/game-screen/lumbridge-mine/'
+            rock1='./needles/game-screen/lumbridge-mine/'
                   'south-full.png',
-            rock2='./ocvbot/needles/game-screen/lumbridge-mine/'
+            rock2='./needles/game-screen/lumbridge-mine/'
                   'east-full.png',
-            ore='./ocvbot/needles/items/copper-ore.png')
+            ore='./needles/items/copper-ore.png')
 
 
 def mining_varrock_east():
@@ -45,11 +45,11 @@ def mining_varrock_east():
 
     while True:
         miner = skilling.miner_double_drop(
-            rock1='./ocvbot/needles/game-screen/varrock-east-mine/'
+            rock1='./needles/game-screen/varrock-east-mine/'
                   'north-full2.png',
-            rock2='./ocvbot/needles/game-screen/varrock-east-mine/'
+            rock2='./needles/game-screen/varrock-east-mine/'
                   'west-full.png',
-            ore='./ocvbot/needles/items/iron-ore.png')
+            ore='./needles/items/iron-ore.png')
         if miner == 0:
             log.info('Reorienting client')
             vis.orient(DISPLAY_WIDTH, DISPLAY_HEIGHT)
