@@ -195,8 +195,10 @@ def drop_item(item):
     inv_full = vinv.wait_for_image(loop_num=1, needle=item)
     if inv_full != 1:
         log.info('Dropping ' + str(item) + '.')
-    while inv_full != 1:
+    tries = 0
+    while inv_full != 1 and tries <= 40:
 
+        tries += 1
         pag.keyDown('shift')
         # Alternate between searching for the item in left half and the
         #   right half of the player's inventory. This helps reduce the
@@ -228,6 +230,9 @@ def drop_item(item):
 
     if inv_full == 1:
         log.info('Could not find ' + str(item) + '.')
+        return 1
+    elif tries > 50:
+        log.error('Tried dropping item too many times!')
         return 1
     else:
         return 0
