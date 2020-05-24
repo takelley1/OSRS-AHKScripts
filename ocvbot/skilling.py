@@ -3,7 +3,12 @@ import logging as log
 from ocvbot import behavior as behav, input
 
 
-def miner_double_drop(rock1, rock2, ore):
+def miner_double_drop(rock1, rock2, ore,
+                      drop_sapphire=True,
+                      drop_emerald=True,
+                      drop_ruby=True,
+                      drop_diamond=True,
+                      drop_clue_geode=True):
     """
     A 2-rock drop mining script. The player alternates mining between
     two different rocks containing the same ore. All ore, gems, and
@@ -21,6 +26,11 @@ def miner_double_drop(rock1, rock2, ore):
         ore (file): Filepath to a needle of the item icon of the ore
                     being mined, as it appears in the player's
                     inventory.
+        drop_sapphire (bool): Drop mined uncut sapphires.
+        drop_emerald (bool): Drop mined uncut emearalds.
+        drop_ruby (bool): Drop mined uncut rubies.
+        drop_diamond (bool): Drop mined uncut diamonds.
+        drop_clue_geode (bool): Drop mined uncut clue geodes.
 
     Reutrns:
         Always returns 0.
@@ -31,22 +41,19 @@ def miner_double_drop(rock1, rock2, ore):
     #   values.
     from ocvbot.vision import vchat_menu, vchat_menu_recent, vgame_screen
 
-    for attempts in range(1, 50):
+    for attempts in range(1, 100):
 
         for rock_needle in (rock1, rock2):
             # Unpack the "rock" tuple to obtain "full" and "empty"
             #   versions of each rock image.
             (rfull_needle, rempty_needle) = rock_needle
 
-            # Small chance to do nothing for a short while.
-            behav.wait_rand(chance=200, wait_min=10000, wait_max=60000)
-
             log.info('Searching for ore ' + str(attempts) + '...')
 
             # If current rock is full, begin mining it.
             rock_full = vgame_screen.click_image(needle=rfull_needle,
-                                                 conf=0.85,
-                                                 move_durmin=10,
+                                                 conf=0.8,
+                                                 move_durmin=5,
                                                  move_durmax=500,
                                                  click_sleep_befmin=0,
                                                  click_sleep_befmax=100,
@@ -59,6 +66,9 @@ def miner_double_drop(rock1, rock2, ore):
                 #   interfere with matching the needle.
                 input.moverel(xmin=15, xmax=100, ymin=15, ymax=100)
                 log.info('Waiting for mining to start.')
+
+                # Small chance to do nothing for a short while.
+                behav.wait_rand(chance=100, wait_min=10000, wait_max=60000)
 
                 # Once the rock has been clicked on, wait for mining to
                 #   start by monitoring chat.
@@ -84,14 +94,21 @@ def miner_double_drop(rock1, rock2, ore):
                     if inv_full != 1:
                         log.info('Inventory is full.')
                         behav.drop_item(item=ore)
-                        behav.drop_item(item='./needles/items/'
-                                             'uncut-sapphire.png')
-                        behav.drop_item(item='./needles/items/'
-                                             'uncut-ruby.png')
-                        behav.drop_item(item='./needles/items/'
-                                             'uncut-emerald.png')
-                        behav.drop_item(item='./needles/items/'
-                                             'clue-geode.png')
+                        if drop_sapphire is True:
+                            behav.drop_item(item='./needles/items/'
+                                                 'uncut-sapphire.png')
+                        if drop_emerald is True:
+                            behav.drop_item(item='./needles/items/'
+                                                 'uncut-emerald.png')
+                        if drop_ruby is True:
+                            behav.drop_item(item='./needles/items/'
+                                                 'uncut-ruby.png')
+                        if drop_diamond is True:
+                            behav.drop_item(item='./needles/items/'
+                                                 'uncut-diamond.png')
+                        if drop_clue_geode is True:
+                            behav.drop_item(item='./needles/items/'
+                                                 'clue-geode.png')
                         return 0
                     elif inv_full == 1:
                         return 0
@@ -102,7 +119,9 @@ def miner_double_drop(rock1, rock2, ore):
                 #   "empty" version of the rock_needle tuple.
                 rock_empty = vgame_screen.wait_for_image(needle=rempty_needle,
                                                          conf=0.85,
-                                                         loop_num=30)
+                                                         loop_num=100,
+                                                         loop_sleep_min=100,
+                                                         loop_sleep_max=200)
 
                 if rock_empty != 1:
                     log.info('Rock is empty.')

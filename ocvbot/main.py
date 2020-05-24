@@ -53,7 +53,8 @@ def mining_varrock_east():
                    'west-full.png',
                    './needles/game-screen/varrock-east-mine/'
                    'west-empty.png'),
-            ore='./needles/items/iron-ore.png')
+            ore='./needles/items/iron-ore.png',
+            drop_diamond=False)
         if miner == 0:
             log.info('Reorienting client')
             vis.orient(DISPLAY_WIDTH, DISPLAY_HEIGHT)
