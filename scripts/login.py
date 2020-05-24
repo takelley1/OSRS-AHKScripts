@@ -7,6 +7,7 @@ def main():
     """
     Automatically logs the client in using credentials specified in a file.
     """
+
     vision.init_vision()
     from ocvbot.vision import vdisplay
 
@@ -18,12 +19,12 @@ def main():
         misc.sleep_rand(800, 3000)
         input.keypress('enter')
         misc.sleep_rand(800, 3000)
-        pag.typewrite(open('username', 'r').read())
+        pag.typewrite(open('username.txt', 'r').read())
         misc.sleep_rand(800, 3000)
-        pag.typewrite(open('password', 'r').read())
+        pag.typewrite(open('password.txt', 'r').read())
         misc.sleep_rand(800, 3000)
         input.keypress('enter')
-        postlogin = vdisplay.click_image(needle='./needles/login-menu'
+        postlogin = vdisplay.click_image(needle='./needles/login-menu/'
                                                 'orient-postlogin.png',
                                          conf=0.8,
                                          loop_num=10,
