@@ -52,7 +52,10 @@ def switch_worlds()
 """
 
 
-def login(username_file='username.txt', password_file='password.txt'):
+def login(username_file='username.txt', password_file='password.txt',
+          cred_sleep_min=800, cred_sleep_max=5000,
+          login_sleep_min=5000, login_sleep_max=15000,
+          postlogin_sleep_min=5000, postlogin_sleep_max=10000):
     """
     Logs in in using credentials specified in two files.
 
@@ -65,6 +68,24 @@ def login(username_file='username.txt', password_file='password.txt'):
                               user's password. Filepath is relative to
                               the directory this file is in, default is
                               a file simply called "password".
+        cred_sleep_min (int): The minimum number of miliseconds to wait
+                              between actions while entering account
+                              credentials, default is 800.
+        cred_sleep_max (int): The maximum number of miliseconds to wait
+                              between actions while entering account
+                              credentials, default is 5000.
+        login_sleep_min (int): The minimum number of miliseconds to wait
+                               after hitting "Enter" to login, default
+                               is 5000.
+        login_sleep_max (int): The maximum number of miliseconds to wait
+                               after hitting "Enter" to login, default
+                               is 15000.
+        postlogin_sleep_min (int): The minimum number of miliseconds to
+                                   wait after clicking the "Click here
+                                   to play" button, default is 5000.
+        postlogin_sleep_max (int): The maximum number of miliseconds to
+                                   wait after clicking the "Click here
+                                   to play" button, default is 10000.
 
     Raises:
         Raises a runtime error if the login menu cannot be found, the
@@ -82,15 +103,15 @@ def login(username_file='username.txt', password_file='password.txt'):
         raise RuntimeError("Cannot find client!")
     else:
         # Enter credentials.
-        misc.sleep_rand(800, 5000)
+        misc.sleep_rand(cred_sleep_min, cred_sleep_max)
         input.keypress('enter')
-        misc.sleep_rand(800, 5000)
+        misc.sleep_rand(cred_sleep_min, cred_sleep_max)
         pag.typewrite(open(username_file, 'r').read())
-        misc.sleep_rand(800, 5000)
+        misc.sleep_rand(cred_sleep_min, cred_sleep_max)
         pag.typewrite(open(password_file, 'r').read())
-        misc.sleep_rand(800, 5000)
+        misc.sleep_rand(cred_sleep_min, cred_sleep_max)
         input.keypress('enter')
-        misc.sleep_rand(5000, 15000)
+        misc.sleep_rand(login_sleep_min, login_sleep_max)
 
         # Click the 'click here to play' button in the postlogin menu.
         postlogin = vdisplay.click_image(needle='./needles/'
@@ -100,7 +121,7 @@ def login(username_file='username.txt', password_file='password.txt'):
                                          loop_sleep_min=1000,
                                          loop_sleep_max=5000)
         if postlogin != 1:
-            misc.sleep_rand(1000, 5000)
+            misc.sleep_rand(postlogin_sleep_min, postlogin_sleep_max)
             # Wait for the orient.png to appear in the client window.
             logged_in = vdisplay.wait_for_image(needle='./needles/minimap/'
                                                 'orient.png',
