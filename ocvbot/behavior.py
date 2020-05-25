@@ -187,20 +187,46 @@ def wait_rand(chance, second_chance=10,
 def logout():
     """
     If the client is logged in, logs out.
+
+    The logout menu side stone MUST be set to F12!
+
+    Raises:
+        Raises a runtime error if the logout side stone is opened but
+        the logout button cannot be found.
+
+    Returns:
+        Returns 0 if the client has logged out.
+        Returns 1 if the client is already logged out.
     """
     from ocvbot.vision import vclient
     # First, make sure the client is logged in.
     logged_in = vclient.wait_for_image(needle='./needles/minimap/'
-                                               'orient.png',
-                                       loop_num=50,
+                                              'orient.png',
+                                       loop_num=2,
                                        loop_sleep_min=1000,
                                        loop_sleep_max=3000)
     if logged_in != 1:
-        logout_menu = vclient.click_image(needle='./needles/game-menu/'
-                                                 'logout.png')
-        if logout_menu != 1:
-            logout_button
-    return
+        logout_menu_open = vclient.click_image(needle='./needles/side-stones/'
+                                                      'logout-selected.png',
+                                               loop_num=2,
+                                               loop_sleep_min=1000,
+                                               loop_sleep_max=3000)
+        # If the login menu isn't open, open it with a hotkey.
+        if logout_menu_open == 1:
+            input.keypress('F12')
+
+        logout_button = vclient.click_image(needle='./needles/buttons/'
+                                                   'logout.png')
+        if logout_button == 1:
+            raise RuntimeError("Could not find logout button!")
+        else:
+            return 0
+
+    elif logged_in == 1:
+        log.warning("Client already logged out!")
+        return 1
+    else:
+        return 1
 
 
 def logout_rand(chance, wait_min=5, wait_max=120):
@@ -225,8 +251,7 @@ def logout_rand(chance, wait_min=5, wait_max=120):
     logout_roll = rand.randint(1, chance)
     if logout_roll == chance:
         log.info('Random logout called.')
-        # TODO: add logout()
-        #logout()
+        logout()
 
         sleeptime = misc.rand_seconds(wait_min, wait_max)
         # Convert to minutes for logging
@@ -257,7 +282,7 @@ def drop_item(item, wait_chance=120, wait_min=5000, wait_max=20000):
 
     # Make sure the inventory tab is selected in the main menu.
     log.info('Making sure inventory is selected')
-    inv_selected = vclient.wait_for_image(needle='./needles/main-menu/'
+    inv_selected = vclient.wait_for_image(needle='./needles/side-stones/'
                                                  'inventory-selected.png')
     if inv_selected == 1:
         input.keypress('Escape')
