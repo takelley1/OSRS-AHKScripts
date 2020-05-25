@@ -220,7 +220,7 @@ def logout_rand(chance, wait_min=5, wait_max=120):
     return 0
 
 
-def drop_item(item):
+def drop_item(item, wait_chance=50, wait_min=5000, wait_max=20000):
     """
     Drops all instances of the provided item from the inventory.
     Shift+Click to drop item MUST be enabled.
@@ -228,6 +228,13 @@ def drop_item(item):
     Args:
        item (file): Filepath to an image of the item to drop, as it
                     appears in the player's inventory.
+       wait_chance (int): Chance to wait randomly while dropping item,
+                          see wait_rand()'s docstring for more info,
+                          default is 50.
+       wait_min (int): Minimum number of miliseconds to wait if
+                       a wait is triggered, default is 5000.
+       wait_max (int): Maximum number of miliseconds to wait if
+                       a wait is triggered, default is 20000.
     """
 
     from ocvbot.vision import vinv, vinv_right_half, vinv_left_half, vclient
@@ -240,8 +247,10 @@ def drop_item(item):
         input.keypress('Escape')
 
     inv_full = vinv.wait_for_image(loop_num=1, needle=item)
+
     if inv_full != 1:
         log.info('Dropping ' + str(item) + '.')
+
     tries = 0
     while inv_full != 1 and tries <= 40:
 
@@ -270,6 +279,9 @@ def drop_item(item):
         # Search the entire inventory to make sure the item is/isn't
         #   there.
         inv_full = vinv.wait_for_image(loop_num=1, needle=item)
+
+        # Chance to briefly wait while dropping items.
+        wait_rand(chance=wait_chance, wait_min=wait_min, wait_max=wait_max)
 
         pag.keyUp('shift')
         if inv_full == 1:
