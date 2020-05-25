@@ -37,6 +37,11 @@ def miner_double_drop(rock1, rock2, ore,
         drop_clue_geode (bool): Drop mined uncut clue geodes, default is
                                 True.
 
+    Raises:
+        Raises a runtime error if the player's inventory is full, but
+        the function can't find any ore in the player's inventory to
+        drop.
+
     Reutrns:
         Always returns 0.
     """
@@ -104,7 +109,13 @@ def miner_double_drop(rock1, rock2, ore,
                     #   return.
                     if inv_full != 1:
                         log.info('Inventory is full.')
-                        behav.drop_item(item=ore)
+                        ore_drop = behav.drop_item(item=ore)
+                        if ore_drop == 1:
+                            #logout()
+                            # This runtime error will occur if the
+                            #   player's inventory is full, but they
+                            #   don't have any ore to drop.
+                            raise RuntimeError("Could not find ore to drop!")
                         if drop_sapphire is True:
                             behav.drop_item(item='./needles/items/'
                                                  'uncut-sapphire.png')
