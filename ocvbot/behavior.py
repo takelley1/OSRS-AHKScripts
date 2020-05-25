@@ -117,9 +117,9 @@ def login(username_file='username.txt', password_file='password.txt',
         postlogin = vdisplay.click_image(needle='./needles/'
                                          'login-menu/orient-postlogin.png',
                                          conf=0.8,
-                                         loop_num=25,
+                                         loop_num=50,
                                          loop_sleep_min=1000,
-                                         loop_sleep_max=5000)
+                                         loop_sleep_max=2000)
         if postlogin != 1:
             misc.sleep_rand(postlogin_sleep_min, postlogin_sleep_max)
             # Wait for the orient.png to appear in the client window.
@@ -127,7 +127,7 @@ def login(username_file='username.txt', password_file='password.txt',
                                                 'orient.png',
                                                 loop_num=50,
                                                 loop_sleep_min=1000,
-                                                loop_sleep_max=3000)
+                                                loop_sleep_max=2000)
             if logged_in != 1:
                 # Make sure client camera is oriented correctly after
                 #   logging in.
