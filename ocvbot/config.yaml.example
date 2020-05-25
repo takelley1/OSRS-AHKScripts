@@ -2,5 +2,5 @@
 drop_sapphire: True
 drop_emerald: True
 drop_ruby: True
-drop_diamond: False
+drop_diamond: True
 drop_clue_geode: True
