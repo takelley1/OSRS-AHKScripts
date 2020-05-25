@@ -202,6 +202,7 @@ def logout_rand(chance, wait_min=5, wait_max=120):
 def drop_item(item):
     """
     Drops all instances of the provided item from the inventory.
+    Shify+Click to drop item MUST be enabled.
 
     Args:
        item (file): Filepath to an image of the item to drop, as it
@@ -211,6 +212,7 @@ def drop_item(item):
     from ocvbot.vision import vinv, vinv_right_half, vinv_left_half, vclient
 
     # Make sure the inventory tab is selected in the main menu.
+    log.info('Making sure inventory is selected')
     inv_selected = vclient.wait_for_image(needle='./needles/main-menu/'
                                                  'inventory-selected.png')
     if inv_selected == 1:
