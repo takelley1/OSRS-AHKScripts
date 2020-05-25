@@ -167,21 +167,21 @@
                           SingleStyledText('1.1.2')
                           SingleStyledText(' ')
                           SingleStyledText('ocvbot.behavior module')
-                    LabeledFlowable(style='object description')   /home/austin/OSRS-AHKScripts/ocvbot/behavior.py:docstring of ocvbot.behavior.drop_item_rapid:None <desc>
+                    LabeledFlowable(style='object description')   /home/austin/OSRS-AHKScripts/ocvbot/behavior.py:docstring of ocvbot.behavior.drop_item:None <desc>
                          > (0,0,1,0,2) object description
                       StaticGroupedFlowables(style='signatures')
                            > (0,0,2,0,3) object signatures
-                        Paragraph('ocvbot.behavior.drop_item_rapid ...', id='%ocvbot#ocvbot.behavior.drop_item_rapid')   /home/austin/OSRS-AHKScripts/ocvbot/behavior.py:docstring of ocvbot.behavior.drop_item_rapid:1 <desc_signature>
+                        Paragraph('ocvbot.behavior.drop_item ...', id='%ocvbot#ocvbot.behavior.drop_item')   /home/austin/OSRS-AHKScripts/ocvbot/behavior.py:docstring of ocvbot.behavior.drop_item:1 <desc_signature>
                              > (0,0,2,0,5) object signature
                                (0,0,0,0,2) body
-                          MixedStyledText('ocvbot.behavior.drop_item_rapid ...')
-                            MixedStyledText('ocvbot.behavior.', style='additional name part')   /home/austin/OSRS-AHKScripts/ocvbot/behavior.py:docstring of ocvbot.behavior.drop_item_rapid:None <desc_addname>
+                          MixedStyledText('ocvbot.behavior.drop_item ...')
+                            MixedStyledText('ocvbot.behavior.', style='additional name part')   /home/austin/OSRS-AHKScripts/ocvbot/behavior.py:docstring of ocvbot.behavior.drop_item:None <desc_addname>
                                  > (0,0,3,0,6) additional name part
                               SingleStyledText('ocvbot.behavior.')
-                            MixedStyledText('drop_item_rapid', style='main object name')   /home/austin/OSRS-AHKScripts/ocvbot/behavior.py:docstring of ocvbot.behavior.drop_item_rapid:None <desc_name>
+                            MixedStyledText('drop_item', style='main object name')   /home/austin/OSRS-AHKScripts/ocvbot/behavior.py:docstring of ocvbot.behavior.drop_item:None <desc_name>
                                  > (0,0,3,0,6) object name
-                              SingleStyledText('drop_item_rapid')
-                            MixedStyledText(' ( item ) ')   /home/austin/OSRS-AHKScripts/ocvbot/behavior.py:docstring of ocvbot.behavior.drop_item_rapid:None <desc_parameterlist>
+                              SingleStyledText('drop_item')
+                            MixedStyledText(' ( item ) ')   /home/austin/OSRS-AHKScripts/ocvbot/behavior.py:docstring of ocvbot.behavior.drop_item:None <desc_parameterlist>
                               MixedStyledText(' ( item')
                                 SingleStyledText(' ( ', style='parentheses')
                                      > (0,0,3,0,6) object parentheses
@@ -193,9 +193,9 @@
                                       SingleStyledText('item')
                               SingleStyledText(' ) ', style='parentheses')
                                    > (0,0,3,0,6) object parentheses
-                      StaticGroupedFlowables(style='content')   /home/austin/OSRS-AHKScripts/ocvbot/behavior.py:docstring of ocvbot.behavior.drop_item_rapid:None <desc_content>
+                      StaticGroupedFlowables(style='content')   /home/austin/OSRS-AHKScripts/ocvbot/behavior.py:docstring of ocvbot.behavior.drop_item:None <desc_content>
                            > (0,0,2,0,3) object description content
-                        Paragraph('Drops an instance of the given i...')   /home/austin/OSRS-AHKScripts/ocvbot/behavior.py:docstring of ocvbot.behavior.drop_item_rapid:1 <paragraph>
+                        Paragraph('Drops an instance of the given i...')   /home/austin/OSRS-AHKScripts/ocvbot/behavior.py:docstring of ocvbot.behavior.drop_item:1 <paragraph>
                              > (0,0,2,0,5) object description content paragraph
                                (0,0,0,0,2) body
                           MixedStyledText('Drops an instance of the given i...')
@@ -4432,11 +4432,11 @@
               Reference('5')
                    > (0,0,0,1,1) linked reference
                 SingleStyledText('5')
-        IndexEntry('drop_item_rapid() (in module ocv...')
+        IndexEntry('drop_item() (in module ocv...')
              > (0,0,0,1,2) level 1 index entry
                (0,0,0,0,1) body
-          MixedStyledText('drop_item_rapid() (in module ocv...')
-            SingleStyledText('drop_item_rapid() (in module ocv...')
+          MixedStyledText('drop_item() (in module ocv...')
+            SingleStyledText('drop_item() (in module ocv...')
             MixedStyledText('1')
               Reference('1')
                    > (0,0,0,1,1) linked reference
