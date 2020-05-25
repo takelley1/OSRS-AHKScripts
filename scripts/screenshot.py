@@ -8,7 +8,7 @@ log.basicConfig(format='%(asctime)s -- %(filename)s.%(funcName)s - %(message)s'
 
 def main(debug=0):
     """
-    Takes and automatically crops a screenshot to capture the OSRS
+    Takes a screenshot of the OSRS
     client window. Useful for running on demand manually.
     """
 
@@ -18,18 +18,29 @@ def main(debug=0):
     vision.init_vision()
 
     from ocvbot.vision import vclient_left, vclient_top, \
-        CLIENT_HEIGHT, CLIENT_WIDTH
+        CLIENT_HEIGHT, CLIENT_WIDTH, client_status
 
     if debug == 0:
         pag.screenshot('.screenshot.tmp.png', region=(vclient_left,
                                                       vclient_top,
                                                       CLIENT_WIDTH,
                                                       CLIENT_HEIGHT))
-        log.info('Compressing screenshot')
-        os.system('pngcrush -s '
-                  '.screenshot.tmp.png haystack_$(date +%Y-%m-%d_%H:%M:%S.png)'
-                  '&& notify-send -u low "screenshot taken" '
-                  '&& rm screenshot.tmp.png')
+        log.info('Processing screenshot')
+        if client_status == 'logged_in':
+            os.system('pngcrush -s '
+                      '.screenshot.tmp.png .screenshot.tmp2.png'
+                      '&& convert .screenshot.tmp2.png '
+                      '-fill black '
+                      '-draw "rectangle 7 458 190 473" '
+                      'haystack_$(date +%Y-%m-%d_%H:%M:%S.png)client.png'
+                      '&& rm .screenshot.tmp*.png'
+                      '&& notify-send -u low "Screenshot taken"')
+        elif client_status == 'logged_out':
+            os.system('pngcrush -s '
+                      '.screenshot.tmp.png '
+                      'haystack_$(date +%Y-%m-%d_%H:%M:%S.png)client.png'
+                      '&& rm .screenshot.tmp*.png'
+                      '&& notify-send -u low "Screenshot taken"')
 
     elif debug == 1:
         from ocvbot import DISPLAY_WIDTH, DISPLAY_HEIGHT
@@ -137,7 +148,7 @@ def main(debug=0):
                   + '" chat_menu_recent.png')
 
         os.system('rm .screenshot.tmp*.png && '
-                  'notify-send -u low "Done!"')
+                  'notify-send -u low "Debug screenshots taken!"')
         return
 
     return

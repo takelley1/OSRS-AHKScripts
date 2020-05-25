@@ -12,6 +12,7 @@ from ocvbot import CLIENT_WIDTH, CLIENT_HEIGHT,\
                    CHAT_MENU_RECENT_WIDTH, CHAT_MENU_RECENT_HEIGHT, \
                    DISPLAY_WIDTH, DISPLAY_HEIGHT
 
+client_status = ''
 
 vdisplay = ''
 
@@ -52,6 +53,8 @@ def init_vision():
     """
     Initializes the core objects for the Vision class.
     """
+    global client_status
+
     global vdisplay
 
     global vclient
@@ -86,12 +89,16 @@ def init_vision():
     global vchat_menu_recent_left
     global vchat_menu_recent_top
 
-    (return_status, anchor) = orient(display_width=DISPLAY_WIDTH,
+    (client_status, anchor) = orient(display_width=DISPLAY_WIDTH,
                                      display_height=DISPLAY_HEIGHT)
     (vclient_left, vclient_top) = anchor
 
-    vclient_left -= 735
-    vclient_top -= 21
+    if client_status == 'logged_in':
+        vclient_left -= 735
+        vclient_top -= 21
+    elif client_status == 'logged_out':
+        vclient_left -= 183
+        vclient_top -= 59
 
     # Now we can create an object with the game client's X and Y
     #   coordinates. This will allow other functions to search for
