@@ -10,9 +10,11 @@ def miner_double_drop(rock1, rock2, ore,
                       drop_diamond=True,
                       drop_clue_geode=True):
     """
-    A 2-rock drop mining script. The player alternates mining between
-    two different rocks containing the same ore. All ore, gems, and
-    geodes are dropped when inventory is full.
+    A 2-rock drop mining script.
+
+    This function alternates mining between two different rocks that
+    contain the same type of ore. All mined ore, gems, and clue geodes
+    are dropped by default when the inventory becomes full.
 
     Args:
         rock1 (tuple): Tuple containing two filepaths: The first file
@@ -26,11 +28,14 @@ def miner_double_drop(rock1, rock2, ore,
         ore (file): Filepath to a needle of the item icon of the ore
                     being mined, as it appears in the player's
                     inventory.
-        drop_sapphire (bool): Drop mined uncut sapphires.
-        drop_emerald (bool): Drop mined uncut emearalds.
-        drop_ruby (bool): Drop mined uncut rubies.
-        drop_diamond (bool): Drop mined uncut diamonds.
-        drop_clue_geode (bool): Drop mined uncut clue geodes.
+        drop_sapphire (bool): Drop mined uncut sapphires, default is
+                              True.
+        drop_emerald (bool): Drop mined uncut emearalds, default is
+                             True.
+        drop_ruby (bool): Drop mined uncut rubies, default is True.
+        drop_diamond (bool): Drop mined uncut diamonds, default is True.
+        drop_clue_geode (bool): Drop mined uncut clue geodes, default is
+                                True.
 
     Reutrns:
         Always returns 0.
@@ -50,14 +55,14 @@ def miner_double_drop(rock1, rock2, ore,
     for attempts in range(1, 100):
 
         for rock_needle in (rock1, rock2):
-            # Unpack the "rock" tuple to obtain "full" and "empty"
-            #   versions of each rock image.
-            (rfull_needle, rempty_needle) = rock_needle
+            # Unpack the "rock_needle" tuple to obtain "full" and
+            #   "empty" versions of each needle.
+            (rock_full_needle, rock_empty_needle) = rock_needle
 
             log.info('Searching for ore ' + str(attempts) + '...')
 
             # If current rock is full, begin mining it.
-            rock_full = vgame_screen.click_image(needle=rfull_needle,
+            rock_full = vgame_screen.click_image(needle=rock_full_needle,
                                                  conf=0.8,
                                                  move_durmin=5,
                                                  move_durmax=500,
@@ -123,11 +128,12 @@ def miner_double_drop(rock1, rock2, ore,
 
                 # Wait until the rock is empty by waiting for the
                 #   "empty" version of the rock_needle tuple.
-                rock_empty = vgame_screen.wait_for_image(needle=rempty_needle,
-                                                         conf=0.85,
-                                                         loop_num=100,
-                                                         loop_sleep_min=100,
-                                                         loop_sleep_max=200)
+                rock_empty = vgame_screen.wait_for_image(
+                                                    needle=rock_empty_needle,
+                                                    conf=0.85,
+                                                    loop_num=100,
+                                                    loop_sleep_min=100,
+                                                    loop_sleep_max=200)
 
                 if rock_empty != 1:
                     log.info('Rock is empty.')
