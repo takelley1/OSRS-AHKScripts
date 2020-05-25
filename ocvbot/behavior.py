@@ -236,7 +236,7 @@ def logout_rand(chance, wait_min=5, wait_max=120):
     return 0
 
 
-def drop_item(item, wait_chance=50, wait_min=5000, wait_max=20000):
+def drop_item(item, wait_chance=120, wait_min=5000, wait_max=20000):
     """
     Drops all instances of the provided item from the inventory.
     Shift+Click to drop item MUST be enabled.
@@ -262,19 +262,22 @@ def drop_item(item, wait_chance=50, wait_min=5000, wait_max=20000):
     if inv_selected == 1:
         input.keypress('Escape')
 
-    inv_full = vinv.wait_for_image(loop_num=1, needle=item)
+    item_remains = vinv.wait_for_image(loop_num=1, needle=item)
 
-    if inv_full != 1:
+    if item_remains != 1:
         log.info('Dropping ' + str(item) + '.')
+    elif item_remains == 1:
+        log.info('Could not find ' + str(item) + '.')
+        return 1
 
     tries = 0
-    while inv_full != 1 and tries <= 40:
+    while item_remains != 1 and tries <= 40:
 
         tries += 1
         pag.keyDown('shift')
         # Alternate between searching for the item in left half and the
         #   right half of the player's inventory. This helps reduce the
-        #   chances the bot will click on the same icon twice.
+        #   chances the bot will click on the same item twice.
         vinv_right_half.click_image(loop_num=1,
                                     click_sleep_befmin=10,
                                     click_sleep_befmax=50,
@@ -292,21 +295,18 @@ def drop_item(item, wait_chance=50, wait_min=5000, wait_max=20000):
                                    move_durmax=800,
                                    needle=item)
 
-        # Search the entire inventory to make sure the item is/isn't
+        # Search the entire inventory to check if the item is still
         #   there.
-        inv_full = vinv.wait_for_image(loop_num=1, needle=item)
+        item_remains = vinv.wait_for_image(loop_num=1, needle=item)
 
         # Chance to briefly wait while dropping items.
         wait_rand(chance=wait_chance, wait_min=wait_min, wait_max=wait_max)
 
         pag.keyUp('shift')
-        if inv_full == 1:
+        if item_remains == 1:
             return 0
 
-    if inv_full == 1:
-        log.info('Could not find ' + str(item) + '.')
-        return 1
-    elif tries > 50:
+    if tries > 40:
         log.error('Tried dropping item too many times!')
         return 1
     else:
