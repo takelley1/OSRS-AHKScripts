@@ -7,8 +7,8 @@ def main():
     """
 
     vision.init_vision()
-    behav.login(username_file='credentials/username_ironman.txt',
-                password_file='credentials/password_ironman.txt')
+    behav.login(username_file='credentials/username-ironman.txt',
+                password_file='credentials/password-ironman.txt')
 
 
 if __name__ == '__main__':
