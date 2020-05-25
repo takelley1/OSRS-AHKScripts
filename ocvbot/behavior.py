@@ -200,17 +200,21 @@ def logout_rand(chance, wait_min=5, wait_max=120):
 
 
 def drop_item(item):
-    # TODO: select inventory if not already selected
     """
-    Drops all instances of the provided item from the inventory. Assumes
-    the inventory is already open.
+    Drops all instances of the provided item from the inventory.
 
     Args:
        item (file): Filepath to an image of the item to drop, as it
                     appears in the player's inventory.
     """
 
-    from ocvbot.vision import vinv, vinv_right_half, vinv_left_half
+    from ocvbot.vision import vinv, vinv_right_half, vinv_left_half, vclient
+
+    # Make sure the inventory tab is selected in the main menu.
+    inv_selected = vclient.wait_for_image(needle='./needles/main-menu/'
+                                                 'inventory-selected.png')
+    if inv_selected == 1:
+        input.keypress('Escape')
 
     inv_full = vinv.wait_for_image(loop_num=1, needle=item)
     if inv_full != 1:
