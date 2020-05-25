@@ -14,7 +14,7 @@ with open('./config.yaml') as config:
     config_file = yaml.safe_load(config)
 
 
-def mining_lumbridge():
+def mining_lumbridge_swamp():
     """
     Script for mining copper in the Lumbridge mine in Lumbridge swamp.
 
@@ -25,13 +25,25 @@ def mining_lumbridge():
     the correct zoom and brightness settings.
     """
 
-    #while True:
-        #skilling.miner_double_drop(
-            #rock1='./needles/game-screen/lumbridge-mine/'
-                  #'south-full.png',
-            #rock2='./needles/game-screen/lumbridge-mine/'
-                  #'east-full.png',
-            #ore='./needles/items/copper-ore.png')
+    while True:
+        miner = skilling.miner_double_drop(
+            rock1=('./needles/game-screen/lumbridge-mine/'
+                   'east-full.png',
+                   './needles/game-screen/lumbridge-mine/'
+                   'east-empty.png'),
+            rock2=('./needles/game-screen/lumbridge-mine/'
+                   'south-full.png',
+                   './needles/game-screen/lumbridge-mine/'
+                   'south-empty.png'),
+            ore='./needles/items/copper-ore.png',
+            drop_sapphire=config_file['drop_sapphire'],
+            drop_emerald=config_file['drop_emerald'],
+            drop_ruby=config_file['drop_ruby'],
+            drop_diamond=config_file['drop_diamond'],
+            drop_clue_geode=config_file['drop_clue_geode'])
+        if miner == 0:
+            log.info('Reorienting client')
+            vis.orient(DISPLAY_WIDTH, DISPLAY_HEIGHT)
 
 
 def mining_varrock_east():
@@ -353,7 +365,7 @@ right click steel bar -- click(button=right)
     #detect_jam = (int(detect_jam_gui.get()))
     #log.debug('detect ecm jamming is ' + (str(detect_jam)))
 
-    #mining_lumbridge()
+    #mining_lumbridge_swamp()
     #return
 #
 
@@ -401,4 +413,4 @@ endrunbutton.config(width='13', height='1')
 #gui.mainloop()
 
 vis.init_vision()
-mining_varrock_east()
+mining_lumbridge_swamp()
