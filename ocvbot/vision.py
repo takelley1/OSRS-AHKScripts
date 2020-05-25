@@ -48,6 +48,8 @@ vchat_menu_recent = ''
 vchat_menu_recent_left = ''
 vchat_menu_recent_top = ''
 
+# TODO: Add vision object that covers the "stone tab" buttons, this would
+# make the object's coordinate space slightly larger than the inventory.
 
 def init_vision():
     """
