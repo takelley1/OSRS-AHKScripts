@@ -202,7 +202,7 @@ def logout_rand(chance, wait_min=5, wait_max=120):
 def drop_item(item):
     """
     Drops all instances of the provided item from the inventory.
-    Shify+Click to drop item MUST be enabled.
+    Shift+Click to drop item MUST be enabled.
 
     Args:
        item (file): Filepath to an image of the item to drop, as it
