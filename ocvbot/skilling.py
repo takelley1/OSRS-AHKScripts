@@ -1,6 +1,10 @@
 import logging as log
+import yaml
 
-from ocvbot import behavior as behav, input
+from ocvbot import behavior, input
+
+with open('./config.yaml') as config:
+    config_file = yaml.safe_load(config)
 
 
 def miner_double_drop(rock1, rock2, ore,
@@ -84,7 +88,7 @@ def miner_double_drop(rock1, rock2, ore,
                 log.info('Waiting for mining to start.')
 
                 # Small chance to do nothing for a short while.
-                behav.wait_rand(chance=100, wait_min=10000, wait_max=60000)
+                behavior.wait_rand(chance=100, wait_min=10000, wait_max=60000)
 
                 # Once the rock has been clicked on, wait for mining to
                 #   start by monitoring chat.
@@ -109,28 +113,28 @@ def miner_double_drop(rock1, rock2, ore,
                     #   return.
                     if inv_full != 1:
                         log.info('Inventory is full.')
-                        ore_drop = behav.drop_item(item=ore)
+                        ore_drop = behavior.drop_item(item=ore)
                         if ore_drop == 1:
-                            #logout()
+                            behavior.logout(config_file['side_stone_logout'])
                             # This runtime error will occur if the
                             #   player's inventory is full, but they
                             #   don't have any ore to drop.
                             raise RuntimeError("Could not find ore to drop!")
                         if drop_sapphire is True:
-                            behav.drop_item(item='./needles/items/'
-                                                 'uncut-sapphire.png')
+                            behavior.drop_item(item='./needles/items/'
+                                                    'uncut-sapphire.png')
                         if drop_emerald is True:
-                            behav.drop_item(item='./needles/items/'
-                                                 'uncut-emerald.png')
+                            behavior.drop_item(item='./needles/items/'
+                                                    'uncut-emerald.png')
                         if drop_ruby is True:
-                            behav.drop_item(item='./needles/items/'
-                                                 'uncut-ruby.png')
+                            behavior.drop_item(item='./needles/items/'
+                                                    'uncut-ruby.png')
                         if drop_diamond is True:
-                            behav.drop_item(item='./needles/items/'
-                                                 'uncut-diamond.png')
+                            behavior.drop_item(item='./needles/items/'
+                                                    'uncut-diamond.png')
                         if drop_clue_geode is True:
-                            behav.drop_item(item='./needles/items/'
-                                                 'clue-geode.png')
+                            behavior.drop_item(item='./needles/items/'
+                                                    'clue-geode.png')
                         return 0
                     elif inv_full == 1:
                         return 0
