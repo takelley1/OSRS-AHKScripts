@@ -1,6 +1,6 @@
 ## OldSchoolRunescape AutoHotkey Scripts
 
-**This bot is currently being rewritten in Python, which will likely split off into its own repo. See the develop branch for current status. The master branch should be considered deprecated.** 
+**This bot is currently being is deprecated and has been superceded by OCVBot (https://github.com/takelley1/OCVBot).** 
 
 This repo contains scripts for cannonball smelting, magic splashing, mining, spinning flax, running the Blast Furnace, and runecrafting. Not all scripts are fully functional.
 
