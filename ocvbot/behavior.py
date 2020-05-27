@@ -187,23 +187,20 @@ def wait_rand(chance, second_chance=10,
 
 def open_side_stone(side_stone_open, hotkey):
     from ocvbot.vision import vclient, vgame_screen
-    stone_open = vclient.wait_for_image(needle=side_stone_open,
-                                        loop_num=2,
-                                        loop_sleep_min=500,
-                                        loop_sleep_max=1000)
+    stone_open = vclient.wait_for_image(needle=side_stone_open, loop_num=1)
     if stone_open != 1:
         log.debug('Side stone already open')
         return 0
 
     # If side stone is not already open, check to make sure the bank
-    #   window is not open.
-    vgame_screen.click_image(needle='./needles/buttons/'
-                                    'bank-close.png',
-                                    loop_num=2)
+    #   window is not blocking it.
+    vgame_screen.click_image(needle='./needles/buttons/bank-close.png',
+                             loop_num=2,
+                             loop_sleep_min=500, loop_sleep_max=1000)
 
-    # Try a total of 10 times to open the desired side stone menu using
+    # Try a total of 5 times to open the desired side stone menu using
     #   the hotkey.
-    for tries in range(1, 10):
+    for tries in range(1, 5):
         input.keypress(hotkey)
         stone_open = vclient.wait_for_image(needle=side_stone_open,
                                             loop_num=10,
@@ -212,15 +209,14 @@ def open_side_stone(side_stone_open, hotkey):
         if stone_open != 1:
             log.info('Opened side stone')
             return 0
-    log.error('Could not open side stone!')
+    log.error('Could not open side stone! Is the hotkey correct?')
     return 1
 
 
-def logout():
+def logout(hotkey):
     """
-    If the client is logged in, logs out.
-
-    The logout menu side stone MUST be set to F12!
+    If the client is logged in, logs out. Side stone hotkeys MUST be
+    enabled.
 
     Raises:
         Raises a runtime error if the logout side stone is opened but
@@ -236,7 +232,7 @@ def logout():
                            display_width=DISPLAY_WIDTH)
     (client_status, unused_var) = orient
     if client_status == 'logged_in':
-        open_side_stone('./needles/side-stones/logout', 'F12')
+        open_side_stone('./needles/side-stones/logout', hotkey=hotkey)
         logout_button = vclient.click_image(needle='./needles/buttons/'
                                                    'logout.png')
         if logout_button != 1:
@@ -248,20 +244,19 @@ def logout():
             if logged_out != 1:
                 log.info('Logged out')
                 return 0
-            if logged_out == 1:
-                for tries in range(1, 10):
-                    vclient.click_image(needle='./needles/buttons/'
-                                               'logout.png')
-                    logged_out = vclient.wait_for_image(needle='./needles/'
-                                                        'login-menu/'
-                                                        'orient-logged-out.png',
-                                                        loop_num=50,
-                                                        loop_sleep_min=1000,
-                                                        loop_sleep_max=3000)
-                    if logged_out != 1:
-                        log.info('Logged out after trying' + str(tries) +
-                                 'times')
-                        return 0
+            for tries in range(1, 10):
+                vclient.click_image(needle='./needles/buttons/'
+                                           'logout.png')
+                logged_out = vclient.wait_for_image(needle='./needles/'
+                                                    'login-menu/'
+                                                    'orient-logged-out.png',
+                                                    loop_num=30,
+                                                    loop_sleep_min=1000,
+                                                    loop_sleep_max=1500)
+                if logged_out != 1:
+                    log.info('Logged out after trying' + str(tries) +
+                             'time(s)')
+                    return 0
                 raise RuntimeError("Could not logout!")
         elif logout_button == 1:
             raise RuntimeError("Could not find logout button!")
