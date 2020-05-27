@@ -37,7 +37,7 @@ def sleep_rand(rmin=0, rmax=100):
         Always returns 0.
     """
 
-    sleeptime = rand_seconds(rmin, rmax)
+    sleeptime = rand_seconds(rmin=rmin, rmax=rmax)
     # log.debug('Sleeping for ' + str(sleeptime) + ' seconds.')
     time.sleep(sleeptime)
     return 0
