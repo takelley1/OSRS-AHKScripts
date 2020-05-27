@@ -22,6 +22,9 @@ def mining_lumbridge_swamp():
     required client configuration settings.
     """
 
+    # TODO: Check the time after every while loop to ensure the function
+    #   doesn't run for too long. On Linux, get epoch time and subtract
+    #   to get total seconds function has been running.
     while True:
         miner = skilling.miner_double_drop(
             rock1=('./needles/game-screen/lumbridge-mine/'
@@ -407,4 +410,4 @@ endrunbutton.config(width='13', height='1')
 #gui.mainloop()
 
 vis.init_vision()
-mining_lumbridge_swamp()
+mining_varrock_east()
