@@ -5,8 +5,7 @@ import sys
 import pyautogui as pag
 
 """
-Creates objects containing useful game coordinates for other
-functions to serach through.
+Sets global constants and defines logging.
 """
 
 sys.setrecursionlimit(9999)
@@ -38,11 +37,12 @@ CHAT_MENU_RECENT_HEIGHT = 17
 DISPLAY_WIDTH = pag.size().width
 DISPLAY_HEIGHT = pag.size().height
 
-log.basicConfig(format='%(asctime)s -- %(filename)s.%(funcName)s - %(message)s'
+log.basicConfig(format='%(asctime)s %(filename)s.%(funcName)s - %(message)s'
                 , level='INFO')
 
 # TODO: Find a better way to do this.
 # Clean up left over screenshots from failed runs.
 #sub.Popen(["rm", "./.screenshot2*"])
 
+# TODO: Fix whatever issue that requires this.
 os.chdir('/home/austin/OSRS-AHKScripts/ocvbot')

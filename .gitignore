@@ -4,7 +4,7 @@ ocvbot/main/__pycache__/
 Project.xml
 
 # Python files
-venv_cpython/
+/venv_cpython/
 .pytest_cache/
 
 # Sphinx files
@@ -26,4 +26,5 @@ venv_cpython/
 **/username-standard.txt
 **/password-standard.txt
 /ocvbot/config.yaml
+/scripts/login_acct3.py
 
