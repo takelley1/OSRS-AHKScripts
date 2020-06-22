@@ -14,4 +14,5 @@ This repo contains scripts for cannonball smelting, magic splashing, mining, spi
   Because of these limitations, the bot may have difficulty locating and/or orienting itself on your particular setup. Unfortunately I cannot say with confidence that these scripts are friendly towards casual players with no scripting experience. A basic knowledge of AutoHotkey will be necessary to modify the pixel locations and/or color tolerances to adapt the script to your particular monitor and/or desktop's color properties.
   
   
-#### No client injection, no memory dumping, and no packet hacking. The bot interacts with the game the same way a human would: with the mouse and keyboard.
+*This bot was written for educational purposes only. I am not responsible for how
+you use this software.*
