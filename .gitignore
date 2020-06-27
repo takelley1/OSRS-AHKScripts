@@ -1,23 +1,30 @@
-# PyCharm files
+# IDE files
 .idea
 ocvbot/main/__pycache__/
 Project.xml
 
-# PyTest files
-.pytest_cache/
-
 # Python files
-venv_cpython/
-
-# Sensitive files
-*/password
-*/username
+/venv_cpython/
+.pytest_cache/
 
 # Sphinx files
 .doctrees
+/docs/_build/rinoh/.doctrees
+/docs/build/doctrees
 
 # Temporary files
 */.screenshot*
 
-# Test files
-ocvbot/tests/haystacks/
+# Test and debugging files
+/tests/haystacks/
+**/haystack*
+**/tmp/
+
+# User files
+**/username-ironman.txt
+**/password-ironman.txt
+**/username-standard.txt
+**/password-standard.txt
+/ocvbot/config.yaml
+/scripts/login_acct3.py
+
