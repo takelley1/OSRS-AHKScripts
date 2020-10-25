@@ -32,13 +32,13 @@
 						Send {Enter} ;same as clicking "existing user" button
 							Random, wait1to3sec, 1000, 3000
 							Sleep, wait1to3sec
-						Send {Raw}takelley1+1@yahoo.com 
+						Send {Raw}username
 							Random, wait1to3sec, 1000, 3000
 							Sleep, wait1to3sec
 						Send {Tab}
 							Random, wait1to3sec, 1000, 3000
 							Sleep, wait1to3sec
-						Send {Raw}vH73767yN2PU64TL
+						Send {Raw}password
 							Random, wait1to3sec, 1000, 3000
 							Sleep, wait1to3sec
 						Send {Enter}
